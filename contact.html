@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <meta name="author" content="Untree.co" />
-    <link rel="shortcut icon" href="favicon.png" /> -->
+   
 
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
@@ -24,7 +23,7 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <title>
-      Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+      Pentavision
     </title>
   </head>
   <body>
@@ -145,69 +144,104 @@
             </div>
           </div>
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <form action="#">
-              <div class="row">
-                <div class="col-6 mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div class="col-6 mb-3">
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Your Email"
-                  />
-                </div>
-                <div class="col-12 mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Subject"
-                  />
-                </div>
-                <div class="col-12 mb-3">
-                  <textarea
-                    name=""
-                    id=""
-                    cols="30"
-                    rows="7"
-                    class="form-control"
-                    placeholder="Message"
-                  ></textarea>
-                </div>
+            <!-- Alert container -->
+<div id="formAlert" class="alert d-none" role="alert"></div>
 
-                <div class="col-12">
-                  <input
-                    type="submit"
-                    value="Send Message"
-                    class="btn btn-primary"
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
+<form id="contactForm">
+  <div class="row">
+    <div class="col-6 mb-3">
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        placeholder="Your Name"
+        required
+      />
+    </div>
+    <div class="col-6 mb-3">
+      <input
+        type="email"
+        name="email"
+        class="form-control"
+        placeholder="Your Email"
+        required
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <input
+        type="text"
+        name="subject"
+        class="form-control"
+        placeholder="Subject"
+        required
+      />
+    </div>
+    <div class="col-12 mb-3">
+      <textarea
+        name="message"
+        cols="30"
+        rows="7"
+        class="form-control"
+        placeholder="Message"
+        required
+      ></textarea>
+    </div>
+
+    <div class="col-12">
+      <input
+        type="submit"
+        value="Send Message"
+        class="btn btn-primary"
+      />
+    </div>
+  </div>
+</form>
+        </div>
         </div>
       </div>
     </div>
     <!-- /.untree_co-section -->
     
+<script>
+const form = document.getElementById('contactForm');
+const alertBox = document.getElementById('formAlert');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const data = new FormData(form);
+  const url = 'https://script.google.com/macros/s/AKfycbw9PPdGE_sr2pqVZMbB0WCiMalHKq4ckBlWIffGZak11_6C4CYdII2mX4WnZs6WkruorQ/exec';
+
+  try {gi
+    // Send form data
+    await fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',   // important for Apps Script
+      body: data
+    });
+
+    // Show success alert (we can't read server response in no-cors)
+    alertBox.className = 'alert alert-success mt-3';
+    alertBox.textContent = 'Message sent successfully!';
+    alertBox.classList.remove('d-none');
+    form.reset();
+
+  } catch (err) {
+    // Only triggered on network errors
+    alertBox.className = 'alert alert-danger mt-3';
+    alertBox.textContent = 'Error sending message: ' + err.message;
+    alertBox.classList.remove('d-none');
+  }
+});
+</script>
+
 
     <!-- whatappp -->
      <a href="https://wa.me/2347062384854?text=Hello%20I%20would%20like%20to%20chat%20with%20you" class="whatsapp_float"
     target="_blank" title="Chat with us on WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="60" height="60">
   </a>
-  <div class="site-mobile-menu site-navbar-target">
-    <div class="site-mobile-menu-header">
-      <div class="site-mobile-menu-close">
-        <span class="icofont-close js-menu-toggle"></span>
-      </div>
-    </div>
-    <div class="site-mobile-menu-body"></div>
-  </div>
+  
   <!-- end -->
 
     <div class="site-footer">

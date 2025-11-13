@@ -527,6 +527,9 @@ progress {
 .figure-caption {
   font-size: 0.875em;
   color: #6c757d; }
+.class-class .row .person{
+  text-align: center;
+}
 
 .container,
 .container-fluid,
@@ -10091,9 +10094,10 @@ textarea {
   .person img {
     position: relative;
     width: 90px;
-    border-radius: 50%;
+    border-radius: 30%;
     margin: -45px auto 0 auto; }
   .person .person-contents {
+    height: 100px;
     padding: 30px; }
     .person .person-contents h2, .person .person-contents .h2 {
       font-size: 18px; }

@@ -505,9 +505,20 @@ progress {
   .blockquote-footer::before {
     content: "\2014\00A0"; }
 
-.img-fluid {
+.img-fluid_about {
   max-width: 100%;
   height: auto; }
+  .img-fluid {
+ height: 400px;
+  width: 300px; }
+
+
+  .img-fluids {
+
+  height: 150px;
+  width: 150px;
+  border-radius: 50%; }
+
 
 .img-thumbnail {
   padding: 0.25rem;
@@ -10097,7 +10108,7 @@ textarea {
     border-radius: 30%;
     margin: -45px auto 0 auto; }
   .person .person-contents {
-    height: 100px;
+    height: 200px;
     padding: 30px; }
     .person .person-contents h2, .person .person-contents .h2 {
       font-size: 18px; }
@@ -10105,6 +10116,7 @@ textarea {
         color: #000;
         text-decoration: none; }
     .person .person-contents p {
+      color: #000;
       font-size: 14px; }
 
 .meta {

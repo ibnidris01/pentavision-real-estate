@@ -1,0 +1,594 @@
+/* ============================================
+   CONTACT PAGE - COMPLETE STYLESHEET
+   ============================================ */
+
+/* ---------- HERO ---------- */
+.hero.page-inner {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.hero.page-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero.page-inner .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero.page-inner .heading {
+  font-family: 'Work Sans', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+}
+
+/* ---------- BREADCRUMB ---------- */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  list-style: none;
+  background: transparent;
+  border-radius: 0.375rem;
+  justify-content: center;
+  gap: 8px;
+}
+
+.breadcrumb-item {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.breadcrumb-item a {
+  color: var(--secondary);
+  transition: var(--transition);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--white);
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  content: "/";
+  padding-right: 8px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.breadcrumb-item.active {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- SECTION ---------- */
+.section {
+  padding: 80px 0;
+}
+
+.section.pt-0 {
+  padding-top: 0;
+}
+
+.section.bg-light {
+  background: #f8f9fa;
+}
+
+.text-black-50 {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.text-primary {
+  color: var(--primary-light) !important;
+}
+
+.heading {
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  color: var(--dark);
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---------- CONTACT INFO CARDS ---------- */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.contact-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 1px solid rgba(42, 95, 122, 0.04);
+}
+
+.contact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.contact-card .icon-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(42, 95, 122, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 1.6rem;
+  color: var(--secondary);
+  transition: var(--transition);
+}
+
+.contact-card:hover .icon-box {
+  background: var(--secondary);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+.contact-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.contact-card p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.contact-card p a {
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.contact-card p a:hover {
+  color: var(--primary-light);
+}
+
+/* ---------- CONTACT MAIN SECTION ---------- */
+.contact-main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+/* ---------- ADDRESS SIDE ---------- */
+.address-side {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 35px 30px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.address-side:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.address-side .address-item {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.address-side .address-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.address-side .address-item:first-child {
+  padding-top: 0;
+}
+
+.address-side .address-item .icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(42, 95, 122, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--secondary);
+  margin-bottom: 8px;
+}
+
+.address-side .address-item h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 2px;
+}
+
+.address-side .address-item p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
+.address-side .address-item p a {
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.address-side .address-item p a:hover {
+  color: var(--primary-light);
+}
+
+/* ---------- FORM SIDE ---------- */
+.form-side {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 35px 30px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.form-side:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.form-side .form-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+
+.form-side .form-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 25px;
+}
+
+/* ---------- FORM ELEMENTS ---------- */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 13px 18px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--dark);
+  background: var(--cream);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  transition: var(--transition);
+  font-family: 'Work Sans', sans-serif;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(42, 95, 122, 0.08);
+}
+
+.form-control::placeholder {
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- SUBMIT BUTTON ---------- */
+.btn-submit {
+  background: var(--primary-light);
+  color: var(--white);
+  padding: 14px 40px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: 'Work Sans', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-submit:hover {
+  background: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(42, 95, 122, 0.35);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+/* ---------- ALERT ---------- */
+.alert {
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.d-none {
+  display: none !important;
+}
+
+/* ---------- MAP ---------- */
+.map-wrapper {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+  display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-main {
+    grid-template-columns: 1fr 1.5fr;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .section {
+    padding: 60px 0;
+  }
+
+  .contact-main {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .address-side {
+    padding: 28px 24px;
+  }
+
+  .form-side {
+    padding: 28px 24px;
+  }
+
+  .map-wrapper iframe {
+    height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero.page-inner {
+    min-height: 40vh;
+  }
+
+  .hero.page-inner .heading {
+    font-size: 2rem;
+  }
+
+  .section {
+    padding: 50px 0;
+  }
+
+  .contact-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .contact-card {
+    padding: 20px 16px;
+  }
+
+  .contact-card .icon-box {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+  .address-side {
+    padding: 20px 18px;
+  }
+
+  .form-side {
+    padding: 20px 18px;
+  }
+
+  .form-side .form-title {
+    font-size: 1.2rem;
+  }
+
+  .form-control {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  .breadcrumb-item {
+    font-size: 0.9rem;
+  }
+
+  .btn-submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .map-wrapper iframe {
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero.page-inner .heading {
+    font-size: 1.6rem;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .contact-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .contact-card {
+    padding: 16px 12px;
+  }
+
+  .contact-card .icon-box {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .contact-card h4 {
+    font-size: 0.85rem;
+  }
+
+  .contact-card p {
+    font-size: 0.8rem;
+  }
+
+  .address-side {
+    padding: 16px 14px;
+  }
+
+  .address-side .address-item .icon-box {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .address-side .address-item h4 {
+    font-size: 0.85rem;
+  }
+
+  .address-side .address-item p {
+    font-size: 0.8rem;
+  }
+
+  .form-side {
+    padding: 16px 14px;
+  }
+
+  .form-side .form-title {
+    font-size: 1.1rem;
+  }
+
+  .form-side .form-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .form-control {
+    padding: 9px 12px;
+    font-size: 0.9rem;
+  }
+
+  textarea.form-control {
+    min-height: 100px;
+  }
+
+  .btn-submit {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .breadcrumb-item {
+    font-size: 0.8rem;
+  }
+
+  .map-wrapper iframe {
+    height: 220px;
+  }
+
+  .col-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero.page-inner .heading {
+    font-size: 1.3rem;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .contact-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .address-side {
+    padding: 12px 10px;
+  }
+
+  .form-side {
+    padding: 12px 10px;
+  }
+
+  .btn-submit {
+    font-size: 0.8rem;
+    padding: 10px 20px;
+  }
+}

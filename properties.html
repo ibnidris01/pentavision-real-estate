@@ -22,17 +22,19 @@
 </head>
 
 <body>
-  <!-- WhatsApp Float -->
+  <!-- ==========================================
+  WHATSAPP FLOAT
+  ========================================== -->
   <a href="https://wa.link/bcvsv7" class="whatsapp_float" target="_blank" title="Chat with us on WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="60" height="60" />
   </a>
 
-  <!-- Mobile Menu -->
-  <div class="site-mobile-menu site-navbar-target">
+  <!-- ==========================================
+  MOBILE MENU
+  ========================================== -->
+  <div class="site-mobile-menu" id="mobileMenu">
     <div class="site-mobile-menu-header">
-      <div class="site-mobile-menu-close">
-        <span class="icofont-close js-menu-toggle">&times;</span>
-      </div>
+      <button class="site-mobile-menu-close" id="closeMenu">&times;</button>
     </div>
     <div class="site-mobile-menu-body">
       <a href="index.html">Home</a>
@@ -40,46 +42,53 @@
       <a href="services.html">Services</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact Us</a>
+      <a href="payment.html" class="payment-btn"> Make Payment</a>
     </div>
   </div>
 
-  <!-- Navigation -->
-  <nav class="site-nav">
+  <!-- ==========================================
+  NAVIGATION - SINGLE CLEAN HEADER
+  ========================================== -->
+  <nav class="site-nav" id="navbar">
     <div class="container">
       <div class="menu-bg-wrap">
         <div class="site-navigation">
           <!-- Logo -->
-          <a href="index.html" class="logo m-0 float-start">
-            <img src="images/plogo.jpg" alt="Pentavision" />PENTAVISION
+          <a href="index.html" class="logo">
+            <img src="images/plogo.jpg" alt="Pentavision" />
+            <span class="logo-text">
+              <span class="brand">PENTA</span>
+              <span class="highlight">VISION</span>
+              <span class="logo-dot"></span>
+            </span>
           </a>
 
-          <!-- Desktop Navigation - ALL 5 LINKS -->
-          <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
+          <!-- Desktop Menu - ALL 6 LINKS -->
+          <ul class="site-menu" id="desktopMenu">
             <li><a href="index.html">Home</a></li>
             <li class="has-children active">
               <a href="properties.html">Properties</a>
-              <!-- Dropdown (optional) -->
-              <!-- <ul class="dropdown">
-                <li><a href="#">Buy Property</a></li>
-                <li><a href="#">Sell Property</a></li>
-                <li><a href="#">Rent Property</a></li>
-              </ul> -->
             </li>
             <li><a href="services.html">Services</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="payment.html" class="nav-payment">Make Payment</a></li>
           </ul>
 
           <!-- Mobile Menu Toggle -->
-          <a href="#" class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none">
+          <button class="burger" id="burgerBtn" aria-label="Toggle menu">
             <span></span>
-          </a>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- Enhanced Properties Hero -->
+  <!-- ==========================================
+  PROPERTIES HERO
+  ========================================== -->
   <div class="properties-hero overlay" style="background-image: url('images/hero_bg_2.jpg')">
     <div class="float-element"></div>
     <div class="float-element"></div>
@@ -100,7 +109,9 @@
     </div>
   </div>
 
-  <!-- Filter Bar -->
+  <!-- ==========================================
+  FILTER BAR
+  ========================================== -->
   <div class="container">
     <div class="filter-bar">
       <div class="filter-group">
@@ -141,7 +152,9 @@
     </div>
   </div>
 
-  <!-- Property Grid -->
+  <!-- ==========================================
+  PROPERTY GRID
+  ========================================== -->
   <div class="section">
     <div class="container">
       <div class="property-grid" id="propertyGrid">
@@ -351,7 +364,9 @@
     </div>
   </div>
 
-  <!-- Stats Section -->
+  <!-- ==========================================
+  STATS SECTION
+  ========================================== -->
   <div class="section bg-light">
     <div class="container">
       <div class="row text-center mb-5">
@@ -385,7 +400,9 @@
     </div>
   </div>
 
-  <!-- Video Section -->
+  <!-- ==========================================
+  VIDEO SECTION
+  ========================================== -->
   <div class="section section-properties">
     <div class="container">
       <div class="row mb-5 align-items-center">
@@ -449,7 +466,9 @@
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- ==========================================
+  FOOTER
+  ========================================== -->
   <div class="site-footer">
     <div class="container">
       <div class="row">
@@ -518,7 +537,9 @@
     </div>
   </div>
 
-  <!-- Preloader -->
+  <!-- ==========================================
+  PRELOADER
+  ========================================== -->
   <div id="overlayer"></div>
   <div class="loader">
     <div class="spinner-border" role="status">
@@ -526,6 +547,9 @@
     </div>
   </div>
 
+  <!-- ==========================================
+  SCRIPTS
+  ========================================== -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/tiny-slider.js"></script>
   <script src="js/aos.js"></script>
@@ -534,6 +558,50 @@
   <script src="js/custom.js"></script>
 
   <script>
+    // ============================================
+    // NAVIGATION SCROLL EFFECT
+    // ============================================
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('.site-nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // ============================================
+    // MOBILE MENU TOGGLE
+    // ============================================
+    const burger = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('closeMenu');
+
+    if (burger) {
+      burger.addEventListener('click', function(e) {
+        e.preventDefault();
+        mobileMenu.classList.toggle('open');
+        burger.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+        burger.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    }
+
+    document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+        burger.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
     // ============================================
     // SCROLL ANIMATIONS
     // ============================================
@@ -616,44 +684,6 @@
             this.style.display = 'none';
           }
         });
-      });
-    });
-
-    // ============================================
-    // NAVIGATION SCROLL EFFECT
-    // ============================================
-    window.addEventListener('scroll', function() {
-      const nav = document.querySelector('.site-nav');
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // ============================================
-    // MOBILE MENU TOGGLE
-    // ============================================
-    const burger = document.querySelector('.burger');
-    const mobileMenu = document.querySelector('.site-mobile-menu');
-    const closeBtn = document.querySelector('.site-mobile-menu-close');
-
-    if (burger) {
-      burger.addEventListener('click', function(e) {
-        e.preventDefault();
-        mobileMenu.classList.toggle('open');
-      });
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function() {
-        mobileMenu.classList.remove('open');
-      });
-    }
-
-    document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
-      link.addEventListener('click', function() {
-        mobileMenu.classList.remove('open');
       });
     });
 

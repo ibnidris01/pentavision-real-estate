@@ -9,7 +9,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet" />
 
   <link rel="stylesheet" href="fonts/icomoon/style.css" />
   <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
@@ -72,7 +74,7 @@
             <li class="active"><a href="services.html">Services</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="payment.html" class="nav-payment">💳 Make Payment</a></li>
+            <li><a href="payment.html" class="nav-payment"> Make Payment</a></li>
           </ul>
 
           <!-- Mobile Menu Toggle -->
@@ -142,7 +144,8 @@
           </div>
           <h3>Property for Sale</h3>
           <p>
-            Exclusive range of luxury homes and prime land available for sale in Lagos, Ogun, and emerging urban centers.
+            Exclusive range of luxury homes and prime land available for sale in Lagos, Ogun, and emerging urban
+            centers.
           </p>
           <a href="#" class="service-link">
             Learn More <span class="arrow">→</span>
@@ -227,7 +230,8 @@
           </div>
           <h3>Property Development</h3>
           <p>
-            Full-service property development from concept to completion, delivering quality homes and commercial spaces.
+            Full-service property development from concept to completion, delivering quality homes and commercial
+            spaces.
           </p>
           <a href="#" class="service-link">
             Learn More <span class="arrow">→</span>
@@ -381,10 +385,26 @@
               <li><a href="#">Contact us</a></li>
             </ul>
             <ul class="list-unstyled social">
-              <li><a href="https://www.instagram.com/global_pentavision_ltd" aria-label="Instagram">📸</a></li>
-              <li><a href="#" aria-label="Twitter">🐦</a></li>
-              <li><a href="https://www.facebook.com/share/1KkzswD9db" aria-label="Facebook">📘</a></li>
-              <li><a href="https://www.facebook.com/share/1FtZm9kzF5" aria-label="LinkedIn">🔗</a></li>
+              <li>
+                <a href="https://www.instagram.com/global_pentavision_ltd" target="_blank" aria-label="Instagram">
+                  <i class="icon-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/PentavisionLtd" target="_blank" aria-label="Twitter">
+                  <i class="icon-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/profile.php?id=61573915272644" target="_blank" aria-label="Facebook">
+                  <i class="icon-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/pentavision-ltd" target="_blank" aria-label="LinkedIn">
+                  <i class="icon-linkedin"></i>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -429,7 +449,7 @@
     // ============================================
     // NAVIGATION SCROLL EFFECT
     // ============================================
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       const nav = document.querySelector('.site-nav');
       if (window.scrollY > 50) {
         nav.classList.add('scrolled');
@@ -446,7 +466,7 @@
     const closeBtn = document.getElementById('closeMenu');
 
     if (burger) {
-      burger.addEventListener('click', function(e) {
+      burger.addEventListener('click', function (e) {
         e.preventDefault();
         mobileMenu.classList.toggle('open');
         burger.classList.toggle('active');
@@ -455,15 +475,15 @@
     }
 
     if (closeBtn) {
-      closeBtn.addEventListener('click', function() {
+      closeBtn.addEventListener('click', function () {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
       });
     }
 
-    document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
-      link.addEventListener('click', function() {
+    document.querySelectorAll('.site-mobile-menu-body a').forEach(function (link) {
+      link.addEventListener('click', function () {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
@@ -473,12 +493,12 @@
     // ============================================
     // SCROLL ANIMATIONS
     // ============================================
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const animateElements = document.querySelectorAll('.animate-on-scroll');
 
       if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               entry.target.classList.add('visible');
               observer.unobserve(entry.target);
@@ -486,11 +506,11 @@
           });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        animateElements.forEach(function(el) {
+        animateElements.forEach(function (el) {
           observer.observe(el);
         });
       } else {
-        animateElements.forEach(function(el) {
+        animateElements.forEach(function (el) {
           el.classList.add('visible');
         });
       }
@@ -499,7 +519,7 @@
     // ============================================
     // PRELOADER
     // ============================================
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
       const loader = document.querySelector('.loader');
       const overlay = document.querySelector('#overlayer');
       if (loader) loader.style.display = 'none';

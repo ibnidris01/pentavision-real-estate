@@ -535,7 +535,29 @@ p {
 }
 
 /* ============================================
-   MOBILE MENU TOGGLE - FIXED SPACING
+   NAV PAYMENT BUTTON
+   ============================================ */
+.nav-payment {
+  background: linear-gradient(135deg, #27ae60, #1e8449) !important;
+  color: var(--white) !important;
+  padding: 8px 22px !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 20px rgba(39, 174, 96, 0.35) !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.nav-payment:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 35px rgba(39, 174, 96, 0.50) !important;
+  background: linear-gradient(135deg, #1e8449, #145a32) !important;
+}
+
+/* ============================================
+   MOBILE MENU TOGGLE
    ============================================ */
 .burger {
   display: none;
@@ -642,6 +664,23 @@ p {
 
 .site-mobile-menu-body a.active {
   color: var(--secondary);
+}
+
+/* Mobile Menu Payment Button */
+.site-mobile-menu-body .payment-btn {
+  color: var(--secondary) !important;
+  background: rgba(39, 174, 96, 0.12) !important;
+  border-radius: 50px !important;
+  padding: 12px 28px !important;
+  margin-top: 8px !important;
+  font-weight: 600 !important;
+  border: 2px solid rgba(39, 174, 96, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.site-mobile-menu-body .payment-btn:hover {
+  background: rgba(39, 174, 96, 0.20) !important;
+  border-color: var(--secondary) !important;
 }
 
 /* ============================================
@@ -1063,7 +1102,7 @@ p {
 }
 
 /* ============================================
-   FOOTER
+   FOOTER - WITH SOCIAL ICONS FIXED
    ============================================ */
 .site-footer {
   background: var(--dark);
@@ -1102,12 +1141,21 @@ p {
   color: var(--secondary);
 }
 
+/* ============================================
+   SOCIAL ICONS - FIXED & WORKING
+   ============================================ */
 .site-footer .social {
   display: flex;
   gap: 12px;
   margin-top: 1rem;
   list-style: none;
   padding: 0;
+  flex-wrap: wrap;
+}
+
+.site-footer .social li {
+  display: inline-block;
+  list-style: none;
 }
 
 .site-footer .social li a {
@@ -1117,16 +1165,52 @@ p {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 1.2rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .site-footer .social li a:hover {
   background: var(--secondary);
   color: var(--white);
   transform: translateY(-3px);
+  border-color: var(--secondary);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.25);
+}
+
+.site-footer .social li a i {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* If using emojis instead of icons */
+.site-footer .social li a .emoji {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* Responsive Social Icons */
+@media (max-width: 768px) {
+  .site-footer .social {
+    justify-content: center;
+  }
+  
+  .site-footer .social li a {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer .social li a {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
 }
 
 /* ============================================
@@ -1769,60 +1853,5 @@ p {
 
   .site-menu.open {
     padding: 10px 8px;
-  }
-}
-
-/* ============================================
-   NAV PAYMENT BUTTON
-   ============================================ */
-.nav-payment {
-  background: linear-gradient(135deg, #27ae60, #1e8449) !important;
-  color: var(--white) !important;
-  padding: 8px 22px !important;
-  border-radius: 50px !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 20px rgba(39, 174, 96, 0.35) !important;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-}
-
-.nav-payment:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 35px rgba(39, 174, 96, 0.50) !important;
-  background: linear-gradient(135deg, #1e8449, #145a32) !important;
-}
-
-/* Mobile Menu Payment Button */
-.site-mobile-menu-body .payment-btn {
-  color: var(--secondary) !important;
-  background: rgba(39, 174, 96, 0.12) !important;
-  border-radius: 50px !important;
-  padding: 12px 28px !important;
-  margin-top: 8px !important;
-  font-weight: 600 !important;
-  border: 2px solid rgba(39, 174, 96, 0.2) !important;
-  transition: all 0.3s ease !important;
-}
-
-.site-mobile-menu-body .payment-btn:hover {
-  background: rgba(39, 174, 96, 0.20) !important;
-  border-color: var(--secondary) !important;
-}
-
-/* Responsive */
-@media (max-width: 991.98px) {
-  .nav-payment {
-    padding: 10px 18px !important;
-    font-size: 0.85rem !important;
-    justify-content: center !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-payment {
-    padding: 8px 14px !important;
-    font-size: 0.8rem !important;
   }
 }

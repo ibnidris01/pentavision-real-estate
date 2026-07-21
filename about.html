@@ -72,7 +72,7 @@
             <li><a href="services.html">Services</a></li>
             <li class="active"><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="payment.html" class="nav-payment">💳 Make Payment</a></li>
+            <li><a href="payment.html" class="nav-payment">Make Payment</a></li>
           </ul>
 
           <!-- Mobile Menu Toggle -->
@@ -129,7 +129,8 @@
             </div>
             <div class="col-lg-6 about-text">
               <p>
-                She earned the Top Selling Realtor award in 2022 while at Reb360 where she identified a gap in real-estate
+                She earned the Top Selling Realtor award in 2022 while at Reb360 where she identified a gap in
+                real-estate
                 education, inspiring Pentavision to empower investors with knowledge.
               </p>
               <p>
@@ -137,7 +138,8 @@
                 leveraging cutting-edge tech like AI.
               </p>
               <p>
-                Pentavision was founded on January 10th, 2025 and has contributed to developing 9 estates across Nigeria.
+                Pentavision was founded on January 10th, 2025 and has contributed to developing 9 estates across
+                Nigeria.
               </p>
             </div>
           </div>
@@ -452,10 +454,26 @@
               <li><a href="#">Contact us</a></li>
             </ul>
             <ul class="list-unstyled social">
-              <li><a href="https://www.instagram.com/global_pentavision_ltd" aria-label="Instagram">📸</a></li>
-              <li><a href="#" aria-label="Twitter">🐦</a></li>
-              <li><a href="https://www.facebook.com/share/1KkzswD9db" aria-label="Facebook">📘</a></li>
-              <li><a href="https://www.facebook.com/share/1FtZm9kzF5" aria-label="LinkedIn">🔗</a></li>
+              <li>
+                <a href="https://www.instagram.com/global_pentavision_ltd" target="_blank" aria-label="Instagram">
+                  <i class="icon-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/PentavisionLtd" target="_blank" aria-label="Twitter">
+                  <i class="icon-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/profile.php?id=61573915272644" target="_blank" aria-label="Facebook">
+                  <i class="icon-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.linkedin.com/company/pentavision-ltd" target="_blank" aria-label="LinkedIn">
+                  <i class="icon-linkedin"></i>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -500,7 +518,7 @@
     // ============================================
     // NAVIGATION SCROLL EFFECT
     // ============================================
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       const nav = document.querySelector('.site-nav');
       if (window.scrollY > 50) {
         nav.classList.add('scrolled');
@@ -517,7 +535,7 @@
     const closeBtn = document.getElementById('closeMenu');
 
     if (burger) {
-      burger.addEventListener('click', function(e) {
+      burger.addEventListener('click', function (e) {
         e.preventDefault();
         mobileMenu.classList.toggle('open');
         burger.classList.toggle('active');
@@ -526,15 +544,15 @@
     }
 
     if (closeBtn) {
-      closeBtn.addEventListener('click', function() {
+      closeBtn.addEventListener('click', function () {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
       });
     }
 
-    document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
-      link.addEventListener('click', function() {
+    document.querySelectorAll('.site-mobile-menu-body a').forEach(function (link) {
+      link.addEventListener('click', function () {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
@@ -544,7 +562,7 @@
     // ============================================
     // COUNTER ANIMATION
     // ============================================
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const counters = document.querySelectorAll('.countup');
 
       function animateCounter(counter) {
@@ -555,7 +573,7 @@
         const increment = Math.ceil(target / 60);
         const stepTime = Math.floor(2000 / 60);
 
-        const timer = setInterval(function() {
+        const timer = setInterval(function () {
           current += increment;
           if (current >= target) {
             current = target;
@@ -566,8 +584,8 @@
       }
 
       if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               const counter = entry.target;
               animateCounter(counter);
@@ -576,11 +594,11 @@
           });
         }, { threshold: 0.3 });
 
-        counters.forEach(function(counter) {
+        counters.forEach(function (counter) {
           observer.observe(counter);
         });
       } else {
-        counters.forEach(function(counter) {
+        counters.forEach(function (counter) {
           animateCounter(counter);
         });
       }
@@ -589,7 +607,7 @@
     // ============================================
     // PRELOADER
     // ============================================
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
       const loader = document.querySelector('.loader');
       const overlay = document.querySelector('#overlayer');
       if (loader) loader.style.display = 'none';

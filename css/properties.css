@@ -1006,3 +1006,32 @@
     font-size: 0.8rem !important;
   }
 }
+
+
+
+/* ============================================
+   CLIENT SECTION (Replaces Agent)
+   ============================================ */
+.property-card-advanced .card-footer .client {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.property-card-advanced .card-footer .client img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--secondary-light);
+}
+
+.property-card-advanced .card-footer .client .name {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.property-card-advanced .card-footer .client .role {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}

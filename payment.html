@@ -129,12 +129,95 @@
       margin: 0 auto;
     }
 
+    /* ============================================
+       BANK DETAILS SECTION
+       ============================================ */
+    .bank-details-section {
+      padding: 40px 0 20px;
+    }
+
+    .bank-details-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .bank-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 25px 30px;
+      border-left: 4px solid var(--secondary);
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .bank-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .bank-card .bank-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bank-card .bank-name .icon {
+      font-size: 1.2rem;
+    }
+
+    .bank-card .bank-detail {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .bank-card .bank-detail:last-child {
+      border-bottom: none;
+    }
+
+    .bank-card .bank-detail .label {
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .bank-card .bank-detail .value {
+      font-weight: 600;
+      color: var(--dark);
+      font-family: 'Courier New', monospace;
+    }
+
+    .bank-section-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .bank-section-title h2 {
+      font-weight: 700;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--dark);
+    }
+
+    .bank-section-title p {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
     /* ---------- PAYMENT LAYOUT ---------- */
     .payment-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 40px;
       align-items: start;
+      margin-top: 40px;
     }
 
     /* ---------- PAYMENT FORM ---------- */
@@ -382,6 +465,10 @@
       .payment-summary {
         padding: 28px 24px;
       }
+
+      .bank-details-wrapper {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 768px) {
@@ -395,6 +482,21 @@
 
       .section {
         padding: 50px 0;
+      }
+
+      .bank-details-wrapper {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .bank-card {
+        padding: 20px;
+      }
+
+      .bank-card .bank-detail {
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+        gap: 4px;
       }
 
       .payment-form-wrapper {
@@ -447,6 +549,18 @@
 
       .section {
         padding: 40px 0;
+      }
+
+      .bank-card {
+        padding: 16px;
+      }
+
+      .bank-card .bank-name {
+        font-size: 1rem;
+      }
+
+      .bank-card .bank-detail {
+        font-size: 0.8rem;
       }
 
       .payment-form-wrapper {
@@ -522,6 +636,10 @@
         padding: 0 16px;
       }
 
+      .bank-card {
+        padding: 12px 10px;
+      }
+
       .payment-form-wrapper {
         padding: 12px 10px;
       }
@@ -559,7 +677,7 @@
       <a href="services.html">Services</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact Us</a>
-      <a href="payment.html" class="active payment-btn"> Make Payment</a>
+      <a href="payment.html" class="active payment-btn">Make Payment</a>
     </div>
   </div>
 
@@ -589,7 +707,7 @@
             <li><a href="services.html">Services</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
-            <li class="active"><a href="payment.html" class="nav-payment">Make Payment</a></li>
+            <li class="active"><a href="payment.html" class="nav-payment"> Make Payment</a></li>
           </ul>
 
           <!-- Mobile Menu Toggle -->
@@ -624,18 +742,70 @@
   </div>
 
   <!-- ==========================================
+  BANK DETAILS SECTION - FIRST
+  ========================================== -->
+  <div class="section" style="padding-bottom:20px;">
+    <div class="container">
+      <div class="bank-section-title">
+        <h2>🏦 Bank Transfer Details</h2>
+        <p>Make payment directly to any of our bank accounts below</p>
+      </div>
+
+      <div class="bank-details-wrapper" data-aos="fade-up">
+        <!-- Bank 1 -->
+        <div class="bank-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="bank-name">
+            <span class="icon">🏛️</span> GTBank
+          </div>
+          <div class="bank-detail">
+            <span class="label">Account Name</span>
+            <span class="value">Pentavision Ltd</span>
+          </div>
+          <div class="bank-detail">
+            <span class="label">Account Number</span>
+            <span class="value">0123456789</span>
+          </div>
+          <div class="bank-detail">
+            <span class="label">Branch</span>
+            <span class="value">Lagos Main</span>
+          </div>
+        </div>
+
+        <!-- Bank 2 -->
+        <div class="bank-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="bank-name">
+            <span class="icon">🏛️</span> First Bank
+          </div>
+          <div class="bank-detail">
+            <span class="label">Account Name</span>
+            <span class="value">Pentavision Ltd</span>
+          </div>
+          <div class="bank-detail">
+            <span class="label">Account Number</span>
+            <span class="value">9876543210</span>
+          </div>
+          <div class="bank-detail">
+            <span class="label">Branch</span>
+            <span class="value">Ipaja Ayobo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
   PAYMENT SECTION
   ========================================== -->
-  <div class="section">
+  <div class="section" style="padding-top:20px;">
     <div class="container">
-      <div class="row text-center mb-5">
+      <div class="row text-center mb-4">
         <div class="col-lg-6 mx-auto">
           <h2 class="font-weight-bold heading text-primary">Complete Your Payment</h2>
           <p class="section-subtitle">Securely make your payment for your property investment</p>
         </div>
       </div>
 
-      <div class="payment-grid">
+      <div class="payment-grid" data-aos="fade-up">
         <!-- Payment Form -->
         <div class="payment-form-wrapper" data-aos="fade-up" data-aos-delay="100">
           <h3 class="form-title">Payment Details</h3>
@@ -730,66 +900,6 @@
   </div>
 
   <!-- ==========================================
-  BANK DETAILS SECTION
-  ========================================== -->
-  <div class="section bg-light">
-    <div class="container">
-      <div class="row text-center mb-5">
-        <div class="col-lg-6 mx-auto">
-          <h2 class="font-weight-bold heading text-primary">Bank Transfer Details</h2>
-          <p class="section-subtitle">Use the following details for direct bank transfers</p>
-        </div>
-      </div>
-
-      <div class="row g-4">
-        <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="payment-summary" style="height:100%;">
-            <h4 style="font-size:1.1rem; font-weight:700; color:var(--dark); margin-bottom:15px;">Bank Account 1</h4>
-            <div class="summary-item">
-              <span class="label">Bank Name</span>
-              <span class="value">GTBank</span>
-            </div>
-            <div class="summary-item">
-              <span class="label">Account Name</span>
-              <span class="value">Pentavision Ltd</span>
-            </div>
-            <div class="summary-item">
-              <span class="label">Account Number</span>
-              <span class="value">0123456789</span>
-            </div>
-            <div class="summary-item" style="border-bottom:none;">
-              <span class="label">Branch</span>
-              <span class="value">Lagos Main</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="payment-summary" style="height:100%;">
-            <h4 style="font-size:1.1rem; font-weight:700; color:var(--dark); margin-bottom:15px;">Bank Account 2</h4>
-            <div class="summary-item">
-              <span class="label">Bank Name</span>
-              <span class="value">First Bank</span>
-            </div>
-            <div class="summary-item">
-              <span class="label">Account Name</span>
-              <span class="value">Pentavision Ltd</span>
-            </div>
-            <div class="summary-item">
-              <span class="label">Account Number</span>
-              <span class="value">9876543210</span>
-            </div>
-            <div class="summary-item" style="border-bottom:none;">
-              <span class="label">Branch</span>
-              <span class="value">Ipaja Ayobo</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================
   FOOTER
   ========================================== -->
   <div class="site-footer">
@@ -842,17 +952,17 @@
                 </a>
               </li>
               <li>
-                <a href="https://twitter.com/PentavisionLtd" target="_blank" aria-label="Twitter">
+                <a href="#" target="_blank" aria-label="Twitter">
                   <i class="icon-twitter"></i>
                 </a>
               </li>
               <li>
-                <a href="https://www.facebook.com/profile.php?id=61573915272644" target="_blank" aria-label="Facebook">
+                <a href="https://www.facebook.com/share/1KkzswD9db" target="_blank" aria-label="Facebook">
                   <i class="icon-facebook"></i>
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/company/pentavision-ltd" target="_blank" aria-label="LinkedIn">
+                <a href="https://www.facebook.com/share/1FtZm9kzF5" target="_blank" aria-label="LinkedIn">
                   <i class="icon-linkedin"></i>
                 </a>
               </li>
@@ -864,10 +974,7 @@
       <div class="row mt-5">
         <div class="col-12 text-center">
           <p>
-            Copyright &copy;
-            <script>
-              document.write(new Date().getFullYear());
-            </script>
+            Copyright &copy; <script>document.write(new Date().getFullYear());</script>
             . All Rights Reserved. &mdash;
             <a href="#">Pentavision</a>
           </p>
@@ -900,7 +1007,7 @@
     // ============================================
     // NAVIGATION SCROLL EFFECT
     // ============================================
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', function() {
       const nav = document.querySelector('.site-nav');
       if (window.scrollY > 50) {
         nav.classList.add('scrolled');
@@ -917,7 +1024,7 @@
     const closeBtn = document.getElementById('closeMenu');
 
     if (burger) {
-      burger.addEventListener('click', function (e) {
+      burger.addEventListener('click', function(e) {
         e.preventDefault();
         mobileMenu.classList.toggle('open');
         burger.classList.toggle('active');
@@ -926,15 +1033,15 @@
     }
 
     if (closeBtn) {
-      closeBtn.addEventListener('click', function () {
+      closeBtn.addEventListener('click', function() {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
       });
     }
 
-    document.querySelectorAll('.site-mobile-menu-body a').forEach(function (link) {
-      link.addEventListener('click', function () {
+    document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
+      link.addEventListener('click', function() {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
@@ -947,7 +1054,7 @@
     const paymentForm = document.getElementById('paymentForm');
 
     if (paymentForm) {
-      paymentForm.addEventListener('submit', function (e) {
+      paymentForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
         // Get form values
@@ -974,7 +1081,7 @@
     // ============================================
     // PRELOADER
     // ============================================
-    window.addEventListener('load', function () {
+    window.addEventListener('load', function() {
       const loader = document.querySelector('.loader');
       const overlay = document.querySelector('#overlayer');
       if (loader) loader.style.display = 'none';

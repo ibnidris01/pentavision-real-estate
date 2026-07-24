@@ -19,8 +19,7 @@
   <link rel="stylesheet" href="css/contact.css" />
 
   <title>Pentavision - Contact Us</title>
-
- </head>
+</head>
 
 <body>
   <!-- ==========================================
@@ -43,7 +42,7 @@
       <a href="services.html">Services</a>
       <a href="about.html">About</a>
       <a href="contact.html" class="active">Contact Us</a>
-      <a href="payment.html" class="payment-btn"> Make Payment</a>
+      <a href="payment.html" class="payment-btn">Make Payment</a>
     </div>
   </div>
 
@@ -206,7 +205,7 @@
 
           <div id="formAlert" class="alert d-none" role="alert"></div>
 
-          <form id="contactForm">
+          <form id="contactForm" onsubmit="return sendMessage()">
             <div class="row">
               <div class="col-md-6 form-group">
                 <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required />
@@ -388,75 +387,59 @@
     });
 
     // ============================================
-    // CONTACT FORM - Google Apps Script
+    // CONTACT FORM - SEND TO EMAIL
     // ============================================
-    const form = document.getElementById('contactForm');
-    const alertBox = document.getElementById('formAlert');
-    const submitBtn = document.getElementById('submitBtn');
+    function sendMessage() {
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var subject = document.getElementById('subject').value;
+      var message = document.getElementById('message').value;
+      var alertBox = document.getElementById('formAlert');
+      var submitBtn = document.getElementById('submitBtn');
 
-    if (form) {
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
+      // Validate
+      if (!name || !email || !subject || !message) {
+        alertBox.className = 'alert alert-danger';
+        alertBox.innerHTML = '⚠️ Please fill in all fields.';
+        alertBox.classList.remove('d-none');
+        return false;
+      }
 
-        // Show loading state
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
+      // Show loading
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
 
-        // Get form data
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
+      // Build email
+      var emailBody = 'CONTACT MESSAGE\n';
+      emailBody += '='.repeat(40) + '\n\n';
+      emailBody += 'Name: ' + name + '\n';
+      emailBody += 'Email: ' + email + '\n';
+      emailBody += 'Subject: ' + subject + '\n';
+      emailBody += 'Message: ' + message + '\n\n';
+      emailBody += '='.repeat(40) + '\n';
+      emailBody += 'Send to: globalpentavision.50@gmail.com';
 
-        // Simple validation
-        if (!name || !email || !subject || !message) {
-          alertBox.className = 'alert alert-danger';
-          alertBox.innerHTML = '⚠️ Please fill in all fields.';
-          alertBox.classList.remove('d-none');
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-          return;
-        }
+      // Open email app
+      var mailtoLink = 'mailto:globalpentavision.50@gmail.com?subject=Contact%20-%20' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(emailBody);
 
-        // Create form data
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('subject', subject);
-        formData.append('message', message);
+      window.location.href = mailtoLink;
 
-        // Google Apps Script URL - REPLACE WITH YOUR URL
-        const url = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+      // Show success
+      alertBox.className = 'alert alert-success';
+      alertBox.innerHTML = '✅  Message Sent, we shall get back to you.';
+      alertBox.classList.remove('d-none');
+      document.getElementById('contactForm').reset();
 
-        try {
-          await fetch(url, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: formData
-          });
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
 
-          alertBox.className = 'alert alert-success';
-          alertBox.innerHTML = '✅ Message sent successfully! We will get back to you soon.';
-          alertBox.classList.remove('d-none');
-          form.reset();
+      // Auto hide after 8 seconds
+      setTimeout(function() {
+        alertBox.classList.add('d-none');
+      }, 8000);
 
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-
-          setTimeout(function() {
-            alertBox.classList.add('d-none');
-          }, 5000);
-
-        } catch (err) {
-          console.error('Error:', err);
-          alertBox.className = 'alert alert-danger';
-          alertBox.innerHTML = '❌ Error sending message. Please try again or contact us directly.';
-          alertBox.classList.remove('d-none');
-
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-        }
-      });
+      return false;
     }
 
     // ============================================

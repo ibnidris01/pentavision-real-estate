@@ -12,190 +12,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="fonts/icomoon/style.css" />
   <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
   <link rel="stylesheet" href="css/tiny-slider.css" />
 
   <title>Pentavision - Premium Real Estate</title>
-
-  <style>
-    /* ============================================
-       CONTACT FORM SECTION - ADDED TO INDEX
-       ============================================ */
-
-    .contact-section {
-      padding: 80px 0;
-      background: var(--white);
-    }
-
-    .contact-section .section-title {
-      font-family: 'Work Sans', sans-serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 8px;
-    }
-
-    .contact-section .section-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-light);
-      max-width: 600px;
-      margin: 0 auto 30px;
-    }
-
-    .contact-form-wrapper {
-      background: var(--cream);
-      border-radius: var(--radius);
-      padding: 40px 35px;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .contact-form-wrapper:hover {
-      box-shadow: var(--shadow-hover);
-    }
-
-    .contact-form-wrapper .form-control {
-      display: block;
-      width: 100%;
-      padding: 13px 18px;
-      font-size: 1rem;
-      line-height: 1.5;
-      color: var(--dark);
-      background: var(--white);
-      border: 2px solid transparent;
-      border-radius: 12px;
-      transition: var(--transition);
-      font-family: 'Work Sans', sans-serif;
-    }
-
-    .contact-form-wrapper .form-control:focus {
-      outline: none;
-      border-color: var(--primary-light);
-      background: var(--white);
-      box-shadow: 0 0 0 4px rgba(42, 95, 122, 0.08);
-    }
-
-    .contact-form-wrapper .form-control::placeholder {
-      color: var(--text-light);
-      font-weight: 400;
-    }
-
-    .contact-form-wrapper textarea.form-control {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .contact-form-wrapper .form-group {
-      margin-bottom: 18px;
-    }
-
-    .contact-form-wrapper .form-group:last-child {
-      margin-bottom: 0;
-    }
-
-    .btn-submit {
-      background: var(--primary-light);
-      color: var(--white);
-      padding: 14px 40px;
-      border: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: var(--transition);
-      font-family: 'Work Sans', sans-serif;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-submit:hover {
-      background: var(--primary);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(42, 95, 122, 0.35);
-    }
-
-    .btn-submit .spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top: 2px solid #fff;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    .btn-submit.loading .spinner {
-      display: inline-block;
-    }
-
-    .btn-submit.loading .btn-text {
-      display: none;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .alert {
-      padding: 15px 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
-
-    .alert-success {
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-
-    .alert-danger {
-      background: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
-
-    .d-none {
-      display: none !important;
-    }
-
-    @media (max-width: 768px) {
-      .contact-section {
-        padding: 50px 0;
-      }
-
-      .contact-form-wrapper {
-        padding: 25px 20px;
-      }
-
-      .btn-submit {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .contact-form-wrapper {
-        padding: 18px 14px;
-      }
-
-      .contact-form-wrapper .form-control {
-        padding: 10px 14px;
-        font-size: 0.95rem;
-      }
-
-      .btn-submit {
-        padding: 12px 24px;
-        font-size: 0.9rem;
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -314,7 +136,7 @@
                 <div class="property-content">
                   <div class="price mb-2"><span>₦3,000,000 - ₦5,000,000</span></div>
                   <div>
-                    <span class="d-block mb-2 text-black-50">Owode Idioko Ota, Ogun State</span>
+                    <span class="d-block mb-2 text-black-50">Owode Idiroko Ota, Ogun State</span>
                     <span class="city d-block mb-3">Orchard Estate</span>
                     <a href="payment.html" class="btn btn-primary py-2 px-3">Buy Now</a>
                   </div>
@@ -330,7 +152,7 @@
                   <div class="price mb-2"><span>₦10,000,000 - ₦20,000,000</span></div>
                   <div>
                     <span class="d-block mb-2 text-black-50">Mowe, Ogun State</span>
-                    <span class="city d-block mb-3">I Re Estate</span>
+                    <span class="city d-block mb-3">Ire Estate</span>
                     <a href="payment.html" class="btn btn-primary py-2 px-3">Buy Now</a>
                   </div>
                 </div>
@@ -580,7 +402,7 @@
   </div>
 
   <!-- ==========================================
-  CONTACT FORM SECTION - NEW
+  CONTACT FORM SECTION
   ========================================== -->
   <div class="contact-section">
     <div class="container">
@@ -594,7 +416,7 @@
       <div class="contact-form-wrapper" data-aos="fade-up">
         <div id="formAlert" class="alert d-none" role="alert"></div>
 
-        <form id="contactForm">
+        <form id="contactForm" onsubmit="return sendMessage()">
           <div class="row">
             <div class="col-md-6 form-group">
               <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required />
@@ -920,86 +742,60 @@
     });
 
     // ============================================
-    // CONTACT FORM - Google Apps Script
+    // CONTACT FORM - SEND TO EMAIL
     // ============================================
-    const form = document.getElementById('contactForm');
-    const alertBox = document.getElementById('formAlert');
-    const submitBtn = document.getElementById('submitBtn');
+    function sendMessage() {
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var subject = document.getElementById('subject').value;
+      var message = document.getElementById('message').value;
+      var alertBox = document.getElementById('formAlert');
+      var submitBtn = document.getElementById('submitBtn');
 
-    if (form) {
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
+      // Validate
+      if (!name || !email || !subject || !message) {
+        alertBox.className = 'alert alert-danger';
+        alertBox.innerHTML = '⚠️ Please fill in all fields.';
+        alertBox.classList.remove('d-none');
+        return false;
+      }
 
-        // Show loading state
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
+      // Show loading
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
 
-        // Get form data
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
+      // Build email
+      var emailBody = 'CONTACT MESSAGE\n';
+      emailBody += '='.repeat(40) + '\n\n';
+      emailBody += 'Name: ' + name + '\n';
+      emailBody += 'Email: ' + email + '\n';
+      emailBody += 'Subject: ' + subject + '\n';
+      emailBody += 'Message: ' + message + '\n\n';
+      emailBody += '='.repeat(40) + '\n';
+      emailBody += 'Send to: globalpentavision.50@gmail.com';
 
-        // Simple validation
-        if (!name || !email || !subject || !message) {
-          alertBox.className = 'alert alert-danger';
-          alertBox.innerHTML = '⚠️ Please fill in all fields.';
-          alertBox.classList.remove('d-none');
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-          return;
-        }
+      // Open email app
+      var mailtoLink = 'mailto:globalpentavision.50@gmail.com?subject=Contact%20-%20' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(emailBody);
 
-        // Create form data
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('subject', subject);
-        formData.append('message', message);
+      window.location.href = mailtoLink;
 
-        // Google Apps Script URL - REPLACE WITH YOUR URL
-        const url = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+      // Show success
+      alertBox.className = 'alert alert-success';
+      alertBox.innerHTML = '✅ Message Sent, we shall get back to you.';
+      alertBox.classList.remove('d-none');
+      document.getElementById('contactForm').reset();
 
-        try {
-          await fetch(url, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: formData
-          });
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
 
-          alertBox.className = 'alert alert-success';
-          alertBox.innerHTML = '✅ Message sent successfully! We will get back to you soon.';
-          alertBox.classList.remove('d-none');
-          form.reset();
+      // Auto hide after 8 seconds
+      setTimeout(function() {
+        alertBox.classList.add('d-none');
+      }, 8000);
 
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-
-          setTimeout(function() {
-            alertBox.classList.add('d-none');
-          }, 5000);
-
-        } catch (err) {
-          console.error('Error:', err);
-          alertBox.className = 'alert alert-danger';
-          alertBox.innerHTML = '❌ Error sending message. Please try again or contact us directly.';
-          alertBox.classList.remove('d-none');
-
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-        }
-      });
+      return false;
     }
-
-    // ============================================
-    // PRELOADER
-    // ============================================
-    window.addEventListener('load', function() {
-      const loader = document.querySelector('.loader');
-      const overlay = document.querySelector('#overlayer');
-      if (loader) loader.style.display = 'none';
-      if (overlay) overlay.style.display = 'none';
-    });
 
     // ============================================
     // COUNTER ANIMATION
@@ -1044,6 +840,16 @@
           animateCounter(counter);
         });
       }
+    });
+
+    // ============================================
+    // PRELOADER
+    // ============================================
+    window.addEventListener('load', function() {
+      const loader = document.querySelector('.loader');
+      const overlay = document.querySelector('#overlayer');
+      if (loader) loader.style.display = 'none';
+      if (overlay) overlay.style.display = 'none';
     });
   </script>
 </body>

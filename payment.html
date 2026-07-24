@@ -98,12 +98,10 @@
     /* ---------- SECTION ---------- */
     .section {
       padding: 80px 0;
-     
     }
 
     .section.bg-light {
       background: #f8f9fa;
-      
     }
 
     .text-black-50 {
@@ -430,6 +428,37 @@
       color: var(--secondary);
     }
 
+    /* ---------- COPY ALERT ---------- */
+    .alert-copy {
+      display: none;
+      padding: 15px 20px;
+      margin-top: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .alert-copy.success {
+      display: block;
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-copy.error {
+      display: block;
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .alert-copy.info {
+      display: block;
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
     /* ============================================
        RESPONSIVE
        ============================================ */
@@ -709,7 +738,7 @@
             <li><a href="services.html">Services</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact Us</a></li>
-            <li class="active"><a href="payment.html" class="nav-payment"> Make Payment</a></li>
+            <li class="active"><a href="payment.html" class="nav-payment">Make Payment</a></li>
           </ul>
 
           <!-- Mobile Menu Toggle -->
@@ -767,30 +796,7 @@
             <span class="label">Account Number</span>
             <span class="value">1306846219</span>
           </div>
-          <!-- <div class="bank-detail">
-            <span class="label">Branch</span>
-            <span class="value">Lagos</span>
-          </div> -->
         </div>
-
-        <!-- Bank 2 -->
-        <!-- <div class="bank-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="bank-name">
-            <span class="icon">🏛️</span> First Bank
-          </div>
-          <div class="bank-detail">
-            <span class="label">Account Name</span>
-            <span class="value">Pentavision Ltd</span>
-          </div>
-          <div class="bank-detail">
-            <span class="label">Account Number</span>
-            <span class="value">9876543210</span>
-          </div>
-          <div class="bank-detail">
-            <span class="label">Branch</span>
-            <span class="value">Ipaja Ayobo</span>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -813,38 +819,40 @@
           <h3 class="form-title">Payment Details</h3>
           <p class="form-subtitle">Fill in your details to complete the transaction</p>
 
+          <div id="copyAlert" class="alert-copy"></div>
+
           <form id="paymentForm">
             <div class="row">
               <div class="col-12 form-group">
-                <input type="text" name="fullname" class="form-control" placeholder="Full Name" required />
+                <input type="text" id="fullname" class="form-control" placeholder="Full Name" required />
               </div>
               <div class="col-12 form-group">
-                <input type="email" name="email" class="form-control" placeholder="Email Address" required />
+                <input type="email" id="email" class="form-control" placeholder="Email Address" required />
               </div>
               <div class="col-12 form-group">
-                <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required />
+                <input type="tel" id="phone" class="form-control" placeholder="Phone Number" required />
               </div>
               <div class="col-12 form-group">
-                <select name="property" class="form-control" required>
+                <select id="property" class="form-control" required>
                   <option value="">Select Property</option>
-                  <option value="owode">Prime Land in Owode - ₦4,000,000</option>
-                  <option value="conclave">Conclave Estate - ₦5,000,000</option>
-                  <option value="luxury">Luxury Estate - ₦15,000,000</option>
-                  <option value="affordable">Affordable Land - ₦1,000,000</option>
-                  <option value="ewekoro">Ewekoro Estate - ₦4,000,000</option>
+                  <option value="Oak Estate, Owode Obafemi - ₦4,000,000">Oak Estate, Owode Obafemi - ₦4,000,000</option>
+                  <option value="Ire Estate, Mowe - ₦15,000,000">Ire Estate, Mowe - ₦15,000,000</option>
+                  <option value="Olive Estate, Badagry - ₦5,000,000">Olive Estate, Badagry - ₦5,000,000</option>
+                  <option value="Palm Estate, Owode Obafemi - ₦2,500,000">Palm Estate, Owode Obafemi - ₦2,500,000</option>
+                  <option value="Orchard Estate, Owode Ota - ₦3,500,000">Orchard Estate, Owode Ota - ₦3,500,000</option>
                 </select>
               </div>
               <div class="col-12 form-group">
-                <select name="payment_method" class="form-control" required>
+                <select id="payment_method" class="form-control" required>
                   <option value="">Select Payment Method</option>
-                  <option value="bank">Bank Transfer</option>
-                  <option value="card">Credit/Debit Card</option>
-                  <option value="ussd">USSD Transfer</option>
-                  <option value="paystack">Paystack</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Credit/Debit Card">Credit/Debit Card</option>
+                  <option value="USSD Transfer">USSD Transfer</option>
+                  <option value="Paystack">Paystack</option>
                 </select>
               </div>
               <div class="col-12 form-group">
-                <button type="submit" class="btn-payment">
+                <button type="button" class="btn-payment" onclick="sendPayment()">
                   <span>Pay Now</span>
                   <i class="icon-arrow-right"></i>
                 </button>
@@ -864,7 +872,7 @@
 
           <div class="summary-item">
             <span class="label">Property</span>
-            <span class="value">Select a property</span>
+            <span class="value" id="selectedProperty">Select a property</span>
           </div>
           <div class="summary-item">
             <span class="label">Service Fee</span>
@@ -877,7 +885,7 @@
 
           <div class="summary-total">
             <span>Total Amount</span>
-            <span class="total-amount">₦0.00</span>
+            <span class="total-amount" id="totalAmount">₦0.00</span>
           </div>
 
           <!-- Terms & Conditions -->
@@ -887,9 +895,9 @@
             </div>
             <ul>
               <li>All payments are non-refundable after confirmation.</li>
-              <li>Property allocation is subject to availability.</li>
-              <li>Full payment must be completed within 7 days of reservation.</li>
-              <li>Legal fees and documentation costs are separate.</li>
+              <li>Property allocation is subject to full payment for land and developmental fees.</li>
+              <li>Full payment must be made within 12 Months.</li>
+              <li>Legal fee and documentation is included.</li>
               <li>Pentavision reserves the right to cancel any transaction if fraud is suspected.</li>
               <li>All property details are verified before allocation.</li>
               <li>Service charges apply as per the agreement.</li>
@@ -976,7 +984,8 @@
       <div class="row mt-5">
         <div class="col-12 text-center">
           <p>
-            Copyright &copy; <script>document.write(new Date().getFullYear());</script>
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear());</script>
             . All Rights Reserved. &mdash;
             <a href="#">Pentavision</a>
           </p>
@@ -1009,7 +1018,7 @@
     // ============================================
     // NAVIGATION SCROLL EFFECT
     // ============================================
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       const nav = document.querySelector('.site-nav');
       if (window.scrollY > 50) {
         nav.classList.add('scrolled');
@@ -1026,7 +1035,7 @@
     const closeBtn = document.getElementById('closeMenu');
 
     if (burger) {
-      burger.addEventListener('click', function(e) {
+      burger.addEventListener('click', function (e) {
         e.preventDefault();
         mobileMenu.classList.toggle('open');
         burger.classList.toggle('active');
@@ -1035,15 +1044,15 @@
     }
 
     if (closeBtn) {
-      closeBtn.addEventListener('click', function() {
+      closeBtn.addEventListener('click', function () {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
       });
     }
 
-    document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
-      link.addEventListener('click', function() {
+    document.querySelectorAll('.site-mobile-menu-body a').forEach(function (link) {
+      link.addEventListener('click', function () {
         mobileMenu.classList.remove('open');
         burger.classList.remove('active');
         document.body.style.overflow = '';
@@ -1051,39 +1060,61 @@
     });
 
     // ============================================
-    // PAYMENT FORM HANDLER
+    // PAYMENT FORM - COPY TO EMAIL
     // ============================================
-    const paymentForm = document.getElementById('paymentForm');
+    function sendPayment() {
+      var name = document.getElementById('fullname').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+      var property = document.getElementById('property').value;
+      var method = document.getElementById('payment_method').value;
+      var alertMsg = document.getElementById('copyAlert');
 
-    if (paymentForm) {
-      paymentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+      // Check if all fields are filled
+      if (!name || !email || !phone || !property || !method) {
+        alertMsg.className = 'alert-copy error';
+        alertMsg.innerHTML = '⚠️ Please fill in all fields.';
+        alertMsg.style.display = 'block';
+        return;
+      }
 
-        // Get form values
-        const fullname = this.querySelector('[name="fullname"]').value;
-        const email = this.querySelector('[name="email"]').value;
-        const phone = this.querySelector('[name="phone"]').value;
-        const property = this.querySelector('[name="property"]').value;
-        const paymentMethod = this.querySelector('[name="payment_method"]').value;
+      // Build the email message
+      var message = 'PAYMENT DETAILS\n';
+      message += '='.repeat(40) + '\n\n';
+      message += 'Full Name: ' + name + '\n';
+      message += 'Email: ' + email + '\n';
+      message += 'Phone: ' + phone + '\n';
+      message += 'Property: ' + property + '\n';
+      message += 'Payment Method: ' + method + '\n\n';
+      message += '='.repeat(40) + '\n';
+      message += 'Send to: globalpentavision.50@gmail.com';
 
-        // Basic validation
-        if (!fullname || !email || !phone || !property || !paymentMethod) {
-          alert('Please fill in all required fields.');
-          return;
-        }
+      // Open email with pre-filled content
+      var mailtoLink = 'mailto:globalpentavision.50@gmail.com?subject=Payment%20Request%20-%20' + encodeURIComponent(name) +
+        '&body=' + encodeURIComponent(message);
 
-        // Show success message
-        alert('✅ Payment request submitted successfully!\n\nThank you for choosing Pentavision. You will receive a confirmation email shortly with payment details.');
+      // Open email app
+      window.location.href = mailtoLink;
 
-        // Reset form
-        this.reset();
-      });
+      // Show success message
+      alertMsg.className = 'alert-copy success';
+      alertMsg.innerHTML = '✅ Message Sent, we shall get back to you.';
+      alertMsg.style.display = 'block';
+
+      // Update summary
+      document.getElementById('selectedProperty').textContent = property;
+      document.getElementById('totalAmount').textContent = property.split('-')[1] || '₦0.00';
+
+      // Auto hide after 8 seconds
+      setTimeout(function () {
+        alertMsg.style.display = 'none';
+      }, 8000);
     }
 
     // ============================================
     // PRELOADER
     // ============================================
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
       const loader = document.querySelector('.loader');
       const overlay = document.querySelector('#overlayer');
       if (loader) loader.style.display = 'none';

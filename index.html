@@ -18,6 +18,281 @@
   <link rel="stylesheet" href="css/tiny-slider.css" />
 
   <title>Pentavision - Premium Real Estate</title>
+
+  <style>
+    /* ============================================
+       FLYER VIEWER / LIGHTBOX STYLES
+       ============================================ */
+    .flyer-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .flyer-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .flyer-modal .modal-content {
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .flyer-modal.active .modal-content {
+      transform: scale(1);
+    }
+
+    .flyer-modal .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .flyer-modal .modal-header h3 {
+      font-size: 1.2rem;
+      margin: 0;
+      color: var(--white);
+    }
+
+    .flyer-modal .modal-header .close-btn {
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0 8px;
+      transition: var(--transition);
+      line-height: 1;
+    }
+
+    .flyer-modal .modal-header .close-btn:hover {
+      transform: rotate(90deg);
+      color: var(--secondary);
+    }
+
+    .flyer-modal .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .flyer-modal .modal-body img {
+      max-width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .flyer-modal .modal-footer {
+      padding: 16px 24px;
+      background: var(--white);
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .flyer-modal .modal-footer .property-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .flyer-modal .modal-footer .property-info .prop-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--dark);
+    }
+
+    .flyer-modal .modal-footer .property-info .prop-location {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .flyer-modal .modal-footer .property-info .prop-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-light);
+    }
+
+    .flyer-modal .modal-footer .btn {
+      padding: 10px 28px;
+      font-size: 0.9rem;
+    }
+
+    /* Flyer trigger button on property cards */
+    .property-item .view-flyer-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary-light);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+    }
+
+    .property-item .view-flyer-btn:hover {
+      background: var(--primary-light);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(42, 95, 122, 0.3);
+    }
+
+    .property-item .img {
+      position: relative;
+    }
+
+    /* Navigation arrows inside modal */
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: var(--white);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    .modal-nav:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    .modal-nav.prev {
+      left: 20px;
+    }
+
+    .modal-nav.next {
+      right: 20px;
+    }
+
+    .modal-counter {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 6px 18px;
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      .flyer-modal {
+        padding: 16px;
+      }
+
+      .flyer-modal .modal-content {
+        max-height: 95vh;
+      }
+
+      .flyer-modal .modal-body img {
+        max-height: 45vh;
+      }
+
+      .flyer-modal .modal-footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .flyer-modal .modal-footer .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .modal-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+
+      .modal-nav.prev {
+        left: 8px;
+      }
+
+      .modal-nav.next {
+        right: 8px;
+      }
+
+      .property-item .view-flyer-btn {
+        padding: 4px 12px;
+        font-size: 0.65rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .flyer-modal .modal-header h3 {
+        font-size: 1rem;
+      }
+
+      .flyer-modal .modal-body {
+        padding: 12px;
+      }
+
+      .flyer-modal .modal-body img {
+        max-height: 35vh;
+      }
+
+      .flyer-modal .modal-footer .property-info .prop-price {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -27,6 +302,33 @@
   <a href="https://wa.link/bcvsv7" class="whatsapp_float" target="_blank" title="Chat with us on WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="60" height="60" />
   </a>
+
+  <!-- ==========================================
+  FLYER VIEWER MODAL
+  ========================================== -->
+  <div class="flyer-modal" id="flyerModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="flyerTitle">Property Flyer</h3>
+        <button class="close-btn" id="closeFlyer">&times;</button>
+      </div>
+      <div class="modal-body" id="flyerBody">
+        <img id="flyerImage" src="" alt="Property Flyer" />
+      </div>
+      <div class="modal-footer">
+        <div class="property-info">
+          <span class="prop-name" id="flyerName">Property Name</span>
+          <span class="prop-location" id="flyerLocation">Location</span>
+          <span class="prop-price" id="flyerPrice">₦0</span>
+        </div>
+        <a href="payment.html" class="btn btn-primary">Buy Now</a>
+      </div>
+    </div>
+    <!-- Navigation -->
+    <button class="modal-nav prev" id="prevFlyer">‹</button>
+    <button class="modal-nav next" id="nextFlyer">›</button>
+    <div class="modal-counter" id="flyerCounter">1 / 6</div>
+  </div>
 
   <!-- ==========================================
   MOBILE MENU
@@ -86,32 +388,36 @@
   </nav>
 
   <!-- ==========================================
-  HERO SECTION WITH SLIDESHOW
+  HERO SECTION WITH SLIDESHOW - FIXED
   ========================================== -->
   <div class="hero">
     <div class="hero-slide">
-      <div class="img overlay active" style="background-image: url('images/hero_bg_1.jpg')"></div>
-      <div class="img overlay" style="background-image: url('images/hero_bg_2.jpg')"></div>
-      <div class="img overlay" style="background-image: url('images/hero_bg_3.jpg')"></div>
-      <div class="img overlay" style="background-image: url('images/phero_img%20(3).jpg')"></div>
-      <div class="img overlay" style="background-image: url('images/phero_img%20(4).jpg')"></div>
-      <div class="img overlay" style="background-image: url('images/phero_img%20(5).jpg')"></div>
-      <div class="img overlay" style="background-image: url('images/phero_img%20(6).jpg')"></div>
+      <div class="img overlay active cover" style="background-image: url('images/hero_bg_1.jpg');"></div>
+      <div class="img overlay cover" style="background-image: url('images/hero_bg_2.jpg');"></div>
+      <div class="img overlay contain text-overlay" style="background-image: url('images/hero_bg_3.jpg');"></div>
+      <div class="img overlay cover" style="background-image: url('images/phero_img%20(3).jpg');"></div>
+      <div class="img overlay cover" style="background-image: url('images/phero_img%20(4).jpg');"></div>
+      <div class="img overlay cover" style="background-image: url('images/phero_img%20(5).jpg');"></div>
+      <div class="img overlay contain text-overlay" style="background-image: url('images/phero_img%20(6).jpg');"></div>
     </div>
 
-    <div class="container"><br><br><br>
-      <div class="row justify-content-center align-items-center"><br><br><br>
+    <div class="container">
+      <div class="row justify-content-center align-items-center" style="min-height:70vh;">
         <div class="col-lg-9 text-center">
           <h1 class="heading" data-aos="fade-up">
-            High Networth Diasporas and <span>Nigerian</span> Investors
+            High-Net-Worth Nigerians &amp; <span>Diaspora</span> Investors
           </h1>
+          <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+            Discover premium, verified real estate opportunities across Nigeria's fastest-growing cities
+          </p>
         </div>
       </div>
     </div>
   </div>
 
+  
   <!-- ==========================================
-  POPULAR PROPERTIES SECTION
+  POPULAR PROPERTIES SECTION - WITH FLYER BUTTONS
   ========================================== -->
   <div class="section">
     <div class="container">
@@ -120,7 +426,7 @@
           <h2 class="font-weight-bold text-primary heading">Popular Properties</h2>
         </div>
         <div class="col-lg-6 text-lg-end">
-          <a href="properties.html" target="_blank" class="btn btn-primary text-white py-2 px-4">View all properties</a>
+          <a href="properties.html" class="btn btn-primary text-white py-2 px-4">View All Properties</a>
         </div>
       </div>
       <div class="row">
@@ -129,8 +435,8 @@
             <div class="property-slider" id="propertySlider">
 
               <!-- Property 1: ORCHARD ESTATE -->
-              <div class="property-item">
-                <a href="property-single.html" class="img">
+              <div class="property-item" data-index="0">
+                <a href="#" class="img" onclick="openFlyer(0); return false;">
                   <img src="images/new1.jpeg" alt="Orchard Estate" />
                 </a>
                 <div class="property-content">
@@ -143,10 +449,10 @@
                 </div>
               </div>
 
-              <!-- Property 2: I RE ESTATE -->
-              <div class="property-item">
-                <a href="property-single.html" class="img">
-                  <img src="images/new4.jpeg" alt="I Re Estate" />
+              <!-- Property 2: IRE ESTATE -->
+              <div class="property-item" data-index="1">
+                <a href="#" class="img" onclick="openFlyer(1); return false;">
+                  <img src="images/new4.jpeg" alt="Ire Estate" />
                 </a>
                 <div class="property-content">
                   <div class="price mb-2"><span>₦10,000,000 - ₦20,000,000</span></div>
@@ -159,8 +465,8 @@
               </div>
 
               <!-- Property 3: PALM ESTATE (Plot) -->
-              <div class="property-item">
-                <a href="property-single.html" class="img">
+              <div class="property-item" data-index="2">
+                <a href="#" class="img" onclick="openFlyer(2); return false;">
                   <img src="images/new5.jpeg" alt="Palm Estate" />
                 </a>
                 <div class="property-content">
@@ -174,8 +480,8 @@
               </div>
 
               <!-- Property 4: PALM ESTATE (Distress Sales) -->
-              <div class="property-item">
-                <a href="property-single.html" class="img">
+              <div class="property-item" data-index="3">
+                <a href="#" class="img" onclick="openFlyer(3); return false;">
                   <img src="images/new6.jpeg" alt="Palm Estate" />
                 </a>
                 <div class="property-content">
@@ -189,8 +495,8 @@
               </div>
 
               <!-- Property 5: OAK ESTATE (SOLD OUT) -->
-              <div class="property-item">
-                <a href="property-single.html" class="img">
+              <div class="property-item" data-index="4">
+                <a href="#" class="img" onclick="openFlyer(4); return false;">
                   <img src="images/new2.jpeg" alt="Oak Estate" />
                 </a>
                 <div class="property-content">
@@ -204,8 +510,8 @@
               </div>
 
               <!-- Property 6: PALM ESTATE (SOLD OUT) -->
-              <div class="property-item">
-                <a href="property-single.html" class="img">
+              <div class="property-item" data-index="5">
+                <a href="#" class="img" onclick="openFlyer(5); return false;">
                   <img src="images/new3.jpeg" alt="Palm Estate" />
                 </a>
                 <div class="property-content">
@@ -231,7 +537,7 @@
   </div>
 
   <!-- ==========================================
-  FEATURES SECTION
+  FEATURES SECTION - CONTENT CORRECTED
   ========================================== -->
   <section class="features-1">
     <div class="container">
@@ -239,27 +545,25 @@
         <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
           <div class="box-feature">
             <span class="flaticon-house"></span>
-            <h3 class="mb-3">Our Services </h3>
-            <p>We offer verified properties, documents and instant allocation.</p>
-            <p><a href="#" class="learn-more">Learn More</a></p>
+            <h3 class="mb-3">Our Services</h3>
+            <p>We offer verified properties, documents, and instant allocation.</p>
+            <p><a href="https://wa.me/2348142232828" class="learn-more"> Reserve A Property</a></p>
           </div>
         </div>
         <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
           <div class="box-feature">
             <span class="flaticon-building"></span>
             <h3 class="mb-3">Properties for Sale</h3>
-            <p>OLIVE ESTATE, ORCHARD ESTATE, OAK ESTATE , PALM ESTATE, IRE ESTATE ……All in prime locations and in proximity to Amusement Parks, Covenant University, Redemption City, Crawford University, Bells University, Coalition City, Nestlè McPherson  University. Four square Camp, Sokoto Badagry Road, Winners Chapel HQ.</p>
-            <p><a href="#" class="learn-more">Learn More</a></p>
+            <p>OLIVE ESTATE, ORCHARD ESTATE, OAK ESTATE , PALM ESTATE, IRE ESTATE ……All in prime locations and in proximity to Amusement Parks, Covenant University, Redemption City, Crawford University, Bells University, Coalition City, Nestlè McPherson University. Four square Camp, Sokoto Badagry Road, Winners Chapel HQ.</p>
+            <p><a href="https://wa.me/2348142232828" class="learn-more">Book an Inspection with Us</a></p>
           </div>
         </div>
         <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
           <div class="box-feature">
             <span class="flaticon-house-3"></span>
-            <h3 class="mb-3">Our Agent</h3>
-            <p>Our Agents are professional who are committed to help you find an investment that suit your financial goals by offering free consultation 
-
-We’re currently hiring because one of our core values is empowerment. We are dedicated to creating sustainable job opportunities for Africa’s youth and supporting the growth of small businesses through strategic funding and stipends.</p>
-            <p><a href="#" class="learn-more">Learn More</a></p>
+            <h3 class="mb-3">Our Agents</h3>
+            <p>Our agents are dedicated professionals committed to helping you find investments that align with your financial goals. We offer free consultations and are currently hiring because we believe in empowerment. We are dedicated to creating sustainable jobs for African youth and supporting small businesses through strategic funding and stipends.</p>
+            <p><a href="https://wa.me/2348142232828" class="learn-more">Speak to an Agent</a></p>
           </div>
         </div>
         <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
@@ -267,7 +571,7 @@ We’re currently hiring because one of our core values is empowerment. We are d
             <span class="flaticon-house-1"></span>
             <h3 class="mb-3">Facilities Management</h3>
             <p>We deliver exclusive and smart facilities management solutions that optimize performance and reduce costs.</p>
-            <p><a href="#" class="learn-more">Learn More</a></p>
+            <p><a href="https://wa.me/2348142232828" class="learn-more">Get Property Brochure</a></p>
           </div>
         </div>
       </div>
@@ -373,36 +677,7 @@ We’re currently hiring because one of our core values is empowerment. We are d
         </div>
       </div>
 
-      <!-- Counter Section -->
-      <div class="row section-counter mt-5">
-        <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-          <div class="counter-wrap mb-5 mb-lg-0">
-            <span class="number"><span class="countup text-primary">3298</span></span>
-            <span class="caption text-black-50"># of Buy Properties</span>
-          </div>
-        </div>
-        <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-          <div class="counter-wrap mb-5 mb-lg-0">
-            <span class="number"><span class="countup text-primary">2181</span></span>
-            <span class="caption text-black-50"># of Sell Properties</span>
-          </div>
-        </div>
-        <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
-          <div class="counter-wrap mb-5 mb-lg-0">
-            <span class="number"><span class="countup text-primary">9316</span></span>
-            <span class="caption text-black-50"># of All Properties</span>
-          </div>
-        </div>
-        <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
-          <div class="counter-wrap mb-5 mb-lg-0">
-            <span class="number"><span class="countup text-primary">7191</span></span>
-            <span class="caption text-black-50"># of Agents</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+     
   <!-- ==========================================
   CONTACT FORM SECTION
   ========================================== -->
@@ -464,33 +739,23 @@ We’re currently hiring because one of our core values is empowerment. We are d
         </div>
         <div class="col-lg-4">
           <div class="widget">
-            <h3>Sources</h3>
-            <ul class="list-unstyled float-start links">
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Vision</a></li>
-              <li><a href="#">Mission</a></li>
-              <li><a href="#">Terms</a></li>
-              <li><a href="#">Privacy</a></li>
-            </ul>
-            <ul class="list-unstyled float-start links">
-              <li><a href="#">Partners</a></li>
-              <li><a href="#">Business</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Creative</a></li>
+            <h3>Company</h3>
+            <ul class="list-unstyled links">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="properties.html">Properties</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+             
             </ul>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="widget">
-            <h3>Links</h3>
-            <ul class="list-unstyled links">
-              <li><a href="#">Our Vision</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Contact us</a></li>
-            </ul>
+            <h3>Connect With Us</h3>
+            <p style="color:rgba(255,255,255,0.7); font-size:0.9rem; margin-bottom:16px;">
+              Follow us for updates and new property listings.
+            </p>
             <ul class="list-unstyled social">
               <li>
                 <a href="https://www.instagram.com/global_pentavision_ltd" target="_blank" aria-label="Instagram">
@@ -741,6 +1006,97 @@ We’re currently hiring because one of our core values is empowerment. We are d
 
       window.addEventListener('resize', updateSlider);
       updateSlider();
+    });
+
+    // ============================================
+    // FLYER VIEWER - OPEN / CLOSE / NAVIGATION
+    // ============================================
+    const flyerData = [{
+      image: 'images/new1.jpeg',
+      name: 'Orchard Estate',
+      location: 'Owode Idiroko Ota, Ogun State',
+      price: '₦3,000,000 - ₦5,000,000'
+    }, {
+      image: 'images/new4.jpeg',
+      name: 'Ire Estate',
+      location: 'Mowe, Ogun State',
+      price: '₦10,000,000 - ₦20,000,000'
+    }, {
+      image: 'images/new5.jpeg',
+      name: 'Palm Estate',
+      location: 'Owode Obafemi, Ogun State',
+      price: '₦1,000,000 - ₦1,500,000'
+    }, {
+      image: 'images/new6.jpeg',
+      name: 'Palm Estate (Distress Sales)',
+      location: 'Owode Obafemi, Ogun State',
+      price: '₦1,500,000 - ₦9,500,000'
+    }, {
+      image: 'images/new2.jpeg',
+      name: 'Oak Estate',
+      location: 'Owode Obafemi, Ogun State',
+      price: '₦3,000,000 - ₦5,000,000'
+    }, {
+      image: 'images/new3.jpeg',
+      name: 'Palm Estate',
+      location: 'Owode Obafemi, Ogun State',
+      price: '₦1,000,000 - ₦6,000,000'
+    }];
+
+    let currentFlyerIndex = 0;
+    const modal = document.getElementById('flyerModal');
+
+    function openFlyer(index) {
+      currentFlyerIndex = index;
+      updateFlyerContent(index);
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFlyer() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateFlyerContent(index) {
+      const data = flyerData[index];
+      document.getElementById('flyerImage').src = data.image;
+      document.getElementById('flyerImage').alt = data.name;
+      document.getElementById('flyerName').textContent = data.name;
+      document.getElementById('flyerLocation').textContent = data.location;
+      document.getElementById('flyerPrice').textContent = data.price;
+      document.getElementById('flyerTitle').textContent = data.name + ' - Flyer';
+      document.getElementById('flyerCounter').textContent = (index + 1) + ' / ' + flyerData.length;
+    }
+
+    function prevFlyer() {
+      currentFlyerIndex = (currentFlyerIndex - 1 + flyerData.length) % flyerData.length;
+      updateFlyerContent(currentFlyerIndex);
+    }
+
+    function nextFlyer() {
+      currentFlyerIndex = (currentFlyerIndex + 1) % flyerData.length;
+      updateFlyerContent(currentFlyerIndex);
+    }
+
+    // Event listeners
+    document.getElementById('closeFlyer').addEventListener('click', closeFlyer);
+    document.getElementById('prevFlyer').addEventListener('click', prevFlyer);
+    document.getElementById('nextFlyer').addEventListener('click', nextFlyer);
+
+    // Close on overlay click
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeFlyer();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeFlyer();
+      if (e.key === 'ArrowLeft') prevFlyer();
+      if (e.key === 'ArrowRight') nextFlyer();
     });
 
     // ============================================

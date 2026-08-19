@@ -2,846 +2,910 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Pentavision - Premium Properties for Sale in Nigeria" />
-    <meta name="keywords" content="properties, real estate, Nigeria, Lagos, Ogun, land, houses" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <link rel="stylesheet" href="fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
-    <link rel="stylesheet" href="css/tiny-slider.css" />
-    <link rel="stylesheet" href="css/aos.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/properties.css" />
-
-    <title>Pentavision - Properties</title>
-
-    <!-- ============================================
-    FLYER / MODAL & CHAT STYLES
-    ============================================ -->
-    <style>
-        /* ---------- OVERLAY ---------- */
-        .flyer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 99999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            animation: fadeInOverlay 0.3s ease;
-            overflow-y: auto;
-        }
-
-        .flyer-overlay.active {
-            display: flex;
-        }
-
-        @keyframes fadeInOverlay {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* ---------- MODAL ---------- */
-        .flyer-modal {
-            background: #ffffff;
-            border-radius: 28px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6);
-            animation: slideUpFlyer 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            scroll-behavior: smooth;
-        }
-
-        .flyer-modal::-webkit-scrollbar {
-            width: 5px;
-        }
-        .flyer-modal::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .flyer-modal::-webkit-scrollbar-thumb {
-            background: var(--secondary, #c9a84c);
-            border-radius: 10px;
-        }
-
-        @keyframes slideUpFlyer {
-            from {
-                opacity: 0;
-                transform: translateY(60px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* ---------- CLOSE BUTTON ---------- */
-        .flyer-close {
-            position: sticky;
-            top: 16px;
-            right: 16px;
-            float: right;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            font-size: 1.8rem;
-            line-height: 1;
-            color: #1a1a1a;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 16px 16px 0 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .flyer-close:hover {
-            background: #e74c3c;
-            color: #fff;
-            transform: rotate(90deg) scale(1.05);
-        }
-
-        /* ---------- HERO IMAGE ---------- */
-        .flyer-hero {
-            position: relative;
-            width: 100%;
-            background: #2a5f7a;
-            border-radius: 28px 28px 0 0;
-            margin-top: -64px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .flyer-hero img {
-            width: 100%;
-            height: auto;
-            max-height: 50vh;
-            object-fit: contain;
-            display: block;
-        }
-
-        .flyer-hero .flyer-badges {
-            position: absolute;
-            top: 24px;
-            left: 24px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        .flyer-hero .flyer-badges .badge {
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-            color: #fff;
-        }
-
-        .badge-featured {
-            background: var(--secondary, #c9a84c);
-        }
-        .badge-sold {
-            background: #e74c3c;
-        }
-        .badge-new {
-            background: #27ae60;
-        }
-        .badge-hot {
-            background: #f39c12;
-        }
-
-        /* ---------- BODY ---------- */
-        .flyer-body {
-            padding: 32px 40px 40px;
-        }
-
-        .flyer-body .flyer-price {
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: var(--primary-light, #2a5f7a);
-            margin-bottom: 4px;
-        }
-
-        .flyer-body .flyer-price span {
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: #6b7a85;
-        }
-
-        .flyer-body .flyer-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 6px;
-        }
-
-        .flyer-body .flyer-location {
-            font-size: 1.1rem;
-            color: #6b7a85;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .flyer-body .flyer-location .pin-icon {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            background: var(--secondary, #c9a84c);
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            flex-shrink: 0;
-        }
-
-        /* ---------- SPECS ---------- */
-        .flyer-specs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 14px;
-            padding: 18px 0;
-            border-top: 2px solid #f0f0f0;
-            border-bottom: 2px solid #f0f0f0;
-            margin-bottom: 20px;
-        }
-
-        .flyer-specs .spec-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1rem;
-            color: #6b7a85;
-        }
-
-        .flyer-specs .spec-item .icon {
-            font-size: 1.3rem;
-        }
-        .flyer-specs .spec-item .label {
-            font-weight: 500;
-            color: #1a1a1a;
-        }
-
-        /* ---------- DESCRIPTION ---------- */
-        .flyer-description {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #4a5a65;
-            margin-bottom: 22px;
-        }
-
-        .flyer-description strong {
-            color: #1a1a1a;
-        }
-
-        /* ---------- CLIENT ---------- */
-        .flyer-client {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            padding: 18px 24px;
-            background: #f8f9fa;
-            border-radius: 20px;
-            margin-bottom: 22px;
-        }
-
-        .flyer-client img {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--secondary-light, #e8d5a3);
-        }
-
-        .flyer-client .client-info .name {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #1a1a1a;
-        }
-        .flyer-client .client-info .role {
-            font-size: 0.9rem;
-            color: #6b7a85;
-        }
-
-        /* ---------- ACTIONS ---------- */
-        .flyer-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 6px;
-        }
-
-        .flyer-actions .btn {
-            flex: 1;
-            min-width: 160px;
-            padding: 16px 32px;
-            font-weight: 600;
-            border-radius: 60px;
-            text-align: center;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 1rem;
-            border: none;
-        }
-
-        .flyer-actions .btn-primary {
-            background: var(--primary-light, #2a5f7a);
-            color: #fff;
-        }
-        .flyer-actions .btn-primary:hover {
-            background: #1d4459;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(42, 95, 122, 0.35);
-        }
-
-        .flyer-actions .btn-outline {
-            background: transparent;
-            color: var(--primary-light, #2a5f7a);
-            border: 2px solid var(--primary-light, #2a5f7a);
-        }
-        .flyer-actions .btn-outline:hover {
-            background: var(--primary-light, #2a5f7a);
-            color: #fff;
-            transform: translateY(-3px);
-        }
-
-        .flyer-actions .btn-success {
-            background: #27ae60;
-            color: #fff;
-        }
-        .flyer-actions .btn-success:hover {
-            background: #1e8449;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(39, 174, 96, 0.4);
-        }
-
-        /* ---------- SOLD OUT BADGE ---------- */
-        .flyer-sold-badge {
-            display: inline-block;
-            background: #e74c3c;
-            color: #fff;
-            padding: 8px 24px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
-
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 768px) {
-            .flyer-modal {
-                max-height: 95vh;
-                border-radius: 20px;
-            }
-            .flyer-hero {
-                border-radius: 20px 20px 0 0;
-                margin-top: -52px;
-            }
-            .flyer-hero img {
-                max-height: 40vh;
-            }
-            .flyer-body {
-                padding: 24px 20px 28px;
-            }
-            .flyer-body .flyer-price {
-                font-size: 1.8rem;
-            }
-            .flyer-body .flyer-title {
-                font-size: 1.4rem;
-            }
-            .flyer-specs {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-            .flyer-actions .btn {
-                min-width: 100%;
-                flex: 1 1 100%;
-            }
-            .flyer-close {
-                width: 42px;
-                height: 42px;
-                font-size: 1.5rem;
-                top: 10px;
-                right: 10px;
-                margin: 10px 10px 0 0;
-            }
-            .flyer-client {
-                flex-wrap: wrap;
-                text-align: center;
-                justify-content: center;
-            }
-            .flyer-overlay {
-                padding: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .flyer-hero img {
-                max-height: 35vh;
-            }
-            .flyer-body .flyer-price {
-                font-size: 1.4rem;
-            }
-            .flyer-body .flyer-title {
-                font-size: 1.1rem;
-            }
-            .flyer-specs {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-            .flyer-specs .spec-item {
-                font-size: 0.9rem;
-            }
-            .flyer-description {
-                font-size: 0.95rem;
-            }
-            .flyer-actions .btn {
-                padding: 14px 20px;
-                font-size: 0.9rem;
-            }
-            .flyer-hero .flyer-badges .badge {
-                font-size: 0.65rem;
-                padding: 5px 14px;
-            }
-        }
-
-        /* ---------- UTILITY ---------- */
-        .property-card-advanced {
-            cursor: pointer;
-        }
-
-        body.flyer-open {
-            overflow: hidden;
-        }
-
-        /* ============================================
-           WHATSAPP-STYLE FLOATING CHAT ICON & POPUP
-           ============================================ */
-        .chat-float-btn {
-            position: fixed;
-            bottom: 100px;
-            /* sits above the original WhatsApp icon */
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #25D366;
-            color: #fff;
-            border: none;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 9998;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .chat-float-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
-        }
-
-        .chat-float-btn .icon {
-            line-height: 1;
-        }
-
-        /* Chat popup */
-        .chat-popup {
-            position: fixed;
-            bottom: 170px;
-            right: 30px;
-            width: 380px;
-            max-width: calc(100vw - 40px);
-            max-height: 70vh;
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            display: none;
-            flex-direction: column;
-            z-index: 9999;
-            overflow: hidden;
-            animation: slideUp 0.3s ease;
-        }
-
-        .chat-popup.open {
-            display: flex;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Chat header */
-        .chat-popup-header {
-            background: #075E54;
-            color: #fff;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-shrink: 0;
-        }
-
-        .chat-popup-header .title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .chat-popup-header .title .avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .chat-popup-header .close-btn {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 1.4rem;
-            cursor: pointer;
-            line-height: 1;
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-
-        .chat-popup-header .close-btn:hover {
-            opacity: 1;
-        }
-
-        /* Messages */
-        .chat-popup-messages {
-            flex: 1;
-            padding: 16px 20px;
-            overflow-y: auto;
-            background: #ECE5DD;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 350px;
-        }
-
-        .chat-popup-messages .msg {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            animation: msgIn 0.3s ease;
-        }
-
-        @keyframes msgIn {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .msg.bot {
-            background: #fff;
-            align-self: flex-start;
-            border-top-left-radius: 4px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .msg.user {
-            background: #DCF8C6;
-            align-self: flex-end;
-            border-top-right-radius: 4px;
-        }
-
-        /* Quick replies inside popup */
-        .chat-popup-quick {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            padding: 10px 16px;
-            background: #f0f0f0;
-            border-top: 1px solid #ddd;
-            flex-shrink: 0;
-        }
-
-        .chat-popup-quick .quick-btn {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            padding: 5px 14px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #075E54;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .chat-popup-quick .quick-btn:hover {
-            background: #075E54;
-            color: #fff;
-            border-color: #075E54;
-        }
-
-        /* Input area */
-        .chat-popup-input {
-            display: flex;
-            gap: 10px;
-            padding: 10px 16px 14px;
-            background: #fff;
-            border-top: 1px solid #eee;
-            flex-shrink: 0;
-        }
-
-        .chat-popup-input input {
-            flex: 1;
-            padding: 10px 16px;
-            border-radius: 30px;
-            border: 1px solid #ddd;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border 0.2s;
-        }
-
-        .chat-popup-input input:focus {
-            border-color: #075E54;
-        }
-
-        .chat-popup-input button {
-            padding: 10px 18px;
-            border-radius: 30px;
-            border: none;
-            background: #075E54;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .chat-popup-input button:hover {
-            background: #054740;
-        }
-
-        /* Responsive */
-        @media (max-width: 576px) {
-            .chat-popup {
-                bottom: 80px;
-                right: 10px;
-                width: calc(100vw - 20px);
-                max-height: 75vh;
-                border-radius: 16px;
-            }
-            .chat-float-btn {
-                bottom: 80px;
-                right: 20px;
-                width: 56px;
-                height: 56px;
-                font-size: 1.6rem;
-            }
-            .chat-popup-messages {
-                max-height: 50vh;
-            }
-        }
-    </style>
-    <!-- END FLYER & CHAT CSS -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Pentavision - Premium Properties for Sale in Nigeria" />
+  <meta name="keywords" content="properties, real estate, Nigeria, Lagos, Ogun, land, houses" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="fonts/icomoon/style.css" />
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
+  <link rel="stylesheet" href="css/tiny-slider.css" />
+  <link rel="stylesheet" href="css/aos.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/properties.css" />
+
+  <title>Pentavision - Properties</title>
+
+  <!-- ============================================
+  FLYER / MODAL & CHAT STYLES
+  ============================================ -->
+  <style>
+    /* ---------- OVERLAY ---------- */
+    .flyer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeInOverlay 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .flyer-overlay.active {
+      display: flex;
+    }
+
+    @keyframes fadeInOverlay {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ---------- MODAL ---------- */
+    .flyer-modal {
+      background: #ffffff;
+      border-radius: 28px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6);
+      animation: slideUpFlyer 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      scroll-behavior: smooth;
+    }
+
+    .flyer-modal::-webkit-scrollbar {
+      width: 5px;
+    }
+    .flyer-modal::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .flyer-modal::-webkit-scrollbar-thumb {
+      background: var(--secondary, #c9a84c);
+      border-radius: 10px;
+    }
+
+    @keyframes slideUpFlyer {
+      from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* ---------- CLOSE BUTTON ---------- */
+    .flyer-close {
+      position: sticky;
+      top: 16px;
+      right: 16px;
+      float: right;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      font-size: 1.8rem;
+      line-height: 1;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 16px 0 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .flyer-close:hover {
+      background: #e74c3c;
+      color: #fff;
+      transform: rotate(90deg) scale(1.05);
+    }
+
+    /* ---------- HERO IMAGE ---------- */
+    .flyer-hero {
+      position: relative;
+      width: 100%;
+      background: #2a5f7a;
+      border-radius: 28px 28px 0 0;
+      margin-top: -64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .flyer-hero img {
+      width: 100%;
+      height: auto;
+      max-height: 50vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .flyer-hero .flyer-badges {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .flyer-hero .flyer-badges .badge {
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      color: #fff;
+    }
+
+    .badge-featured {
+      background: var(--secondary, #c9a84c);
+    }
+    .badge-sold {
+      background: #e74c3c;
+    }
+    .badge-new {
+      background: #27ae60;
+    }
+    .badge-hot {
+      background: #f39c12;
+    }
+
+    /* ---------- BODY ---------- */
+    .flyer-body {
+      padding: 32px 40px 40px;
+    }
+
+    .flyer-body .flyer-price {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--primary-light, #2a5f7a);
+      margin-bottom: 4px;
+    }
+
+    .flyer-body .flyer-price span {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #6b7a85;
+    }
+
+    .flyer-body .flyer-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+
+    .flyer-body .flyer-location {
+      font-size: 1.1rem;
+      color: #6b7a85;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .flyer-body .flyer-location .pin-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background: var(--secondary, #c9a84c);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      flex-shrink: 0;
+    }
+
+    /* ---------- SPECS ---------- */
+    .flyer-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      padding: 18px 0;
+      border-top: 2px solid #f0f0f0;
+      border-bottom: 2px solid #f0f0f0;
+      margin-bottom: 20px;
+    }
+
+    .flyer-specs .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      color: #6b7a85;
+    }
+
+    .flyer-specs .spec-item .icon {
+      font-size: 1.3rem;
+    }
+    .flyer-specs .spec-item .label {
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    /* ---------- DESCRIPTION ---------- */
+    .flyer-description {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #4a5a65;
+      margin-bottom: 22px;
+    }
+
+    .flyer-description strong {
+      color: #1a1a1a;
+    }
+
+    /* ---------- CLIENT ---------- */
+    .flyer-client {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 24px;
+      background: #f8f9fa;
+      border-radius: 20px;
+      margin-bottom: 22px;
+    }
+
+    .flyer-client img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--secondary-light, #e8d5a3);
+    }
+
+    .flyer-client .client-info .name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1a1a1a;
+    }
+    .flyer-client .client-info .role {
+      font-size: 0.9rem;
+      color: #6b7a85;
+    }
+
+    /* ---------- ACTIONS ---------- */
+    .flyer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .flyer-actions .btn {
+      flex: 1;
+      min-width: 160px;
+      padding: 16px 32px;
+      font-weight: 600;
+      border-radius: 60px;
+      text-align: center;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1rem;
+      border: none;
+    }
+
+    .flyer-actions .btn-primary {
+      background: var(--primary-light, #2a5f7a);
+      color: #fff;
+    }
+    .flyer-actions .btn-primary:hover {
+      background: #1d4459;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 35px rgba(42, 95, 122, 0.35);
+    }
+
+    .flyer-actions .btn-outline {
+      background: transparent;
+      color: var(--primary-light, #2a5f7a);
+      border: 2px solid var(--primary-light, #2a5f7a);
+    }
+    .flyer-actions .btn-outline:hover {
+      background: var(--primary-light, #2a5f7a);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    .flyer-actions .btn-success {
+      background: #27ae60;
+      color: #fff;
+    }
+    .flyer-actions .btn-success:hover {
+      background: #1e8449;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 35px rgba(39, 174, 96, 0.4);
+    }
+
+    /* ---------- SOLD OUT BADGE ---------- */
+    .flyer-sold-badge {
+      display: inline-block;
+      background: #e74c3c;
+      color: #fff;
+      padding: 8px 24px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .flyer-modal {
+        max-height: 95vh;
+        border-radius: 20px;
+      }
+      .flyer-hero {
+        border-radius: 20px 20px 0 0;
+        margin-top: -52px;
+      }
+      .flyer-hero img {
+        max-height: 40vh;
+      }
+      .flyer-body {
+        padding: 24px 20px 28px;
+      }
+      .flyer-body .flyer-price {
+        font-size: 1.8rem;
+      }
+      .flyer-body .flyer-title {
+        font-size: 1.4rem;
+      }
+      .flyer-specs {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .flyer-actions .btn {
+        min-width: 100%;
+        flex: 1 1 100%;
+      }
+      .flyer-close {
+        width: 42px;
+        height: 42px;
+        font-size: 1.5rem;
+        top: 10px;
+        right: 10px;
+        margin: 10px 10px 0 0;
+      }
+      .flyer-client {
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+      }
+      .flyer-overlay {
+        padding: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .flyer-hero img {
+        max-height: 35vh;
+      }
+      .flyer-body .flyer-price {
+        font-size: 1.4rem;
+      }
+      .flyer-body .flyer-title {
+        font-size: 1.1rem;
+      }
+      .flyer-specs {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .flyer-specs .spec-item {
+        font-size: 0.9rem;
+      }
+      .flyer-description {
+        font-size: 0.95rem;
+      }
+      .flyer-actions .btn {
+        padding: 14px 20px;
+        font-size: 0.9rem;
+      }
+      .flyer-hero .flyer-badges .badge {
+        font-size: 0.65rem;
+        padding: 5px 14px;
+      }
+    }
+
+    /* ---------- UTILITY ---------- */
+    .property-card-advanced {
+      cursor: pointer;
+    }
+
+    body.flyer-open {
+      overflow: hidden;
+    }
+
+    /* ============================================
+       WHATSAPP-STYLE FLOATING CHAT ICON & POPUP
+       ============================================ */
+    .chat-float-btn {
+      position: fixed;
+      bottom: 100px;
+      /* sits above the original WhatsApp icon */
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9998;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .chat-float-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    .chat-float-btn .icon {
+      line-height: 1;
+    }
+
+    /* Chat popup */
+    .chat-popup {
+      position: fixed;
+      bottom: 170px;
+      right: 30px;
+      width: 380px;
+      max-width: calc(100vw - 40px);
+      max-height: 70vh;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      display: none;
+      flex-direction: column;
+      z-index: 9999;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+    }
+
+    .chat-popup.open {
+      display: flex;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Chat header */
+    .chat-popup-header {
+      background: #075E54;
+      color: #fff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .chat-popup-header .title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .chat-popup-header .title .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .chat-popup-header .close-btn {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .chat-popup-header .close-btn:hover {
+      opacity: 1;
+    }
+
+    /* Messages */
+    .chat-popup-messages {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
+      background: #ECE5DD;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 350px;
+    }
+
+    .chat-popup-messages .msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      animation: msgIn 0.3s ease;
+    }
+
+    @keyframes msgIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .msg.bot {
+      background: #fff;
+      align-self: flex-start;
+      border-top-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .msg.user {
+      background: #DCF8C6;
+      align-self: flex-end;
+      border-top-right-radius: 4px;
+    }
+
+    /* Quick replies inside popup */
+    .chat-popup-quick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 16px;
+      background: #f0f0f0;
+      border-top: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+
+    .chat-popup-quick .quick-btn {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #075E54;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .chat-popup-quick .quick-btn:hover {
+      background: #075E54;
+      color: #fff;
+      border-color: #075E54;
+    }
+
+    /* Input area */
+    .chat-popup-input {
+      display: flex;
+      gap: 10px;
+      padding: 10px 16px 14px;
+      background: #fff;
+      border-top: 1px solid #eee;
+      flex-shrink: 0;
+    }
+
+    .chat-popup-input input {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 30px;
+      border: 1px solid #ddd;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .chat-popup-input input:focus {
+      border-color: #075E54;
+    }
+
+    .chat-popup-input button {
+      padding: 10px 18px;
+      border-radius: 30px;
+      border: none;
+      background: #075E54;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .chat-popup-input button:hover {
+      background: #054740;
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+      .chat-popup {
+        bottom: 80px;
+        right: 10px;
+        width: calc(100vw - 20px);
+        max-height: 75vh;
+        border-radius: 16px;
+      }
+      .chat-float-btn {
+        bottom: 80px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        font-size: 1.6rem;
+      }
+      .chat-popup-messages {
+        max-height: 50vh;
+      }
+    }
+
+    /* ============================================
+       PROPERTY SLIDER - SMOOTH ENHANCEMENTS
+       ============================================ */
+    .property-slider {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .property-slider .property-item {
+      flex: 0 0 33.333%;
+      max-width: 33.333%;
+      box-sizing: border-box;
+      padding: 0 10px;
+      transition: transform 0.2s ease;
+    }
+
+    /* Responsive slide widths */
+    @media (max-width: 1024px) {
+      .property-slider .property-item {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .property-slider .property-item {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 0 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .property-slider .property-item {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 0 6px;
+      }
+    }
+
+    /* Navigation buttons - smoother interaction */
+    #property-nav .prev,
+    #property-nav .next {
+      cursor: pointer;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    #property-nav .prev:hover,
+    #property-nav .next:hover {
+      transform: scale(1.05);
+    }
+
+    #property-nav .prev:active,
+    #property-nav .next:active {
+      transform: scale(0.95);
+    }
+  </style>
+  <!-- END FLYER & CHAT & SLIDER CSS -->
 </head>
 
 <body>
 
-    <!-- ==========================================
-    WHATSAPP FLOAT (ORIGINAL – now visible again)
-    ========================================== -->
-    <a href="https://wa.link/bcvsv7" class="whatsapp_float" target="_blank" title="Chat with us on WhatsApp">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="60" height="60" />
-    </a>
+  <!-- ==========================================
+  WHATSAPP FLOAT (ORIGINAL – now visible again)
+  ========================================== -->
+  <a href="https://wa.link/bcvsv7" class="whatsapp_float" target="_blank" title="Chat with us on WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="60" height="60" />
+  </a>
 
-    <!-- ==========================================
-    WHATSAPP-STYLE CHAT BOT FLOATING ICON (positioned above the original)
-    ========================================== -->
-    <button class="chat-float-btn" id="chatToggleBtn" aria-label="Open chat assistant" style="bottom: 100px;">
-        <span class="icon">💬</span>
-    </button>
+  <!-- ==========================================
+  WHATSAPP-STYLE CHAT BOT FLOATING ICON (positioned above the original)
+  ========================================== -->
+  <button class="chat-float-btn" id="chatToggleBtn" aria-label="Open chat assistant" style="bottom: 100px;">
+    <span class="icon">💬</span>
+  </button>
 
-    <!-- ==========================================
-    MOBILE MENU
-    ========================================== -->
-    <div class="site-mobile-menu" id="mobileMenu">
-        <div class="site-mobile-menu-header">
-            <button class="site-mobile-menu-close" id="closeMenu">&times;</button>
-        </div>
-        <div class="site-mobile-menu-body">
-            <a href="index.html">Home</a>
-            <a href="properties.html" class="active">Properties</a>
-            <a href="services.html">Services</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact Us</a>
-            <a href="payment.html" class="payment-btn">Make Payment</a>
-        </div>
+  <!-- ==========================================
+  MOBILE MENU
+  ========================================== -->
+  <div class="site-mobile-menu" id="mobileMenu">
+    <div class="site-mobile-menu-header">
+      <button class="site-mobile-menu-close" id="closeMenu">&times;</button>
     </div>
-
-    <!-- ==========================================
-    NAVIGATION
-    ========================================== -->
-    <nav class="site-nav" id="navbar">
-        <div class="container">
-            <div class="menu-bg-wrap">
-                <div class="site-navigation">
-                    <a href="index.html" class="logo">
-                        <img src="images/plogo.jpg" alt="Pentavision" />
-                        <span class="logo-text">
-                            <span class="brand">PENTA</span>
-                            <span class="highlight">VISION</span>
-                            <span class="logo-dot"></span>
-                        </span>
-                    </a>
-
-                    <ul class="site-menu" id="desktopMenu">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="has-children active">
-                            <a href="properties.html">Properties</a>
-                        </li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="payment.html" class="nav-payment">Make Payment</a></li>
-                    </ul>
-
-                    <button class="burger" id="burgerBtn" aria-label="Toggle menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ==========================================
-    PROPERTIES HERO
-    ========================================== -->
-    <div class="properties-hero overlay" style="background-image: url('images/hero_bg_2.jpg')">
-        <div class="float-element"></div>
-        <div class="float-element"></div>
-        <div class="float-element"></div>
-
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-lg-9 text-center">
-                    <h1 class="heading">Properties</h1>
-                    <p class="sub-heading">Discover premium properties across Nigeria's fastest-growing cities</p>
-                    <ul class="breadcrumb-custom">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active">Properties</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="site-mobile-menu-body">
+      <a href="index.html">Home</a>
+      <a href="properties.html" class="active">Properties</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="payment.html" class="payment-btn">Make Payment</a>
     </div>
+  </div>
 
-    <!-- ==========================================
-    FILTER BAR
-    ========================================== -->
+  <!-- ==========================================
+  NAVIGATION
+  ========================================== -->
+  <nav class="site-nav" id="navbar">
     <div class="container">
-        <div class="filter-bar">
-            <div class="filter-group">
-                <select class="filter-select">
-                    <option value="">All Types</option>
-                    <option value="land">Land</option>
-                    <option value="house">House</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="commercial">Commercial</option>
-                </select>
+      <div class="menu-bg-wrap">
+        <div class="site-navigation">
+          <a href="index.html" class="logo">
+            <img src="images/plogo.jpg" alt="Pentavision" />
+            <span class="logo-text">
+              <span class="brand">PENTA</span>
+              <span class="highlight">VISION</span>
+              <span class="logo-dot"></span>
+            </span>
+          </a>
 
-                <select class="filter-select">
-                    <option value="">All Locations</option>
-                    <option value="lagos">Lagos</option>
-                    <option value="ogun">Ogun</option>
-                    <option value="abuja">Abuja</option>
-                    <option value="ibadan">Ibadan</option>
-                </select>
+          <ul class="site-menu" id="desktopMenu">
+            <li><a href="index.html">Home</a></li>
+            <li class="has-children active">
+              <a href="properties.html">Properties</a>
+            </li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="payment.html" class="nav-payment">Make Payment</a></li>
+          </ul>
 
-                <select class="filter-select">
-                    <option value="">Price Range</option>
-                    <option value="0-5m">₦0 - ₦5M</option>
-                    <option value="5m-10m">₦5M - ₦10M</option>
-                    <option value="10m-20m">₦10M - ₦20M</option>
-                    <option value="20m+">₦20M+</option>
-                </select>
-            </div>
-
-            <div class="filter-search">
-                <input type="text" placeholder="Search properties..." />
-                <button class="btn btn-primary">Search</button>
-            </div>
-
-            <div class="view-toggle">
-                <button class="active" data-view="grid" title="Grid View">▦</button>
-                <button data-view="list" title="List View">☰</button>
-            </div>
+          <button class="burger" id="burgerBtn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
+      </div>
     </div>
+  </nav>
 
-    <!-- ==========================================
-    PROPERTY GRID
-    ========================================== -->
-    <div class="section">
-        <div class="container">
-            <div class="property-grid" id="propertyGrid">
+  <!-- ==========================================
+  PROPERTIES HERO
+  ========================================== -->
+  <div class="properties-hero overlay" style="background-image: url('images/hero_bg_2.jpg')">
+    <div class="float-element"></div>
+    <div class="float-element"></div>
+    <div class="float-element"></div>
 
-                <!-- ========== PROPERTY 1: ORCHARD ESTATE ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-lg-9 text-center">
+          <h1 class="heading">Properties</h1>
+          <p class="sub-heading">Discover premium properties across Nigeria's fastest-growing cities</p>
+          <ul class="breadcrumb-custom">
+            <li><a href="index.html">Home</a></li>
+            <li class="active">Properties</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+  FILTER BAR
+  ========================================== -->
+  <div class="container">
+    <div class="filter-bar">
+      <div class="filter-group">
+        <select class="filter-select">
+          <option value="">All Types</option>
+          <option value="land">Land</option>
+          <option value="house">House</option>
+          <option value="apartment">Apartment</option>
+          <option value="commercial">Commercial</option>
+        </select>
+
+        <select class="filter-select">
+          <option value="">All Locations</option>
+          <option value="lagos">Lagos</option>
+          <option value="ogun">Ogun</option>
+          <option value="abuja">Abuja</option>
+          <option value="ibadan">Ibadan</option>
+        </select>
+
+        <select class="filter-select">
+          <option value="">Price Range</option>
+          <option value="0-5m">₦0 - ₦5M</option>
+          <option value="5m-10m">₦5M - ₦10M</option>
+          <option value="10m-20m">₦10M - ₦20M</option>
+          <option value="20m+">₦20M+</option>
+        </select>
+      </div>
+
+      <div class="filter-search">
+        <input type="text" placeholder="Search properties..." />
+        <button class="btn btn-primary">Search</button>
+      </div>
+
+      <div class="view-toggle">
+        <button class="active" data-view="grid" title="Grid View">▦</button>
+        <button data-view="list" title="List View">☰</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+  PROPERTY GRID
+  ========================================== -->
+  <div class="section">
+    <div class="container">
+      <div class="property-grid" id="propertyGrid">
+
+        <!-- ========== PROPERTY 1: ORCHARD ESTATE ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Orchard Estate",
                     "price": "₦3,000,000 - ₦5,000,000",
                     "priceSuffix": "",
@@ -857,37 +921,37 @@
                     "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/new1.jpeg" alt="Orchard Estate" />
-                        <div class="badges">
-                            <span class="badge badge-featured">Featured</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦3,000,000 - ₦5,000,000</div>
-                        <div class="title">Orchard Estate</div>
-                        <div class="location"><span class="pin"></span> Owode Idiroko Ota, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_41-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Pst. Olusola Smith</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/new1.jpeg" alt="Orchard Estate" />
+            <div class="badges">
+              <span class="badge badge-featured">Featured</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦3,000,000 - ₦5,000,000</div>
+            <div class="title">Orchard Estate</div>
+            <div class="location"><span class="pin"></span> Owode Idiroko Ota, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_41-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Pst. Olusola Smith</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== PROPERTY 2: IRE ESTATE ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== PROPERTY 2: IRE ESTATE ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Ire Estate",
                     "price": "₦10,000,000 - ₦20,000,000",
                     "priceSuffix": "",
@@ -903,38 +967,38 @@
                     "client": { "name": "Mr. Aderemi Akinwale", "role": "Client", "avatar": "images/img_6.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/new4.jpeg" alt="Ire Estate" />
-                        <div class="badges">
-                            <span class="badge badge-new">New</span>
-                            <span class="badge badge-hot">Hot</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦10,000,000 - ₦20,000,000</div>
-                        <div class="title">Ire Estate</div>
-                        <div class="location"><span class="pin"></span> Mowe, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 300 - 600 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">🔒</span> Secured</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/img_6.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Mr. Aderemi Akinwale</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/new4.jpeg" alt="Ire Estate" />
+            <div class="badges">
+              <span class="badge badge-new">New</span>
+              <span class="badge badge-hot">Hot</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦10,000,000 - ₦20,000,000</div>
+            <div class="title">Ire Estate</div>
+            <div class="location"><span class="pin"></span> Mowe, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 300 - 600 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">🔒</span> Secured</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/img_6.jpg" alt="Client" />
+                <div>
+                  <div class="name">Mr. Aderemi Akinwale</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== PROPERTY 3: PALM ESTATE ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== PROPERTY 3: PALM ESTATE ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Palm Estate",
                     "price": "₦1,000,000 - ₦1,500,000",
                     "priceSuffix": "",
@@ -950,37 +1014,37 @@
                     "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/new5.jpeg" alt="Palm Estate" />
-                        <div class="badges">
-                            <span class="badge badge-featured">Featured</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦1,000,000 - ₦1,500,000</div>
-                        <div class="title">Palm Estate</div>
-                        <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_43-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Mr. Sindick Shola</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/new5.jpeg" alt="Palm Estate" />
+            <div class="badges">
+              <span class="badge badge-featured">Featured</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦1,000,000 - ₦1,500,000</div>
+            <div class="title">Palm Estate</div>
+            <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_43-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Mr. Sindick Shola</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== PROPERTY 4: PALM ESTATE (Distress) ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== PROPERTY 4: PALM ESTATE (Distress) ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Palm Estate (Distress Sales)",
                     "price": "₦1,500,000 - ₦9,500,000",
                     "priceSuffix": "",
@@ -996,37 +1060,37 @@
                     "client": { "name": "Mr. Aderemi Akinwale", "role": "Client", "avatar": "images/img_6.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/new6.jpeg" alt="Palm Estate Distress" />
-                        <div class="badges">
-                            <span class="badge badge-hot">Hot</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦1,500,000 - ₦9,500,000</div>
-                        <div class="title">Palm Estate (Distress Sales)</div>
-                        <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 500 - 3000 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/img_6.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Mr. Aderemi Akinwale</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/new6.jpeg" alt="Palm Estate Distress" />
+            <div class="badges">
+              <span class="badge badge-hot">Hot</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦1,500,000 - ₦9,500,000</div>
+            <div class="title">Palm Estate (Distress Sales)</div>
+            <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 500 - 3000 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/img_6.jpg" alt="Client" />
+                <div>
+                  <div class="name">Mr. Aderemi Akinwale</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== PROPERTY 5: CONCLAVE ESTATE ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== PROPERTY 5: CONCLAVE ESTATE ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Conclave Estate",
                     "price": "₦5,000,000",
                     "priceSuffix": "/ 500sqm",
@@ -1042,38 +1106,38 @@
                     "client": { "name": "Mr. Aderemi Akinwale", "role": "Client", "avatar": "images/img_6.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/olivenew2.jpeg" alt="Conclave Estate" />
-                        <div class="badges">
-                            <span class="badge badge-featured">Featured</span>
-                            <span class="badge badge-hot">Hot</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦5,000,000 <span>/ 500sqm</span></div>
-                        <div class="title">Conclave Estate</div>
-                        <div class="location"><span class="pin"></span> Chinese Town, Badagry</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/img_6.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Mr. Aderemi Akinwale</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/olivenew2.jpeg" alt="Conclave Estate" />
+            <div class="badges">
+              <span class="badge badge-featured">Featured</span>
+              <span class="badge badge-hot">Hot</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦5,000,000 <span>/ 500sqm</span></div>
+            <div class="title">Conclave Estate</div>
+            <div class="location"><span class="pin"></span> Chinese Town, Badagry</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/img_6.jpg" alt="Client" />
+                <div>
+                  <div class="name">Mr. Aderemi Akinwale</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== PROPERTY 6: LUXURY ESTATE ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== PROPERTY 6: LUXURY ESTATE ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Luxury Estate",
                     "price": "₦15,000,000",
                     "priceSuffix": "/ Plot",
@@ -1089,37 +1153,37 @@
                     "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/img_4.jpg" alt="Luxury Estate" />
-                        <div class="badges">
-                            <span class="badge badge-new">New</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦15,000,000 <span>/ Plot</span></div>
-                        <div class="title">Luxury Estate</div>
-                        <div class="location"><span class="pin"></span> Owode Axis, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 1,000 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_43-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Mr. Sindick Shola</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/img_4.jpg" alt="Luxury Estate" />
+            <div class="badges">
+              <span class="badge badge-new">New</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦15,000,000 <span>/ Plot</span></div>
+            <div class="title">Luxury Estate</div>
+            <div class="location"><span class="pin"></span> Owode Axis, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 1,000 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_43-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Mr. Sindick Shola</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== PROPERTY 7: AFFORDABLE LAND ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== PROPERTY 7: AFFORDABLE LAND ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Affordable Land",
                     "price": "₦1,000,000",
                     "priceSuffix": "/ Plot",
@@ -1134,33 +1198,33 @@
                     "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/img_2.jpg" alt="Affordable Land" />
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦1,000,000 <span>/ Plot</span></div>
-                        <div class="title">Affordable Land</div>
-                        <div class="location"><span class="pin"></span> Owode Axis, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 300 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_41-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Pst. Olusola Smith</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/img_2.jpg" alt="Affordable Land" />
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦1,000,000 <span>/ Plot</span></div>
+            <div class="title">Affordable Land</div>
+            <div class="location"><span class="pin"></span> Owode Axis, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 300 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_41-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Pst. Olusola Smith</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== PROPERTY 8: CONCLAVE ESTATE (300sqm) ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== PROPERTY 8: CONCLAVE ESTATE (300sqm) ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Conclave Estate",
                     "price": "₦1,000,000",
                     "priceSuffix": "/ 300sqm",
@@ -1175,36 +1239,36 @@
                     "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
                     "sold": false
                 }'>
-                    <div class="card-image">
-                        <img src="images/olivenew1.jpeg" alt="Conclave Estate" />
-                        <div class="badges">
-                            <span class="badge badge-hot">Hot</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦1,000,000 <span>/ 300sqm</span></div>
-                        <div class="title">Conclave Estate</div>
-                        <div class="location"><span class="pin"></span> Chinese Town, Badagry</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 300 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_43-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Mr. Sindick Shola</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/olivenew1.jpeg" alt="Conclave Estate" />
+            <div class="badges">
+              <span class="badge badge-hot">Hot</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦1,000,000 <span>/ 300sqm</span></div>
+            <div class="title">Conclave Estate</div>
+            <div class="location"><span class="pin"></span> Chinese Town, Badagry</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 300 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_43-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Mr. Sindick Shola</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== SOLD OUT: OAK ESTATE ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== SOLD OUT: OAK ESTATE ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Oak Estate",
                     "price": "₦3,000,000 - ₦5,000,000",
                     "priceSuffix": "",
@@ -1220,37 +1284,37 @@
                     "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
                     "sold": true
                 }'>
-                    <div class="card-image">
-                        <img src="images/new2.jpeg" alt="Oak Estate" />
-                        <div class="badges">
-                            <span class="badge badge-sold">SOLD OUT</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦3,000,000 - ₦5,000,000</div>
-                        <div class="title">Oak Estate</div>
-                        <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_41-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Pst. Olusola Smith</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/new2.jpeg" alt="Oak Estate" />
+            <div class="badges">
+              <span class="badge badge-sold">SOLD OUT</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦3,000,000 - ₦5,000,000</div>
+            <div class="title">Oak Estate</div>
+            <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_41-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Pst. Olusola Smith</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== SOLD OUT: PALM ESTATE (NEW) ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== SOLD OUT: PALM ESTATE (NEW) ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Palm Estate",
                     "price": "₦1,000,000 - ₦6,000,000",
                     "priceSuffix": "",
@@ -1266,37 +1330,37 @@
                     "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
                     "sold": true
                 }'>
-                    <div class="card-image">
-                        <img src="images/new3.jpeg" alt="Palm Estate" />
-                        <div class="badges">
-                            <span class="badge badge-sold">SOLD OUT</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦1,000,000 - ₦6,000,000</div>
-                        <div class="title">Palm Estate</div>
-                        <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 500 - 3000 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_43-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Mr. Sindick Shola</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/new3.jpeg" alt="Palm Estate" />
+            <div class="badges">
+              <span class="badge badge-sold">SOLD OUT</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦1,000,000 - ₦6,000,000</div>
+            <div class="title">Palm Estate</div>
+            <div class="location"><span class="pin"></span> Owode Obafemi, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 500 - 3000 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_43-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Mr. Sindick Shola</div>
+                  <div class="role">Client</div>
                 </div>
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
+            </div>
+          </div>
+        </div>
 
-                <!-- ========== SOLD OUT: PRIME LAND ========== -->
-                <div class="property-card-advanced animate-on-scroll" data-property='{
+        <!-- ========== SOLD OUT: PRIME LAND ========== -->
+        <div class="property-card-advanced animate-on-scroll" data-property='{
                     "title": "Prime Land in Owode",
                     "price": "₦4,000,000",
                     "priceSuffix": "/ Plot",
@@ -1312,893 +1376,1040 @@
                     "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
                     "sold": true
                 }'>
-                    <div class="card-image">
-                        <img src="images/img_1.jpg" alt="Prime Land" />
-                        <div class="badges">
-                            <span class="badge badge-sold">SOLD OUT</span>
-                        </div>
-                        <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
-                    </div>
-                    <div class="card-content">
-                        <div class="price">₦4,000,000 <span>/ Plot</span></div>
-                        <div class="title">Prime Land in Owode</div>
-                        <div class="location"><span class="pin"></span> Owode Axis, Ogun State</div>
-                        <div class="specs">
-                            <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
-                            <span class="spec-item"><span class="icon">📄</span> C of O</span>
-                            <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="client">
-                                <img src="images/person_41-min.jpg" alt="Client" />
-                                <div>
-                                    <div class="name">Pst. Olusola Smith</div>
-                                    <div class="role">Client</div>
-                                </div>
-                            </div>
-                            <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
-                        </div>
-                    </div>
+          <div class="card-image">
+            <img src="images/img_1.jpg" alt="Prime Land" />
+            <div class="badges">
+              <span class="badge badge-sold">SOLD OUT</span>
+            </div>
+            <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
+          </div>
+          <div class="card-content">
+            <div class="price">₦4,000,000 <span>/ Plot</span></div>
+            <div class="title">Prime Land in Owode</div>
+            <div class="location"><span class="pin"></span> Owode Axis, Ogun State</div>
+            <div class="specs">
+              <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
+              <span class="spec-item"><span class="icon">📄</span> C of O</span>
+              <span class="spec-item"><span class="icon">⚡</span> Utilities</span>
+            </div>
+            <div class="card-footer">
+              <div class="client">
+                <img src="images/person_41-min.jpg" alt="Client" />
+                <div>
+                  <div class="name">Pst. Olusola Smith</div>
+                  <div class="role">Client</div>
                 </div>
-
+              </div>
+              <a href="payment.html" class="btn btn-primary btn-sm">Buy Now</a>
             </div>
-
-            <!-- Pagination -->
-            <div class="pagination-custom">
-                <a href="#" class="arrow">‹</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#" class="arrow">›</a>
-            </div>
+          </div>
         </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-custom">
+        <a href="#" class="arrow">‹</a>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#" class="arrow">›</a>
+      </div>
+    </div>
+  </div>
+
+ 
+  <!-- ==========================================
+  VIDEO SECTION
+  ========================================== -->
+  <div class="section section-properties">
+    <div class="container">
+      <div class="row mb-5 align-items-center">
+        <div class="col-lg-6 text-center mx-auto">
+          <h2 class="font-weight-bold text-primary heading">Property Videos</h2>
+          <p class="text-black-50">Take a virtual tour of our premium properties</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <div class="video-card-advanced">
+            <div class="video-wrapper">
+              <button class="play-btn">▶</button>
+              <iframe src="https://www.youtube.com/embed/J0feAiuEc64" title="Conclave Estate Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <div class="video-title">Conclave Estate Tour</div>
+              <div class="video-meta">
+                <span>Premium Location</span>
+                <span class="tag">Featured</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <div class="video-card-advanced">
+            <div class="video-wrapper">
+              <button class="play-btn">▶</button>
+              <iframe src="https://www.youtube.com/embed/J0feAiuEc64" title="Property Tour" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <div class="video-title">Luxury Property Showcase</div>
+              <div class="video-meta">
+                <span>Prime Investment</span>
+                <span class="tag">New</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <div class="video-card-advanced">
+            <div class="video-wrapper">
+              <button class="play-btn">▶</button>
+              <iframe src="https://youtube.com/shorts/5-rh6kjb8y0" title="Short Property Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <div class="video-title">Quick Property Preview</div>
+              <div class="video-meta">
+                <span>Available Now</span>
+                <span class="tag">Hot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+  FLYER / MODAL OVERLAY
+  ========================================== -->
+  <div class="flyer-overlay" id="flyerOverlay">
+    <div class="flyer-modal" id="flyerModal">
+      <button class="flyer-close" id="flyerClose">✕</button>
+      <div class="flyer-hero" id="flyerHero">
+        <img id="flyerImage" src="" alt="Property" />
+        <div class="flyer-badges" id="flyerBadges"></div>
+      </div>
+      <div class="flyer-body">
+        <div id="flyerSoldBadge" style="display:none;" class="flyer-sold-badge">🔴 SOLD OUT</div>
+        <div class="flyer-price" id="flyerPrice">₦0</div>
+        <div class="flyer-title" id="flyerTitle">Property Title</div>
+        <div class="flyer-location">
+          <span class="pin-icon"></span>
+          <span id="flyerLocation">Location</span>
+        </div>
+        <div class="flyer-specs" id="flyerSpecs"></div>
+        <div class="flyer-description" id="flyerDescription">
+          <strong>Description:</strong> <span id="flyerDescText">Property description goes here.</span>
+        </div>
+        <div class="flyer-client" id="flyerClient">
+          <img id="flyerClientAvatar" src="" alt="Client" />
+          <div class="client-info">
+            <div class="name" id="flyerClientName">Client Name</div>
+            <div class="role" id="flyerClientRole">Client</div>
+          </div>
+        </div>
+        <div class="flyer-actions" id="flyerActions">
+          <a href="payment.html" class="btn btn-success" id="flyerBuyBtn">💰 Buy Now</a>
+          <a href="contact.html" class="btn btn-outline">📞 Contact Agent</a>
+          <button class="btn btn-primary" id="flyerWhatsAppBtn">💬 WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+  WHATSAPP-STYLE CHAT POPUP
+  ========================================== -->
+  <div class="chat-popup" id="chatPopup">
+    <div class="chat-popup-header">
+      <div class="title">
+        <span class="avatar">🏠</span>
+        <span>Pentavision Assistant</span>
+      </div>
+      <button class="close-btn" id="chatCloseBtn">✕</button>
     </div>
 
-    <!-- ==========================================
-    STATS SECTION
-    ========================================== -->
-    <div class="section bg-light">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-lg-6 mx-auto">
-                    <h2 class="font-weight-bold text-primary heading">Our Portfolio</h2>
-                    <p class="text-black-50">Trusted by thousands of investors and property owners</p>
-                </div>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-item animate-on-scroll">
-                    <span class="stat-icon">🏠</span>
-                    <div class="stat-number">3,298+</div>
-                    <div class="stat-label">Properties Sold</div>
-                </div>
-                <div class="stat-item animate-on-scroll">
-                    <span class="stat-icon">📋</span>
-                    <div class="stat-number">2,181+</div>
-                    <div class="stat-label">Active Listings</div>
-                </div>
-                <div class="stat-item animate-on-scroll">
-                    <span class="stat-icon">👥</span>
-                    <div class="stat-number">9,316+</div>
-                    <div class="stat-label">Happy Clients</div>
-                </div>
-                <div class="stat-item animate-on-scroll">
-                    <span class="stat-icon">⭐</span>
-                    <div class="stat-number">4.9</div>
-                    <div class="stat-label">Average Rating</div>
-                </div>
-            </div>
-        </div>
+    <div class="chat-popup-messages" id="chatMessages">
+      <div class="msg bot">👋 Hi! I'm here to help with any questions about our properties, pricing, documentation, and more. Just type your question or tap a quick reply below.</div>
+      <div class="msg bot">💡 You can ask about price, ROI, inspection, construction, title, and more.</div>
     </div>
 
-    <!-- ==========================================
-    VIDEO SECTION
-    ========================================== -->
-    <div class="section section-properties">
-        <div class="container">
-            <div class="row mb-5 align-items-center">
-                <div class="col-lg-6 text-center mx-auto">
-                    <h2 class="font-weight-bold text-primary heading">Property Videos</h2>
-                    <p class="text-black-50">Take a virtual tour of our premium properties</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <div class="video-card-advanced">
-                        <div class="video-wrapper">
-                            <button class="play-btn">▶</button>
-                            <iframe src="https://www.youtube.com/embed/J0feAiuEc64" title="Conclave Estate Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-content">
-                            <div class="video-title">Conclave Estate Tour</div>
-                            <div class="video-meta">
-                                <span>Premium Location</span>
-                                <span class="tag">Featured</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <div class="video-card-advanced">
-                        <div class="video-wrapper">
-                            <button class="play-btn">▶</button>
-                            <iframe src="https://www.youtube.com/embed/J0feAiuEc64" title="Property Tour" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-content">
-                            <div class="video-title">Luxury Property Showcase</div>
-                            <div class="video-meta">
-                                <span>Prime Investment</span>
-                                <span class="tag">New</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                    <div class="video-card-advanced">
-                        <div class="video-wrapper">
-                            <button class="play-btn">▶</button>
-                            <iframe src="https://youtube.com/shorts/5-rh6kjb8y0" title="Short Property Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-content">
-                            <div class="video-title">Quick Property Preview</div>
-                            <div class="video-meta">
-                                <span>Available Now</span>
-                                <span class="tag">Hot</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="chat-popup-quick" id="quickReplies">
+      <button class="quick-btn" data-question="price">💰 Price</button>
+      <button class="quick-btn" data-question="roi">📈 ROI</button>
+      <button class="quick-btn" data-question="inspect">🔍 Inspection</button>
+      <button class="quick-btn" data-question="construction">🏗️ Construction</button>
+      <button class="quick-btn" data-question="title">📄 Title</button>
+      <button class="quick-btn" data-question="accessibility">📍 Accessibility</button>
+      <button class="quick-btn" data-question="payment">💳 Payment</button>
+      <button class="quick-btn" data-question="hidden">🔎 Hidden Charges</button>
+      <button class="quick-btn" data-question="default">⚠️ Default</button>
+      <button class="quick-btn" data-question="resell">🔄 Resell</button>
+      <button class="quick-btn" data-question="why">⭐ Why Invest</button>
     </div>
 
-    <!-- ==========================================
-    FLYER / MODAL OVERLAY
-    ========================================== -->
-    <div class="flyer-overlay" id="flyerOverlay">
-        <div class="flyer-modal" id="flyerModal">
-            <button class="flyer-close" id="flyerClose">✕</button>
-            <div class="flyer-hero" id="flyerHero">
-                <img id="flyerImage" src="" alt="Property" />
-                <div class="flyer-badges" id="flyerBadges"></div>
-            </div>
-            <div class="flyer-body">
-                <div id="flyerSoldBadge" style="display:none;" class="flyer-sold-badge">🔴 SOLD OUT</div>
-                <div class="flyer-price" id="flyerPrice">₦0</div>
-                <div class="flyer-title" id="flyerTitle">Property Title</div>
-                <div class="flyer-location">
-                    <span class="pin-icon"></span>
-                    <span id="flyerLocation">Location</span>
-                </div>
-                <div class="flyer-specs" id="flyerSpecs"></div>
-                <div class="flyer-description" id="flyerDescription">
-                    <strong>Description:</strong> <span id="flyerDescText">Property description goes here.</span>
-                </div>
-                <div class="flyer-client" id="flyerClient">
-                    <img id="flyerClientAvatar" src="" alt="Client" />
-                    <div class="client-info">
-                        <div class="name" id="flyerClientName">Client Name</div>
-                        <div class="role" id="flyerClientRole">Client</div>
-                    </div>
-                </div>
-                <div class="flyer-actions" id="flyerActions">
-                    <a href="payment.html" class="btn btn-success" id="flyerBuyBtn">💰 Buy Now</a>
-                    <a href="contact.html" class="btn btn-outline">📞 Contact Agent</a>
-                    <button class="btn btn-primary" id="flyerWhatsAppBtn">💬 WhatsApp</button>
-                </div>
-            </div>
-        </div>
+    <div class="chat-popup-input">
+      <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off" />
+      <button id="chatSendBtn">Send</button>
     </div>
+  </div>
 
-    <!-- ==========================================
-    WHATSAPP-STYLE CHAT POPUP
-    ========================================== -->
-    <div class="chat-popup" id="chatPopup">
-        <div class="chat-popup-header">
-            <div class="title">
-                <span class="avatar">🏠</span>
-                <span>Pentavision Assistant</span>
-            </div>
-            <button class="close-btn" id="chatCloseBtn">✕</button>
+  <!-- ==========================================
+  FOOTER
+  ========================================== -->
+  <div class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="widget">
+            <h3>Contact</h3>
+            <address>Suite BF 6 Aregbesola Plaza Ipaja- Ayobo Road Lagos State</address>
+            <ul class="list-unstyled links">
+              <li><a href="tel:+2347062384854">+(234)-7062-38-4854</a></li>
+              <li><a href="tel:+2348122395811">+(234)-8122-39-5811</a></li>
+              <li><a href="mailto:globalpentavision.50@gmail.com">globalpentavision.50@gmail.com</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="col-lg-4">
+          <div class="widget">
+            <h3>Quick Links</h3>
+            <ul class="list-unstyled links">
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Properties</a></li>
+              <li><a href="#">Contact us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="widget">
+            <h3>Connect With Us</h3>
+            <p style="color:rgba(255,255,255,0.7); font-size:0.9rem; margin-bottom:16px;">
+              Follow us for updates and new property listings.
+            </p>
+            <ul class="list-unstyled social">
+              <li>
+                <a href="https://www.instagram.com/global_pentavision_ltd" target="_blank" aria-label="Instagram">
+                  <i class="icon-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" target="_blank" aria-label="Twitter">
+                  <i class="icon-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/share/1KkzswD9db" target="_blank" aria-label="Facebook">
+                  <i class="icon-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/share/1FtZm9kzF5" target="_blank" aria-label="LinkedIn">
+                  <i class="icon-linkedin"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-        <div class="chat-popup-messages" id="chatMessages">
-            <div class="msg bot">👋 Hi! I'm here to help with any questions about our properties, pricing, documentation, and more. Just type your question or tap a quick reply below.</div>
-            <div class="msg bot">💡 You can ask about price, ROI, inspection, construction, title, and more.</div>
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <p>
+            Copyright &copy; <script>
+              document.write(new Date().getFullYear());
+            </script>
+            . All Rights Reserved. &mdash;
+            <a href="#">Pentavision</a>
+          </p>
         </div>
-
-        <div class="chat-popup-quick" id="quickReplies">
-            <button class="quick-btn" data-question="price">💰 Price</button>
-            <button class="quick-btn" data-question="roi">📈 ROI</button>
-            <button class="quick-btn" data-question="inspect">🔍 Inspection</button>
-            <button class="quick-btn" data-question="construction">🏗️ Construction</button>
-            <button class="quick-btn" data-question="title">📄 Title</button>
-            <button class="quick-btn" data-question="accessibility">📍 Accessibility</button>
-            <button class="quick-btn" data-question="payment">💳 Payment</button>
-            <button class="quick-btn" data-question="hidden">🔎 Hidden Charges</button>
-            <button class="quick-btn" data-question="default">⚠️ Default</button>
-            <button class="quick-btn" data-question="resell">🔄 Resell</button>
-            <button class="quick-btn" data-question="why">⭐ Why Invest</button>
-        </div>
-
-        <div class="chat-popup-input">
-            <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off" />
-            <button id="chatSendBtn">Send</button>
-        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- ==========================================
-    FOOTER
-    ========================================== -->
-    <div class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="widget">
-                        <h3>Contact</h3>
-                        <address>Suite BF 6 Aregbesola Plaza Ipaja- Ayobo Road Lagos State</address>
-                        <ul class="list-unstyled links">
-                            <li><a href="tel:+2347062384854">+(234)-7062-38-4854</a></li>
-                            <li><a href="tel:+2348122395811">+(234)-8122-39-5811</a></li>
-                            <li><a href="mailto:globalpentavision.50@gmail.com">globalpentavision.50@gmail.com</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="widget">
-                        <h3>Quick Links</h3>
-                        <ul class="list-unstyled links">
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Properties</a></li>
-                            <li><a href="#">Contact us</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="widget">
-                        <h3>Connect With Us</h3>
-                        <p style="color:rgba(255,255,255,0.7); font-size:0.9rem; margin-bottom:16px;">
-                            Follow us for updates and new property listings.
-                        </p>
-                        <ul class="list-unstyled social">
-                            <li>
-                                <a href="https://www.instagram.com/global_pentavision_ltd" target="_blank" aria-label="Instagram">
-                                    <i class="icon-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" target="_blank" aria-label="Twitter">
-                                    <i class="icon-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/share/1KkzswD9db" target="_blank" aria-label="Facebook">
-                                    <i class="icon-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/share/1FtZm9kzF5" target="_blank" aria-label="LinkedIn">
-                                    <i class="icon-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-5">
-                <div class="col-12 text-center">
-                    <p>
-                        Copyright &copy; <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        . All Rights Reserved. &mdash;
-                        <a href="#">Pentavision</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+  <!-- ==========================================
+  PRELOADER
+  ========================================== -->
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+  </div>
 
-    <!-- ==========================================
-    PRELOADER
-    ========================================== -->
-    <div id="overlayer"></div>
-    <div class="loader">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
+  <!-- ==========================================
+  SCRIPTS
+  ========================================== -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/tiny-slider.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/counter.js"></script>
+  <script src="js/custom.js"></script>
 
-    <!-- ==========================================
-    SCRIPTS
-    ========================================== -->
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="js/counter.js"></script>
-    <script src="js/custom.js"></script>
+  <script>
+    // ============================================
+    // NAVIGATION SCROLL EFFECT
+    // ============================================
+    window.addEventListener('scroll', function() {
+      const nav = document.querySelector('.site-nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
 
-    <script>
-        // ============================================
-        // NAVIGATION SCROLL EFFECT
-        // ============================================
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.site-nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
+    // ============================================
+    // MOBILE MENU TOGGLE
+    // ============================================
+    const burger = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('closeMenu');
+
+    if (burger) {
+      burger.addEventListener('click', function(e) {
+        e.preventDefault();
+        mobileMenu.classList.toggle('open');
+        burger.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+        burger.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    }
+
+    document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        mobileMenu.classList.remove('open');
+        burger.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ============================================
+    // SCROLL ANIMATIONS
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
             }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        animateElements.forEach(function(el) {
+          observer.observe(el);
         });
+      } else {
+        animateElements.forEach(function(el) {
+          el.classList.add('visible');
+        });
+      }
+    });
 
-        // ============================================
-        // MOBILE MENU TOGGLE
-        // ============================================
-        const burger = document.getElementById('burgerBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeBtn = document.getElementById('closeMenu');
+    // ============================================
+    // VIEW TOGGLE (Grid / List)
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const viewButtons = document.querySelectorAll('.view-toggle button');
+      const grid = document.getElementById('propertyGrid');
 
-        if (burger) {
-            burger.addEventListener('click', function(e) {
-                e.preventDefault();
-                mobileMenu.classList.toggle('open');
-                burger.classList.toggle('active');
-                document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-            });
+      viewButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          viewButtons.forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+
+          const view = this.dataset.view;
+          if (view === 'list') {
+            grid.classList.add('list-view');
+          } else {
+            grid.classList.remove('list-view');
+          }
+        });
+      });
+    });
+
+    // ============================================
+    // WISHLIST BUTTON
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+
+      wishlistBtns.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          this.classList.toggle('liked');
+          this.textContent = this.classList.contains('liked') ? '❤' : '♡';
+        });
+      });
+    });
+
+    // ============================================
+    // VIDEO PLAY BUTTON
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const playBtns = document.querySelectorAll('.play-btn');
+
+      playBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const iframe = this.parentElement.querySelector('iframe');
+          if (iframe) {
+            const src = iframe.src;
+            if (src.includes('autoplay=1')) {
+              iframe.src = src.replace('autoplay=1', 'autoplay=0');
+            } else {
+              iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+            }
+            this.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // ============================================
+    // PRELOADER
+    // ============================================
+    window.addEventListener('load', function() {
+      const loader = document.querySelector('.loader');
+      const overlay = document.querySelector('#overlayer');
+      if (loader) loader.style.display = 'none';
+      if (overlay) overlay.style.display = 'none';
+    });
+
+    // ============================================
+    // FLYER / MODAL SYSTEM
+    // ============================================
+    (function() {
+      const overlay = document.getElementById('flyerOverlay');
+      const modal = document.getElementById('flyerModal');
+      const closeBtn = document.getElementById('flyerClose');
+
+      // DOM refs
+      const flyerImage = document.getElementById('flyerImage');
+      const flyerBadges = document.getElementById('flyerBadges');
+      const flyerSoldBadge = document.getElementById('flyerSoldBadge');
+      const flyerPrice = document.getElementById('flyerPrice');
+      const flyerTitle = document.getElementById('flyerTitle');
+      const flyerLocation = document.getElementById('flyerLocation');
+      const flyerSpecs = document.getElementById('flyerSpecs');
+      const flyerDescText = document.getElementById('flyerDescText');
+      const flyerClientAvatar = document.getElementById('flyerClientAvatar');
+      const flyerClientName = document.getElementById('flyerClientName');
+      const flyerClientRole = document.getElementById('flyerClientRole');
+      const flyerBuyBtn = document.getElementById('flyerBuyBtn');
+      const flyerWhatsAppBtn = document.getElementById('flyerWhatsAppBtn');
+
+      // Badge mapping
+      const badgeMap = {
+        'featured': 'badge-featured',
+        'sold': 'badge-sold',
+        'new': 'badge-new',
+        'hot': 'badge-hot'
+      };
+
+      const badgeLabelMap = {
+        'featured': '⭐ Featured',
+        'sold': 'SOLD OUT',
+        'new': '🆕 New',
+        'hot': '🔥 Hot'
+      };
+
+      // Helper: parse property data from card
+      function getPropertyData(card) {
+        try {
+          const dataAttr = card.getAttribute('data-property');
+          if (dataAttr) {
+            return JSON.parse(dataAttr);
+          }
+        } catch (e) {
+          console.warn('Could not parse property data:', e);
         }
 
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                mobileMenu.classList.remove('open');
-                burger.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+        // Fallback: scrape from card
+        const img = card.querySelector('.card-image img');
+        const priceEl = card.querySelector('.price');
+        const titleEl = card.querySelector('.title');
+        const locEl = card.querySelector('.location');
+        const specs = card.querySelectorAll('.specs .spec-item');
+        const clientImg = card.querySelector('.card-footer .client img');
+        const clientName = card.querySelector('.card-footer .client .name');
+        const clientRole = card.querySelector('.card-footer .client .role');
+        const badges = card.querySelectorAll('.badges .badge');
+
+        const badgeList = [];
+        badges.forEach(function(b) {
+          const txt = b.textContent.trim().toLowerCase();
+          if (txt.includes('featured')) badgeList.push('featured');
+          else if (txt.includes('sold')) badgeList.push('sold');
+          else if (txt.includes('new')) badgeList.push('new');
+          else if (txt.includes('hot')) badgeList.push('hot');
+        });
+
+        const specData = [];
+        specs.forEach(function(s) {
+          const icon = s.querySelector('.icon') ? s.querySelector('.icon').textContent : '📐';
+          const label = s.textContent.trim();
+          specData.push({ icon: icon, label: label });
+        });
+
+        return {
+          title: titleEl ? titleEl.textContent.trim() : 'Property',
+          price: priceEl ? priceEl.textContent.trim() : '₦0',
+          priceSuffix: priceEl && priceEl.querySelector('span') ? priceEl.querySelector('span').textContent.trim() :
+            '',
+          location: locEl ? locEl.textContent.trim().replace('📍', '').trim() : 'Location',
+          image: img ? img.getAttribute('src') : '',
+          badges: badgeList,
+          specs: specData,
+          description: 'Premium property with great investment potential.',
+          client: {
+            name: clientName ? clientName.textContent.trim() : 'Client',
+            role: clientRole ? clientRole.textContent.trim() : 'Client',
+            avatar: clientImg ? clientImg.getAttribute('src') : ''
+          },
+          sold: badgeList.includes('sold')
+        };
+      }
+
+      // Render flyer
+      function renderFlyer(data) {
+        // Image
+        flyerImage.src = data.image || 'images/hero_bg_2.jpg';
+        flyerImage.alt = data.title || 'Property';
+
+        // Badges
+        flyerBadges.innerHTML = '';
+        if (data.badges && data.badges.length) {
+          data.badges.forEach(function(b) {
+            const span = document.createElement('span');
+            const cls = badgeMap[b] || 'badge-featured';
+            const label = badgeLabelMap[b] || b;
+            span.className = 'badge ' + cls;
+            span.textContent = label;
+            flyerBadges.appendChild(span);
+          });
         }
 
-        document.querySelectorAll('.site-mobile-menu-body a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                mobileMenu.classList.remove('open');
-                burger.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+        // Sold badge
+        if (data.sold) {
+          flyerSoldBadge.style.display = 'block';
+        } else {
+          flyerSoldBadge.style.display = 'none';
+        }
+
+        // Price
+        let priceText = data.price || '₦0';
+        if (data.priceSuffix) {
+          priceText += ' ' + data.priceSuffix;
+        }
+        flyerPrice.textContent = priceText;
+
+        // Title
+        flyerTitle.textContent = data.title || 'Property';
+
+        // Location
+        flyerLocation.textContent = data.location || 'Location';
+
+        // Specs
+        flyerSpecs.innerHTML = '';
+        if (data.specs && data.specs.length) {
+          data.specs.forEach(function(s) {
+            const div = document.createElement('div');
+            div.className = 'spec-item';
+            div.innerHTML = '<span class="icon">' + (s.icon || '📐') + '</span> ' + (s.label || '');
+            flyerSpecs.appendChild(div);
+          });
+        }
+
+        // Description
+        flyerDescText.textContent = data.description || 'No description available.';
+
+        // Client
+        if (data.client) {
+          flyerClientAvatar.src = data.client.avatar || 'images/person_41-min.jpg';
+          flyerClientAvatar.alt = data.client.name || 'Client';
+          flyerClientName.textContent = data.client.name || 'Client';
+          flyerClientRole.textContent = data.client.role || 'Client';
+        }
+
+        // Buy button - if sold, change text and style
+        if (data.sold) {
+          flyerBuyBtn.textContent = '🔴 Sold Out';
+          flyerBuyBtn.className = 'btn btn-outline';
+          flyerBuyBtn.href = '#';
+          flyerBuyBtn.style.pointerEvents = 'none';
+        } else {
+          flyerBuyBtn.textContent = '💰 Buy Now';
+          flyerBuyBtn.className = 'btn btn-success';
+          flyerBuyBtn.href = 'payment.html';
+          flyerBuyBtn.style.pointerEvents = 'auto';
+        }
+
+        // WhatsApp button
+        const msg = encodeURIComponent(
+          `Hello Pentavision, I'm interested in "${data.title}" located at ${data.location}. Please send me more details.`
+        );
+        flyerWhatsAppBtn.onclick = function() {
+          window.open('https://wa.link/bcvsv7?text=' + msg, '_blank');
+        };
+      }
+
+      // Open flyer
+      function openFlyer(card) {
+        const data = getPropertyData(card);
+        renderFlyer(data);
+        overlay.classList.add('active');
+        document.body.classList.add('flyer-open');
+      }
+
+      // Close flyer
+      function closeFlyer() {
+        overlay.classList.remove('active');
+        document.body.classList.remove('flyer-open');
+      }
+
+      // --- Event Listeners ---
+
+      // Click on property cards
+      document.querySelectorAll('.property-card-advanced').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+          // Ignore if click on wishlist button, buy button, or inside links
+          if (e.target.closest('.wishlist-btn') ||
+            e.target.closest('.btn') ||
+            e.target.closest('a')) {
+            return;
+          }
+          e.preventDefault();
+          openFlyer(card);
+        });
+      });
+
+      // Close button
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeFlyer);
+      }
+
+      // Click outside modal content
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          closeFlyer();
+        }
+      });
+
+      // Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          closeFlyer();
+        }
+      });
+
+      console.log('✅ Flyer system initialized — click any property card to view details.');
+    })();
+
+    // ============================================
+    // WHATSAPP-STYLE CHAT WIDGET
+    // ============================================
+    (function() {
+      // FAQ knowledge base
+      const faqData = [{
+        id: 1,
+        question: "What is the current price of the property?",
+        keywords: ["price", "cost", "how much", "pricing", "rate", "current price"],
+        answer: "Property prices vary depending on the type, size, location, and development status of the property. Our entry-level land investment currently starts from ₦3,000,000. For the latest pricing and available options, please contact our sales team."
+      }, {
+        id: 2,
+        question: "What kind of return on investment (ROI) can I realistically expect?",
+        keywords: ["roi", "return", "investment return", "profit", "appreciation", "growth", "yield"],
+        answer: "Property values can appreciate significantly over time, depending on factors such as location, infrastructure development, demand, and overall market conditions. Based on our projected growth expectations, investors may potentially experience substantial appreciation within 12 months, but there would be a further returns over 3–5 years period."
+      }, {
+        id: 3,
+        question: "Can I inspect the property before making payment?",
+        keywords: ["inspect", "inspection", "visit", "view", "see", "tour", "site visit"],
+        answer: "Yes. We encourage prospective buyers to inspect the property before making a purchase decision. Our team can arrange a site inspection at a mutually convenient date and time."
+      }, {
+        id: 4,
+        question: "Can I commence construction immediately after purchasing the land?",
+        keywords: ["construction", "build", "develop", "start building", "commence", "develop"],
+        answer: "Yes. Once the purchase has been completed, the required documentation has been processed, and the property has been formally allocated to you, you may commence development."
+      }, {
+        id: 5,
+        question: "What title and documentation does the property have?",
+        keywords: ["title", "documentation", "documents", "deed", "survey", "c of o", "certificate", "ownership"],
+        answer: "The property is supported by relevant documentation, including a Registered Survey, Deed of Assignment, and approved site/layout plan, as applicable to the specific property. Prospective buyers are encouraged to contact our team for detailed information and verification of the documentation relating to their chosen property."
+      }, {
+        id: 6,
+        question: "How accessible is the property to major roads and landmarks?",
+        keywords: ["accessibility", "accessible", "roads", "landmarks", "location", "distance", "proximity"],
+        answer: "Our properties are strategically located with accessibility to major roads, developing infrastructure, and key landmarks. Specific accessibility varies by estate, and our team can provide detailed directions and location information for your preferred property."
+      }, {
+        id: 7,
+        question: "What payment plans are available?",
+        keywords: ["payment", "installment", "plan", "finance", "monthly", "pay", "schedule"],
+        answer: "We offer flexible payment options designed to make property ownership more accessible. Depending on the property, available payment plans may include 3-month, 6-month, and 12-month instalment plans. Terms and conditions apply."
+      }, {
+        id: 8,
+        question: "Are there any hidden or additional charges?",
+        keywords: ["hidden", "additional", "extra", "charges", "fees", "cost", "transparent"],
+        answer: "We are committed to transparency in our pricing. All applicable costs are communicated to the buyer before payment and clearly stated in the relevant transaction documents. Where additional statutory or third-party charges may apply, these will be disclosed appropriately before they are incurred."
+      }, {
+        id: 9,
+        question: "What happens if I default on my payment plan?",
+        keywords: ["default", "miss payment", "late", "penalty", "fail", "default", "payment plan"],
+        answer: "If a buyer is unable to meet an agreed payment obligation, our team will contact the buyer to understand the circumstances and discuss the available options in accordance with the terms of the payment agreement. Depending on the circumstances and payments already made, we may agree on a revised payment schedule or other appropriate arrangements."
+      }, {
+        id: 10,
+        question: "Can I resell my property after purchase?",
+        keywords: ["resell", "sell", "transfer", "flip", "resale", "dispose"],
+        answer: "Yes, subject to the terms of your purchase agreement and the applicable transfer procedures. Our team may also provide guidance on the resale or transfer process where applicable."
+      }, {
+        id: 11,
+        question: "Why should I invest in property with us?",
+        keywords: ["why", "invest", "benefits", "advantage", "choose us", "reasons", "trust"],
+        answer: "We are committed to providing clients with strategically located properties, flexible payment options, transparent documentation, and professional support throughout the acquisition process. Our goal is to make property ownership accessible while helping investors position themselves for long-term wealth creation through real estate."
+      }];
+
+      // DOM elements for chat popup
+      const toggleBtn = document.getElementById('chatToggleBtn');
+      const popup = document.getElementById('chatPopup');
+      const closeBtn = document.getElementById('chatCloseBtn');
+      const messagesContainer = document.getElementById('chatMessages');
+      const input = document.getElementById('chatInput');
+      const sendBtn = document.getElementById('chatSendBtn');
+      const quickBtns = document.querySelectorAll('.quick-btn');
+
+      // Open/close functions
+      function openChat() {
+        popup.classList.add('open');
+      }
+
+      function closeChat() {
+        popup.classList.remove('open');
+      }
+
+      toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (popup.classList.contains('open')) {
+          closeChat();
+        } else {
+          openChat();
+        }
+      });
+
+      closeBtn.addEventListener('click', closeChat);
+
+      // Optional: close when clicking outside (on the background)
+      document.addEventListener('click', function(e) {
+        if (popup.classList.contains('open') && !popup.contains(e.target) && e.target !== toggleBtn) {
+          closeChat();
+        }
+      });
+
+      // Helper: add message to chat
+      function addMessage(text, sender = 'user') {
+        const div = document.createElement('div');
+        div.className = 'msg ' + sender;
+        div.textContent = text;
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      // Helper: find best answer
+      function getAnswer(query) {
+        const lower = query.toLowerCase();
+        let bestMatch = null;
+        let bestScore = 0;
+
+        faqData.forEach(item => {
+          let score = 0;
+          item.keywords.forEach(kw => {
+            if (lower.includes(kw)) score++;
+          });
+          const questionWords = item.question.toLowerCase().split(' ');
+          questionWords.forEach(word => {
+            if (word.length > 3 && lower.includes(word)) score += 0.5;
+          });
+          if (score > bestScore) {
+            bestScore = score;
+            bestMatch = item;
+          }
         });
 
-        // ============================================
-        // SCROLL ANIMATIONS
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            const animateElements = document.querySelectorAll('.animate-on-scroll');
+        if (bestMatch && bestScore >= 1) {
+          return bestMatch.answer;
+        } else {
+          return "I'm not sure about that. Could you rephrase your question? You can also try one of the quick reply buttons above, or contact our team directly for more help.";
+        }
+      }
 
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      // Process user input
+      function handleUserInput(text) {
+        if (!text.trim()) return;
+        addMessage(text, 'user');
+        const reply = getAnswer(text);
+        setTimeout(() => {
+          addMessage(reply, 'bot');
+        }, 300);
+        input.value = '';
+      }
 
-                animateElements.forEach(function(el) {
-                    observer.observe(el);
-                });
-            } else {
-                animateElements.forEach(function(el) {
-                    el.classList.add('visible');
-                });
-            }
+      // Event listeners
+      sendBtn.addEventListener('click', function() {
+        handleUserInput(input.value);
+      });
+
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleUserInput(input.value);
+        }
+      });
+
+      quickBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const q = this.getAttribute('data-question');
+          let fullQuestion = '';
+          switch (q) {
+            case 'price':
+              fullQuestion = 'What is the price?';
+              break;
+            case 'roi':
+              fullQuestion = 'What ROI can I expect?';
+              break;
+            case 'inspect':
+              fullQuestion = 'Can I inspect the property?';
+              break;
+            case 'construction':
+              fullQuestion = 'Can I start construction immediately?';
+              break;
+            case 'title':
+              fullQuestion = 'What title documents are available?';
+              break;
+            case 'accessibility':
+              fullQuestion = 'How accessible is the property?';
+              break;
+            case 'payment':
+              fullQuestion = 'What payment plans do you offer?';
+              break;
+            case 'hidden':
+              fullQuestion = 'Are there hidden charges?';
+              break;
+            case 'default':
+              fullQuestion = 'What happens if I default on payment?';
+              break;
+            case 'resell':
+              fullQuestion = 'Can I resell the property?';
+              break;
+            case 'why':
+              fullQuestion = 'Why should I invest with you?';
+              break;
+            default:
+              fullQuestion = q;
+          }
+          handleUserInput(fullQuestion);
         });
+      });
 
-        // ============================================
-        // VIEW TOGGLE (Grid / List)
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            const viewButtons = document.querySelectorAll('.view-toggle button');
-            const grid = document.getElementById('propertyGrid');
+      console.log('✅ WhatsApp-style chat initialized.');
+    })();
 
-            viewButtons.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    viewButtons.forEach(function(b) { b.classList.remove('active'); });
-                    this.classList.add('active');
+    // ============================================
+    // PROPERTY SLIDER - SMOOTH VERSION
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const slider = document.getElementById('propertySlider');
+      const prevBtn = document.querySelector('#property-nav .prev');
+      const nextBtn = document.querySelector('#property-nav .next');
+      const slides = slider ? slider.children : [];
+      const totalSlides = slides.length;
 
-                    const view = this.dataset.view;
-                    if (view === 'list') {
-                        grid.classList.add('list-view');
-                    } else {
-                        grid.classList.remove('list-view');
-                    }
-                });
-            });
+      if (!slider || totalSlides === 0) return;
+
+      let currentIndex = 0;
+      let isTransitioning = false;
+      let visibleSlides = getVisibleSlides();
+      let slideWidth = 100 / visibleSlides;
+
+      function getVisibleSlides() {
+        if (window.innerWidth <= 480) return 1;
+        if (window.innerWidth <= 768) return 2;
+        if (window.innerWidth <= 1024) return 2;
+        return 3;
+      }
+
+      function updateSlideWidth() {
+        visibleSlides = getVisibleSlides();
+        slideWidth = 100 / visibleSlides;
+        Array.from(slides).forEach(function(slide) {
+          slide.style.flex = '0 0 ' + slideWidth + '%';
+          slide.style.maxWidth = slideWidth + '%';
         });
+        const maxIndex = Math.max(0, totalSlides - visibleSlides);
+        if (currentIndex > maxIndex) currentIndex = maxIndex;
+        applyTransform(currentIndex, false);
+      }
 
-        // ============================================
-        // WISHLIST BUTTON
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+      function applyTransform(index, animate) {
+        if (isTransitioning && animate) return;
+        const maxIndex = Math.max(0, totalSlides - visibleSlides);
+        const target = Math.min(index, maxIndex);
+        if (target < 0) return;
+        currentIndex = target;
 
-            wishlistBtns.forEach(function(btn) {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    this.classList.toggle('liked');
-                    this.textContent = this.classList.contains('liked') ? '❤' : '♡';
-                });
-            });
+        if (!animate) {
+          slider.style.transition = 'none';
+        } else {
+          slider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        }
+
+        const translateX = -(currentIndex * slideWidth);
+        slider.style.transform = 'translateX(' + translateX + '%)';
+
+        if (!animate) {
+          void slider.offsetHeight;
+          slider.style.transition = '';
+        }
+
+        updateNavButtons();
+      }
+
+      function updateNavButtons() {
+        const maxIndex = Math.max(0, totalSlides - visibleSlides);
+        if (prevBtn) {
+          prevBtn.style.opacity = currentIndex <= 0 ? '0.3' : '1';
+          prevBtn.style.pointerEvents = currentIndex <= 0 ? 'none' : 'auto';
+        }
+        if (nextBtn) {
+          nextBtn.style.opacity = currentIndex >= maxIndex ? '0.3' : '1';
+          nextBtn.style.pointerEvents = currentIndex >= maxIndex ? 'none' : 'auto';
+        }
+      }
+
+      function goToSlide(index) {
+        if (isTransitioning) return;
+        const maxIndex = Math.max(0, totalSlides - visibleSlides);
+        const target = Math.min(Math.max(0, index), maxIndex);
+        if (target === currentIndex) return;
+        isTransitioning = true;
+        applyTransform(target, true);
+        setTimeout(function() {
+          isTransitioning = false;
+        }, 650);
+      }
+
+      function nextSlide() {
+        const maxIndex = Math.max(0, totalSlides - visibleSlides);
+        if (currentIndex < maxIndex) goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        if (currentIndex > 0) goToSlide(currentIndex - 1);
+      }
+
+      // Set initial widths
+      Array.from(slides).forEach(function(slide) {
+        slide.style.flex = '0 0 ' + slideWidth + '%';
+        slide.style.maxWidth = slideWidth + '%';
+        slide.style.boxSizing = 'border-box';
+      });
+
+      slider.style.display = 'flex';
+      slider.style.flexWrap = 'nowrap';
+      slider.style.willChange = 'transform';
+      slider.style.backfaceVisibility = 'hidden';
+      applyTransform(0, false);
+
+      // Event listeners
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          prevSlide();
         });
-
-        // ============================================
-        // VIDEO PLAY BUTTON
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            const playBtns = document.querySelectorAll('.play-btn');
-
-            playBtns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const iframe = this.parentElement.querySelector('iframe');
-                    if (iframe) {
-                        const src = iframe.src;
-                        if (src.includes('autoplay=1')) {
-                            iframe.src = src.replace('autoplay=1', 'autoplay=0');
-                        } else {
-                            iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
-                        }
-                        this.style.display = 'none';
-                    }
-                });
-            });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          nextSlide();
         });
+      }
 
-        // ============================================
-        // PRELOADER
-        // ============================================
-        window.addEventListener('load', function() {
-            const loader = document.querySelector('.loader');
-            const overlay = document.querySelector('#overlayer');
-            if (loader) loader.style.display = 'none';
-            if (overlay) overlay.style.display = 'none';
-        });
+      // Touch support
+      let startX = 0,
+        startY = 0,
+        isDragging = false,
+        currentX = 0,
+        isSwiping = false;
 
-        // ============================================
-        // FLYER / MODAL SYSTEM
-        // ============================================
-        (function() {
-            const overlay = document.getElementById('flyerOverlay');
-            const modal = document.getElementById('flyerModal');
-            const closeBtn = document.getElementById('flyerClose');
+      slider.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          isDragging = true;
+          isSwiping = false;
+          currentX = startX;
+        }
+      }, { passive: true });
 
-            // DOM refs
-            const flyerImage = document.getElementById('flyerImage');
-            const flyerBadges = document.getElementById('flyerBadges');
-            const flyerSoldBadge = document.getElementById('flyerSoldBadge');
-            const flyerPrice = document.getElementById('flyerPrice');
-            const flyerTitle = document.getElementById('flyerTitle');
-            const flyerLocation = document.getElementById('flyerLocation');
-            const flyerSpecs = document.getElementById('flyerSpecs');
-            const flyerDescText = document.getElementById('flyerDescText');
-            const flyerClientAvatar = document.getElementById('flyerClientAvatar');
-            const flyerClientName = document.getElementById('flyerClientName');
-            const flyerClientRole = document.getElementById('flyerClientRole');
-            const flyerBuyBtn = document.getElementById('flyerBuyBtn');
-            const flyerWhatsAppBtn = document.getElementById('flyerWhatsAppBtn');
+      slider.addEventListener('touchmove', function(e) {
+        if (!isDragging || e.touches.length !== 1) return;
+        const touchX = e.touches[0].clientX;
+        const diffX = touchX - startX;
+        const diffY = touchY - startY;
+        if (!isSwiping && Math.abs(diffX) > 10) {
+          isSwiping = true;
+          e.preventDefault();
+        }
+        if (isSwiping) {
+          e.preventDefault();
+          currentX = touchX;
+          const dragOffset = (touchX - startX) / slider.parentElement.offsetWidth * 100;
+          const baseTranslate = -(currentIndex * slideWidth);
+          const newTranslate = baseTranslate + dragOffset * 0.4;
+          slider.style.transition = 'none';
+          slider.style.transform = 'translateX(' + newTranslate + '%)';
+        }
+      }, { passive: false });
 
-            // Badge mapping
-            const badgeMap = {
-                'featured': 'badge-featured',
-                'sold': 'badge-sold',
-                'new': 'badge-new',
-                'hot': 'badge-hot'
-            };
+      slider.addEventListener('touchend', function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        if (isSwiping) {
+          const diff = currentX - startX;
+          slider.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          if (Math.abs(diff) > 50) {
+            diff < 0 ? nextSlide() : prevSlide();
+          } else {
+            applyTransform(currentIndex, true);
+          }
+          isSwiping = false;
+        }
+      }, { passive: true });
 
-            const badgeLabelMap = {
-                'featured': '⭐ Featured',
-                'sold': 'SOLD OUT',
-                'new': '🆕 New',
-                'hot': '🔥 Hot'
-            };
+      // Debounced resize
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(updateSlideWidth, 150);
+      });
 
-            // Helper: parse property data from card
-            function getPropertyData(card) {
-                try {
-                    const dataAttr = card.getAttribute('data-property');
-                    if (dataAttr) {
-                        return JSON.parse(dataAttr);
-                    }
-                } catch (e) {
-                    console.warn('Could not parse property data:', e);
-                }
-
-                // Fallback: scrape from card
-                const img = card.querySelector('.card-image img');
-                const priceEl = card.querySelector('.price');
-                const titleEl = card.querySelector('.title');
-                const locEl = card.querySelector('.location');
-                const specs = card.querySelectorAll('.specs .spec-item');
-                const clientImg = card.querySelector('.card-footer .client img');
-                const clientName = card.querySelector('.card-footer .client .name');
-                const clientRole = card.querySelector('.card-footer .client .role');
-                const badges = card.querySelectorAll('.badges .badge');
-
-                const badgeList = [];
-                badges.forEach(function(b) {
-                    const txt = b.textContent.trim().toLowerCase();
-                    if (txt.includes('featured')) badgeList.push('featured');
-                    else if (txt.includes('sold')) badgeList.push('sold');
-                    else if (txt.includes('new')) badgeList.push('new');
-                    else if (txt.includes('hot')) badgeList.push('hot');
-                });
-
-                const specData = [];
-                specs.forEach(function(s) {
-                    const icon = s.querySelector('.icon') ? s.querySelector('.icon').textContent : '📐';
-                    const label = s.textContent.trim();
-                    specData.push({ icon: icon, label: label });
-                });
-
-                return {
-                    title: titleEl ? titleEl.textContent.trim() : 'Property',
-                    price: priceEl ? priceEl.textContent.trim() : '₦0',
-                    priceSuffix: priceEl && priceEl.querySelector('span') ? priceEl.querySelector('span').textContent.trim() :
-                        '',
-                    location: locEl ? locEl.textContent.trim().replace('📍', '').trim() : 'Location',
-                    image: img ? img.getAttribute('src') : '',
-                    badges: badgeList,
-                    specs: specData,
-                    description: 'Premium property with great investment potential.',
-                    client: {
-                        name: clientName ? clientName.textContent.trim() : 'Client',
-                        role: clientRole ? clientRole.textContent.trim() : 'Client',
-                        avatar: clientImg ? clientImg.getAttribute('src') : ''
-                    },
-                    sold: badgeList.includes('sold')
-                };
-            }
-
-            // Render flyer
-            function renderFlyer(data) {
-                // Image
-                flyerImage.src = data.image || 'images/hero_bg_2.jpg';
-                flyerImage.alt = data.title || 'Property';
-
-                // Badges
-                flyerBadges.innerHTML = '';
-                if (data.badges && data.badges.length) {
-                    data.badges.forEach(function(b) {
-                        const span = document.createElement('span');
-                        const cls = badgeMap[b] || 'badge-featured';
-                        const label = badgeLabelMap[b] || b;
-                        span.className = 'badge ' + cls;
-                        span.textContent = label;
-                        flyerBadges.appendChild(span);
-                    });
-                }
-
-                // Sold badge
-                if (data.sold) {
-                    flyerSoldBadge.style.display = 'block';
-                } else {
-                    flyerSoldBadge.style.display = 'none';
-                }
-
-                // Price
-                let priceText = data.price || '₦0';
-                if (data.priceSuffix) {
-                    priceText += ' ' + data.priceSuffix;
-                }
-                flyerPrice.textContent = priceText;
-
-                // Title
-                flyerTitle.textContent = data.title || 'Property';
-
-                // Location
-                flyerLocation.textContent = data.location || 'Location';
-
-                // Specs
-                flyerSpecs.innerHTML = '';
-                if (data.specs && data.specs.length) {
-                    data.specs.forEach(function(s) {
-                        const div = document.createElement('div');
-                        div.className = 'spec-item';
-                        div.innerHTML = '<span class="icon">' + (s.icon || '📐') + '</span> ' + (s.label || '');
-                        flyerSpecs.appendChild(div);
-                    });
-                }
-
-                // Description
-                flyerDescText.textContent = data.description || 'No description available.';
-
-                // Client
-                if (data.client) {
-                    flyerClientAvatar.src = data.client.avatar || 'images/person_41-min.jpg';
-                    flyerClientAvatar.alt = data.client.name || 'Client';
-                    flyerClientName.textContent = data.client.name || 'Client';
-                    flyerClientRole.textContent = data.client.role || 'Client';
-                }
-
-                // Buy button - if sold, change text and style
-                if (data.sold) {
-                    flyerBuyBtn.textContent = '🔴 Sold Out';
-                    flyerBuyBtn.className = 'btn btn-outline';
-                    flyerBuyBtn.href = '#';
-                    flyerBuyBtn.style.pointerEvents = 'none';
-                } else {
-                    flyerBuyBtn.textContent = '💰 Buy Now';
-                    flyerBuyBtn.className = 'btn btn-success';
-                    flyerBuyBtn.href = 'payment.html';
-                    flyerBuyBtn.style.pointerEvents = 'auto';
-                }
-
-                // WhatsApp button
-                const msg = encodeURIComponent(
-                    `Hello Pentavision, I'm interested in "${data.title}" located at ${data.location}. Please send me more details.`
-                    );
-                flyerWhatsAppBtn.onclick = function() {
-                    window.open('https://wa.link/bcvsv7?text=' + msg, '_blank');
-                };
-            }
-
-            // Open flyer
-            function openFlyer(card) {
-                const data = getPropertyData(card);
-                renderFlyer(data);
-                overlay.classList.add('active');
-                document.body.classList.add('flyer-open');
-            }
-
-            // Close flyer
-            function closeFlyer() {
-                overlay.classList.remove('active');
-                document.body.classList.remove('flyer-open');
-            }
-
-            // --- Event Listeners ---
-
-            // Click on property cards
-            document.querySelectorAll('.property-card-advanced').forEach(function(card) {
-                card.addEventListener('click', function(e) {
-                    // Ignore if click on wishlist button, buy button, or inside links
-                    if (e.target.closest('.wishlist-btn') ||
-                        e.target.closest('.btn') ||
-                        e.target.closest('a')) {
-                        return;
-                    }
-                    e.preventDefault();
-                    openFlyer(card);
-                });
-            });
-
-            // Close button
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeFlyer);
-            }
-
-            // Click outside modal content
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) {
-                    closeFlyer();
-                }
-            });
-
-            // Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && overlay.classList.contains('active')) {
-                    closeFlyer();
-                }
-            });
-
-            console.log('✅ Flyer system initialized — click any property card to view details.');
-        })();
-
-        // ============================================
-        // WHATSAPP-STYLE CHAT WIDGET
-        // ============================================
-        (function() {
-            // FAQ knowledge base
-            const faqData = [{
-                id: 1,
-                question: "What is the current price of the property?",
-                keywords: ["price", "cost", "how much", "pricing", "rate", "current price"],
-                answer: "Property prices vary depending on the type, size, location, and development status of the property. Our entry-level land investment currently starts from ₦3,000,000. For the latest pricing and available options, please contact our sales team."
-            }, {
-                id: 2,
-                question: "What kind of return on investment (ROI) can I realistically expect?",
-                keywords: ["roi", "return", "investment return", "profit", "appreciation", "growth", "yield"],
-                answer: "Property values can appreciate significantly over time, depending on factors such as location, infrastructure development, demand, and overall market conditions. Based on our projected growth expectations, investors may potentially experience substantial appreciation within 12 months, but there would be a further returns over 3–5 years period."
-            }, {
-                id: 3,
-                question: "Can I inspect the property before making payment?",
-                keywords: ["inspect", "inspection", "visit", "view", "see", "tour", "site visit"],
-                answer: "Yes. We encourage prospective buyers to inspect the property before making a purchase decision. Our team can arrange a site inspection at a mutually convenient date and time."
-            }, {
-                id: 4,
-                question: "Can I commence construction immediately after purchasing the land?",
-                keywords: ["construction", "build", "develop", "start building", "commence", "develop"],
-                answer: "Yes. Once the purchase has been completed, the required documentation has been processed, and the property has been formally allocated to you, you may commence development."
-            }, {
-                id: 5,
-                question: "What title and documentation does the property have?",
-                keywords: ["title", "documentation", "documents", "deed", "survey", "c of o", "certificate", "ownership"],
-                answer: "The property is supported by relevant documentation, including a Registered Survey, Deed of Assignment, and approved site/layout plan, as applicable to the specific property. Prospective buyers are encouraged to contact our team for detailed information and verification of the documentation relating to their chosen property."
-            }, {
-                id: 6,
-                question: "How accessible is the property to major roads and landmarks?",
-                keywords: ["accessibility", "accessible", "roads", "landmarks", "location", "distance", "proximity"],
-                answer: "Our properties are strategically located with accessibility to major roads, developing infrastructure, and key landmarks. Specific accessibility varies by estate, and our team can provide detailed directions and location information for your preferred property."
-            }, {
-                id: 7,
-                question: "What payment plans are available?",
-                keywords: ["payment", "installment", "plan", "finance", "monthly", "pay", "schedule"],
-                answer: "We offer flexible payment options designed to make property ownership more accessible. Depending on the property, available payment plans may include 3-month, 6-month, and 12-month instalment plans. Terms and conditions apply."
-            }, {
-                id: 8,
-                question: "Are there any hidden or additional charges?",
-                keywords: ["hidden", "additional", "extra", "charges", "fees", "cost", "transparent"],
-                answer: "We are committed to transparency in our pricing. All applicable costs are communicated to the buyer before payment and clearly stated in the relevant transaction documents. Where additional statutory or third-party charges may apply, these will be disclosed appropriately before they are incurred."
-            }, {
-                id: 9,
-                question: "What happens if I default on my payment plan?",
-                keywords: ["default", "miss payment", "late", "penalty", "fail", "default", "payment plan"],
-                answer: "If a buyer is unable to meet an agreed payment obligation, our team will contact the buyer to understand the circumstances and discuss the available options in accordance with the terms of the payment agreement. Depending on the circumstances and payments already made, we may agree on a revised payment schedule or other appropriate arrangements."
-            }, {
-                id: 10,
-                question: "Can I resell my property after purchase?",
-                keywords: ["resell", "sell", "transfer", "flip", "resale", "dispose"],
-                answer: "Yes, subject to the terms of your purchase agreement and the applicable transfer procedures. Our team may also provide guidance on the resale or transfer process where applicable."
-            }, {
-                id: 11,
-                question: "Why should I invest in property with us?",
-                keywords: ["why", "invest", "benefits", "advantage", "choose us", "reasons", "trust"],
-                answer: "We are committed to providing clients with strategically located properties, flexible payment options, transparent documentation, and professional support throughout the acquisition process. Our goal is to make property ownership accessible while helping investors position themselves for long-term wealth creation through real estate."
-            }];
-
-            // DOM elements for chat popup
-            const toggleBtn = document.getElementById('chatToggleBtn');
-            const popup = document.getElementById('chatPopup');
-            const closeBtn = document.getElementById('chatCloseBtn');
-            const messagesContainer = document.getElementById('chatMessages');
-            const input = document.getElementById('chatInput');
-            const sendBtn = document.getElementById('chatSendBtn');
-            const quickBtns = document.querySelectorAll('.quick-btn');
-
-            // Open/close functions
-            function openChat() {
-                popup.classList.add('open');
-            }
-
-            function closeChat() {
-                popup.classList.remove('open');
-            }
-
-            toggleBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (popup.classList.contains('open')) {
-                    closeChat();
-                } else {
-                    openChat();
-                }
-            });
-
-            closeBtn.addEventListener('click', closeChat);
-
-            // Optional: close when clicking outside (on the background)
-            document.addEventListener('click', function(e) {
-                if (popup.classList.contains('open') && !popup.contains(e.target) && e.target !== toggleBtn) {
-                    closeChat();
-                }
-            });
-
-            // Helper: add message to chat
-            function addMessage(text, sender = 'user') {
-                const div = document.createElement('div');
-                div.className = 'msg ' + sender;
-                div.textContent = text;
-                messagesContainer.appendChild(div);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }
-
-            // Helper: find best answer
-            function getAnswer(query) {
-                const lower = query.toLowerCase();
-                let bestMatch = null;
-                let bestScore = 0;
-
-                faqData.forEach(item => {
-                    let score = 0;
-                    item.keywords.forEach(kw => {
-                        if (lower.includes(kw)) score++;
-                    });
-                    const questionWords = item.question.toLowerCase().split(' ');
-                    questionWords.forEach(word => {
-                        if (word.length > 3 && lower.includes(word)) score += 0.5;
-                    });
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestMatch = item;
-                    }
-                });
-
-                if (bestMatch && bestScore >= 1) {
-                    return bestMatch.answer;
-                } else {
-                    return "I'm not sure about that. Could you rephrase your question? You can also try one of the quick reply buttons above, or contact our team directly for more help.";
-                }
-            }
-
-            // Process user input
-            function handleUserInput(text) {
-                if (!text.trim()) return;
-                addMessage(text, 'user');
-                const reply = getAnswer(text);
-                setTimeout(() => {
-                    addMessage(reply, 'bot');
-                }, 300);
-                input.value = '';
-            }
-
-            // Event listeners
-            sendBtn.addEventListener('click', function() {
-                handleUserInput(input.value);
-            });
-
-            input.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleUserInput(input.value);
-                }
-            });
-
-            quickBtns.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const q = this.getAttribute('data-question');
-                    let fullQuestion = '';
-                    switch (q) {
-                        case 'price':
-                            fullQuestion = 'What is the price?';
-                            break;
-                        case 'roi':
-                            fullQuestion = 'What ROI can I expect?';
-                            break;
-                        case 'inspect':
-                            fullQuestion = 'Can I inspect the property?';
-                            break;
-                        case 'construction':
-                            fullQuestion = 'Can I start construction immediately?';
-                            break;
-                        case 'title':
-                            fullQuestion = 'What title documents are available?';
-                            break;
-                        case 'accessibility':
-                            fullQuestion = 'How accessible is the property?';
-                            break;
-                        case 'payment':
-                            fullQuestion = 'What payment plans do you offer?';
-                            break;
-                        case 'hidden':
-                            fullQuestion = 'Are there hidden charges?';
-                            break;
-                        case 'default':
-                            fullQuestion = 'What happens if I default on payment?';
-                            break;
-                        case 'resell':
-                            fullQuestion = 'Can I resell the property?';
-                            break;
-                        case 'why':
-                            fullQuestion = 'Why should I invest with you?';
-                            break;
-                        default:
-                            fullQuestion = q;
-                    }
-                    handleUserInput(fullQuestion);
-                });
-            });
-
-            console.log('✅ WhatsApp-style chat initialized.');
-        })();
-    </script>
-
+      updateNavButtons();
+      console.log('✅ Smooth property slider initialized.');
+    });
+  </script>
 </body>
 
 </html>

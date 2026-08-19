@@ -20,16 +20,309 @@
 
   <title>Pentavision - About Us</title>
 
-  
+  <!-- ============================================
+  CHATBOT STYLES
+  ============================================ -->
+  <style>
+    /* ---------- WHATSAPP-STYLE FLOATING CHAT ICON & POPUP ---------- */
+    .chat-float-btn {
+      position: fixed;
+      bottom: 100px;
+      /* sits above the original WhatsApp icon */
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 9998;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .chat-float-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    .chat-float-btn .icon {
+      line-height: 1;
+    }
+
+    /* Chat popup */
+    .chat-popup {
+      position: fixed;
+      bottom: 170px;
+      right: 30px;
+      width: 380px;
+      max-width: calc(100vw - 40px);
+      max-height: 70vh;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      display: none;
+      flex-direction: column;
+      z-index: 9999;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+    }
+
+    .chat-popup.open {
+      display: flex;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Chat header */
+    .chat-popup-header {
+      background: #075E54;
+      color: #fff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .chat-popup-header .title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .chat-popup-header .title .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .chat-popup-header .close-btn {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .chat-popup-header .close-btn:hover {
+      opacity: 1;
+    }
+
+    /* Messages */
+    .chat-popup-messages {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
+      background: #ECE5DD;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 350px;
+    }
+
+    .chat-popup-messages .msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      animation: msgIn 0.3s ease;
+    }
+
+    @keyframes msgIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .msg.bot {
+      background: #fff;
+      align-self: flex-start;
+      border-top-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .msg.user {
+      background: #DCF8C6;
+      align-self: flex-end;
+      border-top-right-radius: 4px;
+    }
+
+    /* Quick replies inside popup */
+    .chat-popup-quick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 16px;
+      background: #f0f0f0;
+      border-top: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+
+    .chat-popup-quick .quick-btn {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #075E54;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .chat-popup-quick .quick-btn:hover {
+      background: #075E54;
+      color: #fff;
+      border-color: #075E54;
+    }
+
+    /* Input area */
+    .chat-popup-input {
+      display: flex;
+      gap: 10px;
+      padding: 10px 16px 14px;
+      background: #fff;
+      border-top: 1px solid #eee;
+      flex-shrink: 0;
+    }
+
+    .chat-popup-input input {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 30px;
+      border: 1px solid #ddd;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .chat-popup-input input:focus {
+      border-color: #075E54;
+    }
+
+    .chat-popup-input button {
+      padding: 10px 18px;
+      border-radius: 30px;
+      border: none;
+      background: #075E54;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .chat-popup-input button:hover {
+      background: #054740;
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+      .chat-popup {
+        bottom: 80px;
+        right: 10px;
+        width: calc(100vw - 20px);
+        max-height: 75vh;
+        border-radius: 16px;
+      }
+      .chat-float-btn {
+        bottom: 80px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        font-size: 1.6rem;
+      }
+      .chat-popup-messages {
+        max-height: 50vh;
+      }
+    }
+  </style>
+  <!-- END CHATBOT STYLES -->
 </head>
 
 <body>
   <!-- ==========================================
-  WHATSAPP FLOAT
+  WHATSAPP FLOAT (ORIGINAL)
   ========================================== -->
   <a href="https://wa.link/bcvsv7" class="whatsapp_float" target="_blank" title="Chat with us on WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="60" height="60" />
   </a>
+
+  <!-- ==========================================
+  CHAT BOT FLOATING ICON (NEW – sits above WhatsApp)
+  ========================================== -->
+  <button class="chat-float-btn" id="chatToggleBtn" aria-label="Open chat assistant">
+    <span class="icon">💬</span>
+  </button>
+
+  <!-- ==========================================
+  CHAT POPUP
+  ========================================== -->
+  <div class="chat-popup" id="chatPopup">
+    <div class="chat-popup-header">
+      <div class="title">
+        <span class="avatar">🏠</span>
+        <span>Pentavision Assistant</span>
+      </div>
+      <button class="close-btn" id="chatCloseBtn">✕</button>
+    </div>
+
+    <div class="chat-popup-messages" id="chatMessages">
+      <div class="msg bot">👋 Hi! I'm here to help with any questions about our properties, pricing, documentation, and more. Just type your question or tap a quick reply below.</div>
+      <div class="msg bot">💡 You can ask about price, ROI, inspection, construction, title, and more.</div>
+    </div>
+
+    <div class="chat-popup-quick" id="quickReplies">
+      <button class="quick-btn" data-question="price">💰 Price</button>
+      <button class="quick-btn" data-question="roi">📈 ROI</button>
+      <button class="quick-btn" data-question="inspect">🔍 Inspection</button>
+      <button class="quick-btn" data-question="construction">🏗️ Construction</button>
+      <button class="quick-btn" data-question="title">📄 Title</button>
+      <button class="quick-btn" data-question="accessibility">📍 Accessibility</button>
+      <button class="quick-btn" data-question="payment">💳 Payment</button>
+      <button class="quick-btn" data-question="hidden">🔎 Hidden Charges</button>
+      <button class="quick-btn" data-question="default">⚠️ Default</button>
+      <button class="quick-btn" data-question="resell">🔄 Resell</button>
+      <button class="quick-btn" data-question="why">⭐ Why Invest</button>
+    </div>
+
+    <div class="chat-popup-input">
+      <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off" />
+      <button id="chatSendBtn">Send</button>
+    </div>
+  </div>
 
   <!-- ==========================================
   MOBILE MENU
@@ -748,6 +1041,212 @@
       if (loader) loader.style.display = 'none';
       if (overlay) overlay.style.display = 'none';
     });
+
+    // ============================================
+    // WHATSAPP-STYLE CHAT WIDGET
+    // ============================================
+    (function() {
+      // FAQ knowledge base
+      const faqData = [{
+        id: 1,
+        question: "What is the current price of the property?",
+        keywords: ["price", "cost", "how much", "pricing", "rate", "current price"],
+        answer: "Property prices vary depending on the type, size, location, and development status of the property. Our entry-level land investment currently starts from ₦3,000,000. For the latest pricing and available options, please contact our sales team."
+      }, {
+        id: 2,
+        question: "What kind of return on investment (ROI) can I realistically expect?",
+        keywords: ["roi", "return", "investment return", "profit", "appreciation", "growth", "yield"],
+        answer: "Property values can appreciate significantly over time, depending on factors such as location, infrastructure development, demand, and overall market conditions. Based on our projected growth expectations, investors may potentially experience substantial appreciation within 12 months, but there would be a further returns over 3–5 years period."
+      }, {
+        id: 3,
+        question: "Can I inspect the property before making payment?",
+        keywords: ["inspect", "inspection", "visit", "view", "see", "tour", "site visit"],
+        answer: "Yes. We encourage prospective buyers to inspect the property before making a purchase decision. Our team can arrange a site inspection at a mutually convenient date and time."
+      }, {
+        id: 4,
+        question: "Can I commence construction immediately after purchasing the land?",
+        keywords: ["construction", "build", "develop", "start building", "commence", "develop"],
+        answer: "Yes. Once the purchase has been completed, the required documentation has been processed, and the property has been formally allocated to you, you may commence development."
+      }, {
+        id: 5,
+        question: "What title and documentation does the property have?",
+        keywords: ["title", "documentation", "documents", "deed", "survey", "c of o", "certificate", "ownership"],
+        answer: "The property is supported by relevant documentation, including a Registered Survey, Deed of Assignment, and approved site/layout plan, as applicable to the specific property. Prospective buyers are encouraged to contact our team for detailed information and verification of the documentation relating to their chosen property."
+      }, {
+        id: 6,
+        question: "How accessible is the property to major roads and landmarks?",
+        keywords: ["accessibility", "accessible", "roads", "landmarks", "location", "distance", "proximity"],
+        answer: "Our properties are strategically located with accessibility to major roads, developing infrastructure, and key landmarks. Specific accessibility varies by estate, and our team can provide detailed directions and location information for your preferred property."
+      }, {
+        id: 7,
+        question: "What payment plans are available?",
+        keywords: ["payment", "installment", "plan", "finance", "monthly", "pay", "schedule"],
+        answer: "We offer flexible payment options designed to make property ownership more accessible. Depending on the property, available payment plans may include 3-month, 6-month, and 12-month instalment plans. Terms and conditions apply."
+      }, {
+        id: 8,
+        question: "Are there any hidden or additional charges?",
+        keywords: ["hidden", "additional", "extra", "charges", "fees", "cost", "transparent"],
+        answer: "We are committed to transparency in our pricing. All applicable costs are communicated to the buyer before payment and clearly stated in the relevant transaction documents. Where additional statutory or third-party charges may apply, these will be disclosed appropriately before they are incurred."
+      }, {
+        id: 9,
+        question: "What happens if I default on my payment plan?",
+        keywords: ["default", "miss payment", "late", "penalty", "fail", "default", "payment plan"],
+        answer: "If a buyer is unable to meet an agreed payment obligation, our team will contact the buyer to understand the circumstances and discuss the available options in accordance with the terms of the payment agreement. Depending on the circumstances and payments already made, we may agree on a revised payment schedule or other appropriate arrangements."
+      }, {
+        id: 10,
+        question: "Can I resell my property after purchase?",
+        keywords: ["resell", "sell", "transfer", "flip", "resale", "dispose"],
+        answer: "Yes, subject to the terms of your purchase agreement and the applicable transfer procedures. Our team may also provide guidance on the resale or transfer process where applicable."
+      }, {
+        id: 11,
+        question: "Why should I invest in property with us?",
+        keywords: ["why", "invest", "benefits", "advantage", "choose us", "reasons", "trust"],
+        answer: "We are committed to providing clients with strategically located properties, flexible payment options, transparent documentation, and professional support throughout the acquisition process. Our goal is to make property ownership accessible while helping investors position themselves for long-term wealth creation through real estate."
+      }];
+
+      // DOM elements for chat popup
+      const toggleBtn = document.getElementById('chatToggleBtn');
+      const popup = document.getElementById('chatPopup');
+      const closeBtn = document.getElementById('chatCloseBtn');
+      const messagesContainer = document.getElementById('chatMessages');
+      const input = document.getElementById('chatInput');
+      const sendBtn = document.getElementById('chatSendBtn');
+      const quickBtns = document.querySelectorAll('.quick-btn');
+
+      // Open/close functions
+      function openChat() {
+        popup.classList.add('open');
+      }
+
+      function closeChat() {
+        popup.classList.remove('open');
+      }
+
+      toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (popup.classList.contains('open')) {
+          closeChat();
+        } else {
+          openChat();
+        }
+      });
+
+      closeBtn.addEventListener('click', closeChat);
+
+      // Optional: close when clicking outside (on the background)
+      document.addEventListener('click', function(e) {
+        if (popup.classList.contains('open') && !popup.contains(e.target) && e.target !== toggleBtn) {
+          closeChat();
+        }
+      });
+
+      // Helper: add message to chat
+      function addMessage(text, sender = 'user') {
+        const div = document.createElement('div');
+        div.className = 'msg ' + sender;
+        div.textContent = text;
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      // Helper: find best answer
+      function getAnswer(query) {
+        const lower = query.toLowerCase();
+        let bestMatch = null;
+        let bestScore = 0;
+
+        faqData.forEach(item => {
+          let score = 0;
+          item.keywords.forEach(kw => {
+            if (lower.includes(kw)) score++;
+          });
+          const questionWords = item.question.toLowerCase().split(' ');
+          questionWords.forEach(word => {
+            if (word.length > 3 && lower.includes(word)) score += 0.5;
+          });
+          if (score > bestScore) {
+            bestScore = score;
+            bestMatch = item;
+          }
+        });
+
+        if (bestMatch && bestScore >= 1) {
+          return bestMatch.answer;
+        } else {
+          return "I'm not sure about that. Could you rephrase your question? You can also try one of the quick reply buttons above, or contact our team directly for more help.";
+        }
+      }
+
+      // Process user input
+      function handleUserInput(text) {
+        if (!text.trim()) return;
+        addMessage(text, 'user');
+        const reply = getAnswer(text);
+        setTimeout(() => {
+          addMessage(reply, 'bot');
+        }, 300);
+        input.value = '';
+      }
+
+      // Event listeners
+      sendBtn.addEventListener('click', function() {
+        handleUserInput(input.value);
+      });
+
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleUserInput(input.value);
+        }
+      });
+
+      quickBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const q = this.getAttribute('data-question');
+          let fullQuestion = '';
+          switch (q) {
+            case 'price':
+              fullQuestion = 'What is the price?';
+              break;
+            case 'roi':
+              fullQuestion = 'What ROI can I expect?';
+              break;
+            case 'inspect':
+              fullQuestion = 'Can I inspect the property?';
+              break;
+            case 'construction':
+              fullQuestion = 'Can I start construction immediately?';
+              break;
+            case 'title':
+              fullQuestion = 'What title documents are available?';
+              break;
+            case 'accessibility':
+              fullQuestion = 'How accessible is the property?';
+              break;
+            case 'payment':
+              fullQuestion = 'What payment plans do you offer?';
+              break;
+            case 'hidden':
+              fullQuestion = 'Are there hidden charges?';
+              break;
+            case 'default':
+              fullQuestion = 'What happens if I default on payment?';
+              break;
+            case 'resell':
+              fullQuestion = 'Can I resell the property?';
+              break;
+            case 'why':
+              fullQuestion = 'Why should I invest with you?';
+              break;
+            default:
+              fullQuestion = q;
+          }
+          handleUserInput(fullQuestion);
+        });
+      });
+
+      console.log('✅ WhatsApp-style chat initialized on About page.');
+    })();
   </script>
 </body>
 

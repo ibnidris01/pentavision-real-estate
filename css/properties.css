@@ -133,7 +133,7 @@
   50% { transform: translateY(-30px) scale(1.05); }
 }
 
-/* ---------- FILTER BAR ---------- */
+/* ---------- FILTER BAR (CENTERED) ---------- */
 .filter-bar {
   background: var(--white);
   border-radius: var(--radius);
@@ -146,14 +146,15 @@
   flex-wrap: wrap;
   gap: 16px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* CENTERED on desktop */
 }
 
 .filter-bar .filter-group {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  flex: 1;
+  justify-content: center;
+  flex: 0 1 auto; /* Allows wrapping but doesn't force it to grow */
 }
 
 .filter-bar .filter-group .filter-select {
@@ -183,33 +184,6 @@
   border-color: var(--primary-light);
 }
 
-.filter-bar .filter-search {
-  display: flex;
-  gap: 8px;
-}
-
-.filter-bar .filter-search input {
-  padding: 10px 20px;
-  border: 2px solid #e6e6e6;
-  border-radius: 30px;
-  font-family: 'Work Sans', sans-serif;
-  font-size: 0.9rem;
-  color: var(--dark);
-  background: var(--white);
-  transition: var(--transition);
-  min-width: 200px;
-}
-
-.filter-bar .filter-search input:focus {
-  outline: none;
-  border-color: var(--primary-light);
-  box-shadow: 0 0 0 4px rgba(42, 95, 122, 0.10);
-}
-
-.filter-bar .filter-search .btn {
-  padding: 10px 28px;
-}
-
 /* ---------- VIEW TOGGLE ---------- */
 .view-toggle {
   display: flex;
@@ -217,6 +191,7 @@
   background: var(--cream);
   border-radius: 30px;
   padding: 4px;
+  flex-shrink: 0;
 }
 
 .view-toggle button {
@@ -429,13 +404,13 @@
   padding-top: 4px;
 }
 
-.property-card-advanced .card-footer .agent {
+.property-card-advanced .card-footer .client {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.property-card-advanced .card-footer .agent img {
+.property-card-advanced .card-footer .client img {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -443,12 +418,12 @@
   border: 2px solid var(--secondary-light);
 }
 
-.property-card-advanced .card-footer .agent .name {
+.property-card-advanced .card-footer .client .name {
   font-size: 0.85rem;
   font-weight: 500;
 }
 
-.property-card-advanced .card-footer .agent .role {
+.property-card-advanced .card-footer .client .role {
   font-size: 0.75rem;
   color: var(--text-light);
 }
@@ -690,24 +665,17 @@
   .property-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .filter-bar {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
-
   .filter-bar .filter-group {
     justify-content: center;
   }
-
-  .filter-bar .filter-search {
-    justify-content: center;
-  }
-
   .view-toggle {
     align-self: center;
   }
@@ -718,65 +686,46 @@
   .properties-hero {
     min-height: 40vh;
   }
-
   .properties-hero .heading {
     font-size: 2.2rem;
   }
-
   .properties-hero .sub-heading {
     font-size: 1rem;
   }
-
   .properties-hero .container {
     padding: 100px 0 40px;
   }
-
   .property-grid {
     grid-template-columns: 1fr;
   }
-
   .property-grid.list-view .property-card-advanced {
     flex-direction: column;
   }
-
   .property-grid.list-view .property-card-advanced .card-image {
     width: 100%;
     min-height: 200px;
   }
-
   .stats-grid {
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
-
   .stat-item {
     padding: 20px 16px;
   }
-
   .stat-item .stat-number {
     font-size: 2rem;
   }
-
   .filter-bar .filter-group .filter-select {
     min-width: 120px;
     font-size: 0.8rem;
     padding: 8px 16px;
   }
-
-  .filter-bar .filter-search input {
-    min-width: 160px;
-    font-size: 0.8rem;
-    padding: 8px 16px;
-  }
-
   .property-card-advanced .card-image {
     height: 200px;
   }
-
   .property-card-advanced .card-content .price {
     font-size: 1.2rem;
   }
-
   .breadcrumb-custom li {
     font-size: 0.85rem;
   }
@@ -787,123 +736,86 @@
   .properties-hero {
     min-height: 35vh;
   }
-
   .properties-hero .heading {
     font-size: 1.8rem;
   }
-
   .filter-bar {
     padding: 16px;
     margin-top: -20px;
   }
-
   .filter-bar .filter-group {
     flex-direction: column;
     align-items: stretch;
   }
-
   .filter-bar .filter-group .filter-select {
     width: 100%;
     min-width: unset;
   }
-
-  .filter-bar .filter-search {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .filter-bar .filter-search input {
-    width: 100%;
-    min-width: unset;
-  }
-
-  .filter-bar .filter-search .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
   .view-toggle {
     width: 100%;
     justify-content: center;
   }
-
   .property-grid {
     gap: 20px;
   }
-
   .property-card-advanced .card-image {
     height: 180px;
   }
-
   .property-card-advanced .card-content {
     padding: 16px 18px 20px;
   }
-
   .property-card-advanced .badges .badge {
     font-size: 0.6rem;
     padding: 3px 10px;
   }
-
   .property-card-advanced .wishlist-btn {
     width: 34px;
     height: 34px;
     font-size: 1rem;
   }
-
   .stats-grid {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     padding: 20px 0;
   }
-
   .stat-item {
     padding: 16px 12px;
   }
-
   .stat-item .stat-number {
     font-size: 1.6rem;
   }
-
   .stat-item .stat-label {
     font-size: 0.8rem;
   }
-
   .stat-item .stat-icon {
     font-size: 1.4rem;
   }
-
   .pagination-custom a {
     width: 38px;
     height: 38px;
     font-size: 0.85rem;
   }
-
   .video-card-advanced .video-wrapper .play-btn {
     width: 48px;
     height: 48px;
     font-size: 1.4rem;
   }
-
   .property-card-advanced .specs {
     flex-wrap: wrap;
     gap: 8px 16px;
   }
-
   .property-card-advanced .card-footer {
     flex-direction: column;
     gap: 12px;
     align-items: stretch;
   }
-
   .property-card-advanced .card-footer .btn {
     width: 100%;
     justify-content: center;
   }
-
   .video-card-advanced .video-content {
     padding: 14px 16px 18px;
   }
-
   .video-card-advanced .video-content .video-title {
     font-size: 0.9rem;
   }
@@ -914,38 +826,26 @@
   .properties-hero .heading {
     font-size: 1.4rem;
   }
-
   .stats-grid {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
-
   .stat-item {
     padding: 12px 8px;
   }
-
   .stat-item .stat-number {
     font-size: 1.4rem;
   }
-
   .property-card-advanced .card-image {
     height: 150px;
   }
-
   .filter-bar {
     padding: 12px;
   }
-
   .filter-bar .filter-group .filter-select {
     font-size: 0.75rem;
     padding: 6px 14px;
   }
-
-  .filter-bar .filter-search input {
-    font-size: 0.75rem;
-    padding: 6px 14px;
-  }
-
   .view-toggle button {
     font-size: 0.75rem;
     padding: 6px 12px;
@@ -1005,33 +905,4 @@
     padding: 8px 14px !important;
     font-size: 0.8rem !important;
   }
-}
-
-
-
-/* ============================================
-   CLIENT SECTION (Replaces Agent)
-   ============================================ */
-.property-card-advanced .card-footer .client {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.property-card-advanced .card-footer .client img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--secondary-light);
-}
-
-.property-card-advanced .card-footer .client .name {
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.property-card-advanced .card-footer .client .role {
-  font-size: 0.75rem;
-  color: var(--text-light);
 }

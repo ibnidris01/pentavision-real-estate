@@ -758,6 +758,38 @@
     #property-nav .next:active {
       transform: scale(0.95);
     }
+
+    /* ---------- FILTER FEEDBACK ---------- */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      width: 100%;
+      color: var(--text-light);
+    }
+    .no-results h3 {
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .no-results p {
+      font-size: 1rem;
+    }
+    .filter-reset-btn {
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 12px;
+    }
+    .filter-reset-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
   </style>
   <!-- END FLYER & CHAT & SLIDER CSS -->
 </head>
@@ -765,14 +797,14 @@
 <body>
 
   <!-- ==========================================
-  WHATSAPP FLOAT (ORIGINAL – now visible again)
+  WHATSAPP FLOAT (ORIGINAL)
   ========================================== -->
   <a href="https://wa.link/bcvsv7" class="whatsapp_float" target="_blank" title="Chat with us on WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="60" height="60" />
   </a>
 
   <!-- ==========================================
-  WHATSAPP-STYLE CHAT BOT FLOATING ICON (positioned above the original)
+  WHATSAPP-STYLE CHAT BOT FLOATING ICON
   ========================================== -->
   <button class="chat-float-btn" id="chatToggleBtn" aria-label="Open chat assistant" style="bottom: 100px;">
     <span class="icon">💬</span>
@@ -855,12 +887,12 @@
   </div>
 
   <!-- ==========================================
-  FILTER BAR
+  FILTER BAR - DROPDOWNS ONLY
   ========================================== -->
   <div class="container">
     <div class="filter-bar">
       <div class="filter-group">
-        <select class="filter-select">
+        <select class="filter-select" id="filterType">
           <option value="">All Types</option>
           <option value="land">Land</option>
           <option value="house">House</option>
@@ -868,7 +900,7 @@
           <option value="commercial">Commercial</option>
         </select>
 
-        <select class="filter-select">
+        <select class="filter-select" id="filterLocation">
           <option value="">All Locations</option>
           <option value="lagos">Lagos</option>
           <option value="ogun">Ogun</option>
@@ -876,18 +908,13 @@
           <option value="ibadan">Ibadan</option>
         </select>
 
-        <select class="filter-select">
+        <select class="filter-select" id="filterPrice">
           <option value="">Price Range</option>
-          <option value="0-5m">₦0 - ₦5M</option>
-          <option value="5m-10m">₦5M - ₦10M</option>
-          <option value="10m-20m">₦10M - ₦20M</option>
-          <option value="20m+">₦20M+</option>
+          <option value="0-5000000">₦0 - ₦5M</option>
+          <option value="5000000-10000000">₦5M - ₦10M</option>
+          <option value="10000000-20000000">₦10M - ₦20M</option>
+          <option value="20000000-99999999">₦20M+</option>
         </select>
-      </div>
-
-      <div class="filter-search">
-        <input type="text" placeholder="Search properties..." />
-        <button class="btn btn-primary">Search</button>
       </div>
 
       <div class="view-toggle">
@@ -898,29 +925,16 @@
   </div>
 
   <!-- ==========================================
-  PROPERTY GRID
+  PROPERTY GRID - WITH DATA ATTRIBUTES
   ========================================== -->
   <div class="section">
     <div class="container">
       <div class="property-grid" id="propertyGrid">
 
         <!-- ========== PROPERTY 1: ORCHARD ESTATE ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Orchard Estate",
-                    "price": "₦3,000,000 - ₦5,000,000",
-                    "priceSuffix": "",
-                    "location": "Owode Idiroko Ota, Ogun State",
-                    "image": "images/new1.jpeg",
-                    "badges": ["featured"],
-                    "specs": [
-                        { "icon": "📐", "label": "500 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Orchard Estate offers premium residential plots in a serene environment with full infrastructure. Enjoy 24/7 security, paved roads, and proximity to major commercial hubs. This is the perfect investment for building your dream home or securing a high-yield asset.",
-                    "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Orchard Estate","price":"₦3,000,000 - ₦5,000,000","priceSuffix":"","location":"Owode Idiroko Ota, Ogun State","image":"images/new1.jpeg","badges":["featured"],"specs":[{"icon":"📐","label":"500 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Orchard Estate offers premium residential plots in a serene environment with full infrastructure. Enjoy 24/7 security, paved roads, and proximity to major commercial hubs. This is the perfect investment for building your dream home or securing a high-yield asset.","client":{"name":"Pst. Olusola Smith","role":"Client","avatar":"images/person_41-min.jpg"},"sold":false}'
+             data-type="land" data-location="ogun" data-price-min="3000000" data-price-max="5000000">
           <div class="card-image">
             <img src="images/new1.jpeg" alt="Orchard Estate" />
             <div class="badges">
@@ -951,22 +965,9 @@
         </div>
 
         <!-- ========== PROPERTY 2: IRE ESTATE ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Ire Estate",
-                    "price": "₦10,000,000 - ₦20,000,000",
-                    "priceSuffix": "",
-                    "location": "Mowe, Ogun State",
-                    "image": "images/new4.jpeg",
-                    "badges": ["new", "hot"],
-                    "specs": [
-                        { "icon": "📐", "label": "300 - 600 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "🔒", "label": "Secured" }
-                    ],
-                    "description": "Ire Estate is a premium gated community in the heart of Mowe, Ogun State. With spacious plots ranging from 300 to 600 sqm, this estate offers 24/7 security, well-laid roads, and close proximity to schools, hospitals, and shopping centers. A perfect choice for families and investors.",
-                    "client": { "name": "Mr. Aderemi Akinwale", "role": "Client", "avatar": "images/img_6.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Ire Estate","price":"₦10,000,000 - ₦20,000,000","priceSuffix":"","location":"Mowe, Ogun State","image":"images/new4.jpeg","badges":["new","hot"],"specs":[{"icon":"📐","label":"300 - 600 sqm"},{"icon":"📄","label":"C of O"},{"icon":"🔒","label":"Secured"}],"description":"Ire Estate is a premium gated community in the heart of Mowe, Ogun State. With spacious plots ranging from 300 to 600 sqm, this estate offers 24/7 security, well-laid roads, and close proximity to schools, hospitals, and shopping centers. A perfect choice for families and investors.","client":{"name":"Mr. Aderemi Akinwale","role":"Client","avatar":"images/img_6.jpg"},"sold":false}'
+             data-type="land" data-location="ogun" data-price-min="10000000" data-price-max="20000000">
           <div class="card-image">
             <img src="images/new4.jpeg" alt="Ire Estate" />
             <div class="badges">
@@ -998,22 +999,9 @@
         </div>
 
         <!-- ========== PROPERTY 3: PALM ESTATE ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Palm Estate",
-                    "price": "₦1,000,000 - ₦1,500,000",
-                    "priceSuffix": "",
-                    "location": "Owode Obafemi, Ogun State",
-                    "image": "images/new5.jpeg",
-                    "badges": ["featured"],
-                    "specs": [
-                        { "icon": "📐", "label": "500 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Palm Estate offers affordable land in the thriving Owode Obafemi axis. With C of O documentation and access to utilities, this is an excellent entry point for first-time investors and developers looking to build in a growing corridor.",
-                    "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Palm Estate","price":"₦1,000,000 - ₦1,500,000","priceSuffix":"","location":"Owode Obafemi, Ogun State","image":"images/new5.jpeg","badges":["featured"],"specs":[{"icon":"📐","label":"500 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Palm Estate offers affordable land in the thriving Owode Obafemi axis. With C of O documentation and access to utilities, this is an excellent entry point for first-time investors and developers looking to build in a growing corridor.","client":{"name":"Mr. Sindick Shola","role":"Client","avatar":"images/person_43-min.jpg"},"sold":false}'
+             data-type="land" data-location="ogun" data-price-min="1000000" data-price-max="1500000">
           <div class="card-image">
             <img src="images/new5.jpeg" alt="Palm Estate" />
             <div class="badges">
@@ -1044,22 +1032,9 @@
         </div>
 
         <!-- ========== PROPERTY 4: PALM ESTATE (Distress) ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Palm Estate (Distress Sales)",
-                    "price": "₦1,500,000 - ₦9,500,000",
-                    "priceSuffix": "",
-                    "location": "Owode Obafemi, Ogun State",
-                    "image": "images/new6.jpeg",
-                    "badges": ["hot"],
-                    "specs": [
-                        { "icon": "📐", "label": "500 - 3000 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Rare distress sale opportunity at Palm Estate! Plots ranging from 500 to 3000 sqm are available at unbeatable prices. All plots come with C of O and utility access. This is a limited-time offer for savvy investors looking for high returns.",
-                    "client": { "name": "Mr. Aderemi Akinwale", "role": "Client", "avatar": "images/img_6.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Palm Estate (Distress Sales)","price":"₦1,500,000 - ₦9,500,000","priceSuffix":"","location":"Owode Obafemi, Ogun State","image":"images/new6.jpeg","badges":["hot"],"specs":[{"icon":"📐","label":"500 - 3000 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Rare distress sale opportunity at Palm Estate! Plots ranging from 500 to 3000 sqm are available at unbeatable prices. All plots come with C of O and utility access. This is a limited-time offer for savvy investors looking for high returns.","client":{"name":"Mr. Aderemi Akinwale","role":"Client","avatar":"images/img_6.jpg"},"sold":false}'
+             data-type="land" data-location="ogun" data-price-min="1500000" data-price-max="9500000">
           <div class="card-image">
             <img src="images/new6.jpeg" alt="Palm Estate Distress" />
             <div class="badges">
@@ -1090,22 +1065,9 @@
         </div>
 
         <!-- ========== PROPERTY 5: CONCLAVE ESTATE ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Conclave Estate",
-                    "price": "₦5,000,000",
-                    "priceSuffix": "/ 500sqm",
-                    "location": "Chinese Town, Badagry",
-                    "image": "images/olivenew2.jpeg",
-                    "badges": ["featured", "hot"],
-                    "specs": [
-                        { "icon": "📐", "label": "500 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Conclave Estate in Chinese Town, Badagry, offers premium land with full C of O and infrastructure. This fast-developing area is ideal for residential or commercial development with excellent growth potential.",
-                    "client": { "name": "Mr. Aderemi Akinwale", "role": "Client", "avatar": "images/img_6.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Conclave Estate","price":"₦5,000,000","priceSuffix":"/ 500sqm","location":"Chinese Town, Badagry","image":"images/olivenew2.jpeg","badges":["featured","hot"],"specs":[{"icon":"📐","label":"500 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Conclave Estate in Chinese Town, Badagry, offers premium land with full C of O and infrastructure. This fast-developing area is ideal for residential or commercial development with excellent growth potential.","client":{"name":"Mr. Aderemi Akinwale","role":"Client","avatar":"images/img_6.jpg"},"sold":false}'
+             data-type="land" data-location="lagos" data-price-min="5000000" data-price-max="5000000">
           <div class="card-image">
             <img src="images/olivenew2.jpeg" alt="Conclave Estate" />
             <div class="badges">
@@ -1116,7 +1078,7 @@
           </div>
           <div class="card-content">
             <div class="price">₦5,000,000 <span>/ 500sqm</span></div>
-            <div class="title">Conclave Estate</div>
+            <div class="title">Olive Estate</div>
             <div class="location"><span class="pin"></span> Chinese Town, Badagry</div>
             <div class="specs">
               <span class="spec-item"><span class="icon">📐</span> 500 sqm</span>
@@ -1137,22 +1099,9 @@
         </div>
 
         <!-- ========== PROPERTY 6: LUXURY ESTATE ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Luxury Estate",
-                    "price": "₦15,000,000",
-                    "priceSuffix": "/ Plot",
-                    "location": "Owode Axis, Ogun State",
-                    "image": "images/img_4.jpg",
-                    "badges": ["new"],
-                    "specs": [
-                        { "icon": "📐", "label": "1,000 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Luxury Estate in Owode Axis, Ogun State, features spacious 1,000 sqm plots in a serene and secure environment. With full C of O and access to modern amenities, this estate is designed for those who desire comfort and elegance.",
-                    "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Luxury Estate","price":"₦15,000,000","priceSuffix":"/ Plot","location":"Owode Axis, Ogun State","image":"images/img_4.jpg","badges":["new"],"specs":[{"icon":"📐","label":"1,000 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Luxury Estate in Owode Axis, Ogun State, features spacious 1,000 sqm plots in a serene and secure environment. With full C of O and access to modern amenities, this estate is designed for those who desire comfort and elegance.","client":{"name":"Mr. Sindick Shola","role":"Client","avatar":"images/person_43-min.jpg"},"sold":false}'
+             data-type="land" data-location="ogun" data-price-min="15000000" data-price-max="15000000">
           <div class="card-image">
             <img src="images/img_4.jpg" alt="Luxury Estate" />
             <div class="badges">
@@ -1183,21 +1132,9 @@
         </div>
 
         <!-- ========== PROPERTY 7: AFFORDABLE LAND ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Affordable Land",
-                    "price": "₦1,000,000",
-                    "priceSuffix": "/ Plot",
-                    "location": "Owode Axis, Ogun State",
-                    "image": "images/img_2.jpg",
-                    "badges": [],
-                    "specs": [
-                        { "icon": "📐", "label": "300 sqm" },
-                        { "icon": "📄", "label": "C of O" }
-                    ],
-                    "description": "Affordable Land in Owode Axis offers budget-friendly plots for first-time buyers. At just ₦1,000,000 per plot with C of O documentation, this is a rare opportunity to own land in a developing area with great potential.",
-                    "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Affordable Land","price":"₦1,000,000","priceSuffix":"/ Plot","location":"Owode Axis, Ogun State","image":"images/img_2.jpg","badges":[],"specs":[{"icon":"📐","label":"300 sqm"},{"icon":"📄","label":"C of O"}],"description":"Affordable Land in Owode Axis offers budget-friendly plots for first-time buyers. At just ₦1,000,000 per plot with C of O documentation, this is a rare opportunity to own land in a developing area with great potential.","client":{"name":"Pst. Olusola Smith","role":"Client","avatar":"images/person_41-min.jpg"},"sold":false}'
+             data-type="land" data-location="ogun" data-price-min="1000000" data-price-max="1000000">
           <div class="card-image">
             <img src="images/img_2.jpg" alt="Affordable Land" />
             <button class="wishlist-btn" aria-label="Add to wishlist">♡</button>
@@ -1224,21 +1161,9 @@
         </div>
 
         <!-- ========== PROPERTY 8: CONCLAVE ESTATE (300sqm) ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Conclave Estate",
-                    "price": "₦1,000,000",
-                    "priceSuffix": "/ 300sqm",
-                    "location": "Chinese Town, Badagry",
-                    "image": "images/olivenew1.jpeg",
-                    "badges": ["hot"],
-                    "specs": [
-                        { "icon": "📐", "label": "300 sqm" },
-                        { "icon": "📄", "label": "C of O" }
-                    ],
-                    "description": "Conclave Estate offers 300 sqm plots at an affordable price in Chinese Town, Badagry. With C of O documentation, this is a great entry-level investment in a fast-growing location.",
-                    "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
-                    "sold": false
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Conclave Estate","price":"₦1,000,000","priceSuffix":"/ 300sqm","location":"Chinese Town, Badagry","image":"images/olivenew1.jpeg","badges":["hot"],"specs":[{"icon":"📐","label":"300 sqm"},{"icon":"📄","label":"C of O"}],"description":"Conclave Estate offers 300 sqm plots at an affordable price in Chinese Town, Badagry. With C of O documentation, this is a great entry-level investment in a fast-growing location.","client":{"name":"Mr. Sindick Shola","role":"Client","avatar":"images/person_43-min.jpg"},"sold":false}'
+             data-type="land" data-location="lagos" data-price-min="1000000" data-price-max="1000000">
           <div class="card-image">
             <img src="images/olivenew1.jpeg" alt="Conclave Estate" />
             <div class="badges">
@@ -1248,7 +1173,7 @@
           </div>
           <div class="card-content">
             <div class="price">₦1,000,000 <span>/ 300sqm</span></div>
-            <div class="title">Conclave Estate</div>
+            <div class="title">Olive Estate</div>
             <div class="location"><span class="pin"></span> Chinese Town, Badagry</div>
             <div class="specs">
               <span class="spec-item"><span class="icon">📐</span> 300 sqm</span>
@@ -1268,22 +1193,9 @@
         </div>
 
         <!-- ========== SOLD OUT: OAK ESTATE ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Oak Estate",
-                    "price": "₦3,000,000 - ₦5,000,000",
-                    "priceSuffix": "",
-                    "location": "Owode Obafemi, Ogun State",
-                    "image": "images/new2.jpeg",
-                    "badges": ["sold"],
-                    "specs": [
-                        { "icon": "📐", "label": "500 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Oak Estate was a premium residential development in Owode Obafemi. All plots have been sold out. Thank you to our investors for their trust. Stay tuned for new phases and opportunities.",
-                    "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
-                    "sold": true
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Oak Estate","price":"₦3,000,000 - ₦5,000,000","priceSuffix":"","location":"Owode Obafemi, Ogun State","image":"images/new2.jpeg","badges":["sold"],"specs":[{"icon":"📐","label":"500 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Oak Estate was a premium residential development in Owode Obafemi. All plots have been sold out. Thank you to our investors for their trust. Stay tuned for new phases and opportunities.","client":{"name":"Pst. Olusola Smith","role":"Client","avatar":"images/person_41-min.jpg"},"sold":true}'
+             data-type="land" data-location="ogun" data-price-min="3000000" data-price-max="5000000">
           <div class="card-image">
             <img src="images/new2.jpeg" alt="Oak Estate" />
             <div class="badges">
@@ -1314,22 +1226,9 @@
         </div>
 
         <!-- ========== SOLD OUT: PALM ESTATE (NEW) ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Palm Estate",
-                    "price": "₦1,000,000 - ₦6,000,000",
-                    "priceSuffix": "",
-                    "location": "Owode Obafemi, Ogun State",
-                    "image": "images/new3.jpeg",
-                    "badges": ["sold"],
-                    "specs": [
-                        { "icon": "📐", "label": "500 - 3000 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Palm Estate was one of our most successful developments. All plots from 500 to 3000 sqm have been sold out. We thank our clients for making this a landmark project.",
-                    "client": { "name": "Mr. Sindick Shola", "role": "Client", "avatar": "images/person_43-min.jpg" },
-                    "sold": true
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Palm Estate","price":"₦1,000,000 - ₦6,000,000","priceSuffix":"","location":"Owode Obafemi, Ogun State","image":"images/new3.jpeg","badges":["sold"],"specs":[{"icon":"📐","label":"500 - 3000 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Palm Estate was one of our most successful developments. All plots from 500 to 3000 sqm have been sold out. We thank our clients for making this a landmark project.","client":{"name":"Mr. Sindick Shola","role":"Client","avatar":"images/person_43-min.jpg"},"sold":true}'
+             data-type="land" data-location="ogun" data-price-min="1000000" data-price-max="6000000">
           <div class="card-image">
             <img src="images/new3.jpeg" alt="Palm Estate" />
             <div class="badges">
@@ -1360,22 +1259,9 @@
         </div>
 
         <!-- ========== SOLD OUT: PRIME LAND ========== -->
-        <div class="property-card-advanced animate-on-scroll" data-property='{
-                    "title": "Prime Land in Owode",
-                    "price": "₦4,000,000",
-                    "priceSuffix": "/ Plot",
-                    "location": "Owode Axis, Ogun State",
-                    "image": "images/img_1.jpg",
-                    "badges": ["sold"],
-                    "specs": [
-                        { "icon": "📐", "label": "500 sqm" },
-                        { "icon": "📄", "label": "C of O" },
-                        { "icon": "⚡", "label": "Utilities" }
-                    ],
-                    "description": "Prime Land in Owode was a flagship offering with full C of O and infrastructure. All plots are now sold out. We appreciate the overwhelming response from our clients.",
-                    "client": { "name": "Pst. Olusola Smith", "role": "Client", "avatar": "images/person_41-min.jpg" },
-                    "sold": true
-                }'>
+        <div class="property-card-advanced animate-on-scroll" 
+             data-property='{"title":"Prime Land in Owode","price":"₦4,000,000","priceSuffix":"/ Plot","location":"Owode Axis, Ogun State","image":"images/img_1.jpg","badges":["sold"],"specs":[{"icon":"📐","label":"500 sqm"},{"icon":"📄","label":"C of O"},{"icon":"⚡","label":"Utilities"}],"description":"Prime Land in Owode was a flagship offering with full C of O and infrastructure. All plots are now sold out. We appreciate the overwhelming response from our clients.","client":{"name":"Pst. Olusola Smith","role":"Client","avatar":"images/person_41-min.jpg"},"sold":true}'
+             data-type="land" data-location="ogun" data-price-min="4000000" data-price-max="4000000">
           <div class="card-image">
             <img src="images/img_1.jpg" alt="Prime Land" />
             <div class="badges">
@@ -1407,6 +1293,13 @@
 
       </div>
 
+      <!-- NO RESULTS MESSAGE -->
+      <div class="no-results" id="noResults">
+        <h3>😕 No properties found</h3>
+        <p>Try adjusting your filters.</p>
+        <button class="filter-reset-btn" id="resetFilters">Reset Filters</button>
+      </div>
+
       <!-- Pagination -->
       <div class="pagination-custom">
         <a href="#" class="arrow">‹</a>
@@ -1418,7 +1311,6 @@
     </div>
   </div>
 
- 
   <!-- ==========================================
   VIDEO SECTION
   ========================================== -->
@@ -1438,7 +1330,7 @@
               <iframe src="https://www.youtube.com/embed/J0feAiuEc64" title="Conclave Estate Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="video-content">
-              <div class="video-title">Conclave Estate Tour</div>
+              <div class="video-title">Olive Estate Tour</div>
               <div class="video-meta">
                 <span>Premium Location</span>
                 <span class="tag">Featured</span>
@@ -2408,6 +2300,77 @@
 
       updateNavButtons();
       console.log('✅ Smooth property slider initialized.');
+    });
+
+    // ============================================
+    // PROPERTY FILTER SYSTEM - DROPDOWNS ONLY
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.property-card-advanced');
+      const noResults = document.getElementById('noResults');
+      const resetBtn = document.getElementById('resetFilters');
+      const filterType = document.getElementById('filterType');
+      const filterLocation = document.getElementById('filterLocation');
+      const filterPrice = document.getElementById('filterPrice');
+
+      function filterProperties() {
+        const type = filterType.value.toLowerCase();
+        const location = filterLocation.value.toLowerCase();
+        const priceRange = filterPrice.value;
+
+        let visibleCount = 0;
+
+        cards.forEach(function(card) {
+          const cardType = (card.getAttribute('data-type') || '').toLowerCase();
+          const cardLocation = (card.getAttribute('data-location') || '').toLowerCase();
+          const priceMin = parseInt(card.getAttribute('data-price-min') || '0');
+          const priceMax = parseInt(card.getAttribute('data-price-max') || '0');
+
+          let typeMatch = true;
+          if (type && type !== '') {
+            typeMatch = cardType === type;
+          }
+
+          let locationMatch = true;
+          if (location && location !== '') {
+            locationMatch = cardLocation === location;
+          }
+
+          let priceMatch = true;
+          if (priceRange && priceRange !== '') {
+            const parts = priceRange.split('-');
+            if (parts.length === 2) {
+              const min = parseInt(parts[0]);
+              const max = parseInt(parts[1]);
+              priceMatch = (priceMin <= max && priceMax >= min);
+            }
+          }
+
+          const show = typeMatch && locationMatch && priceMatch;
+          card.style.display = show ? '' : 'none';
+          if (show) visibleCount++;
+        });
+
+        if (visibleCount === 0) {
+          noResults.style.display = 'block';
+        } else {
+          noResults.style.display = 'none';
+        }
+      }
+
+      filterType.addEventListener('change', filterProperties);
+      filterLocation.addEventListener('change', filterProperties);
+      filterPrice.addEventListener('change', filterProperties);
+
+      resetBtn.addEventListener('click', function() {
+        filterType.value = '';
+        filterLocation.value = '';
+        filterPrice.value = '';
+        filterProperties();
+      });
+
+      filterProperties();
+      console.log('✅ Property filter system initialized (dropdowns only).');
     });
   </script>
 </body>
